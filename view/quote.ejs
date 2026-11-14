@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request a Quote</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/quote.css">
+
+    <style>
+  
+    </style>
+</head>
+
+<body>
+
+<main class="quote-page-wrapper">
+
+    <!-- Top Back to Products Button -->
+    <div class="quote-top-bar">
+        <a href="/products" class="back-products-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span>Back to Products</span>
+        </a>
+    </div>
+
+    <div class="quote-container">
+
+    <div class="quote-header">
+        <h1>Request a Quote</h1>
+        <p>
+            Fill in your details and requirements.
+            Our team will contact you shortly.
+        </p>
+    </div>
+
+    <div class="quote-body">
+
+        <form action="/costomer/quote" method="POST">
+
+            <!-- Product Information -->
+            <h2 class="section-title">Product Information</h2>
+
+            <input type="hidden" name="productId"
+                   value="<%= products._id %>">
+
+            <div class="form-group">
+                <label>Product Name</label>
+                <input type="text"
+                       value="<%= products.productName %>"
+                       readonly>
+            </div>
+
+            <div class="product-summary">
+                <h3>PRICE SUMMARY</h3>
+
+                <div class="price-row">
+                    <span>Unit Price</span>
+                    <strong>
+                        ₹<span id="unitPrice"><%= products.finalPrice %></span>
+                    </strong>
+                </div>
+
+                <div class="price-row">
+                    <span>Quantity</span>
+                    <strong id="displayQuantity">1</strong>
+                </div>
+
+                <div class="price-row total-price">
+                    <span>Total Amount</span>
+                    <strong id="totalDisplay">
+                        ₹<%= products.finalPrice %>
+                    </strong>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Quantity Required *</label>
+                <input type="number"
+                       name="quantity"
+                       id="quantity"
+                       placeholder="e.g. 10 units"
+                       min="1"
+                       step="1"
+                       value="1"
+                       required>
+            </div>
+
+            <!-- Hidden calculated price -->
+            <input type="hidden"
+                   name="finalprice"
+                   id="finalprice"
+                   value="<%= products.finalPrice %>">
+
+            <hr class="form-divider">
+
+            <!-- Customer Information -->
+            <h2 class="section-title">Contact Information</h2>
+
+            <div class="form-group">
+                <label>Company Name
+                    <span class="optional">(Optional)</span>
+                </label>
+                <input type="text"
+                       name="companyName"
+                       placeholder="Enter your company name">
+            </div>
+
+            <div class="form-group">
+                <label>Email Address *</label>
+                <input type="email"
+                       name="email"
+                       value="<%= user.email %>"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number *</label>
+                <input type="tel"
+                       name="phone"
+                       placeholder="Enter your phone number"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Additional Message
+                    <span class="optional">(Optional)</span>
+                </label>
+                <textarea name="message"
+                          placeholder="Tell us about your requirements..."></textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="submit-btn">
+                    Submit Quote Request →
+                </button>
+                <a href="/products" class="secondary-back-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    <span>Back to Products</span>
+                </a>
+            </div>
+
+            <p class="footer-note">
+                Our sales team will get in touch with you soon.
+            </p>
+
+        </form>
+    </div>
+</div>
+
+</main>
+
+<!-- Footer Partial -->
+<%- include('footer') %>
+
+<script>
+    const quantityInput = document.getElementById('quantity');
+    const finalPriceInput = document.getElementById('finalprice');
+
+    const unitPrice = Number(
+        document.getElementById('unitPrice').textContent
+    );
+
+    const totalDisplay = document.getElementById('totalDisplay');
+    const displayQuantity = document.getElementById('displayQuantity');
+
+    function calculateTotal() {
+
+        let quantity = Number(quantityInput.value);
+
+        if (!Number.isInteger(quantity) || quantity < 1) {
+            quantity = 0;
+        }
+
+        const total = unitPrice * quantity;
+
+        totalDisplay.textContent = '₹' + total.toLocaleString('en-IN');
+
+        displayQuantity.textContent = quantity;
+
+        finalPriceInput.value = total;
+    }
+
+    quantityInput.addEventListener('input', calculateTotal);
+</script>
+
+</body>
+</html>

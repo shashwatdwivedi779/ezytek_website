@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Portal | Upload Products</title>
+    <!-- Professional Font: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="/css/upload.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .retained-badge {
+            margin-top: 8px;
+            margin-bottom: 12px;
+            padding: 8px 14px;
+            background: #ecfdf5;
+            border: 1px solid #6ee7b7;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #065f46;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .retained-badge i {
+            color: #059669;
+            font-size: 15px;
+        }
+        .retained-badge span strong {
+            color: #047857;
+        }
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+        .btn-back:hover {
+            background: rgba(255, 255, 255, 0.18);
+            border-color: rgba(255, 255, 255, 0.35);
+            color: #ffffff;
+            transform: translateX(-2px);
+        }
+        .card-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 14px;
+            background: var(--bg-color);
+            color: var(--heading-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .card-back-btn:hover {
+            background: #e2e8f0;
+            color: var(--primary-btn);
+            border-color: var(--primary-btn);
+            transform: translateX(-2px);
+        }
+
+        /* Dedicated Image Preview Cards */
+        .preview-item {
+            position: relative;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .main-preview-item {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .preview-badge {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: #0284c7;
+            color: #ffffff;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .preview-badge-sub {
+            font-size: 11px;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 5px;
+        }
+        .main-preview-img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid #0284c7;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.22);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <h1>Dashboard</h1>
+            <p><%= (oldInput && oldInput.isUpdate) ? 'Update existing product details' : 'Hey Master !! Upload and Sell your Products' %></p>
+        </div>
+        <div style="display: flex; align-items: center; gap: 16px;">
+            <a href="/user" class="btn-back">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
+            <i class="fas fa-user-circle" style="font-size: 28px;"></i>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="form-card">
+            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid var(--bg-color); padding-bottom: 15px; margin-bottom: 25px;">
+                <h2 style="border-bottom: none; padding-bottom: 0; margin-bottom: 0;">
+                    <i class="fas fa-box-open" style="margin-right: 10px; color: var(--primary-btn);"></i>
+                    <%= (oldInput && oldInput.isUpdate) ? 'Update Product' : 'Product Details' %>
+                </h2>
+                <a href="/user" class="card-back-btn">
+                    <i class="fas fa-arrow-left"></i> Back
+                </a>
+            </div>
+            
+            <%- include('errors') %>    
+
+            <form action="<%= (oldInput && oldInput.isUpdate) ? '/master/update/' + oldInput._id : '/master/upload' %>" method="POST" enctype="multipart/form-data">
+                
+                <div class="form-group full-width">
+                    <label>Product Name</label>
+                    <input 
+                        type="text" 
+                        name="productName" 
+                        value="<%= oldInput && oldInput.productName ? oldInput.productName : '' %>" 
+                        placeholder="Enter Product Name" 
+                        required
+                    >
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Product Category</label>
+                    <select name="category" required>
+                        <option value="" disabled <%= !(oldInput && oldInput.category) ? 'selected' : '' %>>Select Category</option>
+                        <option value="Automatic Car Washer" <%= (oldInput && oldInput.category === 'Automatic Car Washer') ? 'selected' : '' %>>Automatic Car Washer</option>
+                        <option value="High Pressure Washer" <%= (oldInput && oldInput.category === 'High Pressure Washer') ? 'selected' : '' %>>High Pressure Washer</option>
+                        <option value="Plunger Pump" <%= (oldInput && oldInput.category === 'Plunger Pump') ? 'selected' : '' %>>Plunger Pump</option>
+                        <option value="Dry Cleaner & Vacuum Cleaner" <%= (oldInput && oldInput.category === 'Dry Cleaner & Vacuum Cleaner') ? 'selected' : '' %>>Dry Cleaner & Vacuum Cleaner</option>
+                        <option value="Underbody & Top Wash Cleaner" <%= (oldInput && oldInput.category === 'Underbody & Top Wash Cleaner') ? 'selected' : '' %>>Underbody & Top Wash Cleaner</option>
+                        <option value="Heavy Vehicle Washing Plant" <%= (oldInput && oldInput.category === 'Heavy Vehicle Washing Plant') ? 'selected' : '' %>>Heavy Vehicle Washing Plant</option>
+                        <option value="Steam Cleaner" <%= (oldInput && oldInput.category === 'Steam Cleaner') ? 'selected' : '' %>>Steam Cleaner</option>
+                        <option value="ABC Setup" <%= (oldInput && oldInput.category === 'ABC Setup') ? 'selected' : '' %>>ABC Setup</option>
+                        <option value="Accessories" <%= (oldInput && oldInput.category === 'Accessories') ? 'selected' : '' %>>Accessories</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Base Price (₹)</label>
+                        <input 
+                            type="number" 
+                            id="basePrice" 
+                            name="price" 
+                            value="<%= oldInput && oldInput.price !== undefined ? oldInput.price : '' %>" 
+                            placeholder="Enter Price" 
+                            oninput="calculateFinalPrice()" 
+                            required
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label>Discount (%)</label>
+                        <input 
+                            type="number" 
+                            id="discount" 
+                            name="discount" 
+                            value="<%= oldInput && oldInput.discount !== undefined ? oldInput.discount : '' %>" 
+                            placeholder="Discount Percentage" 
+                            oninput="calculateFinalPrice()"
+                        >
+                    </div>
+                    <div class="form-group price-highlight">
+                        <label style="color: var(--accent-price);">Final Price (₹)</label>
+                        <input 
+                            type="number" 
+                            id="finalPrice" 
+                            name="finalPrice" 
+                            value="<%= oldInput && oldInput.finalPrice !== undefined ? oldInput.finalPrice : '' %>" 
+                            placeholder="0.00" 
+                            readonly
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Product Description</label>
+                    <textarea name="description" rows="4" placeholder="Briefly describe the product..." required><%= oldInput && oldInput.description ? oldInput.description : '' %></textarea>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Product Specifications Summary</label>
+                    <input 
+                        type="text" 
+                        name="specifications" 
+                        value="<%= oldInput && oldInput.specifications ? oldInput.specifications : '' %>" 
+                        placeholder="Enter key specifications summary (e.g., 150 Bar, 3 Phase Induction Motor, 10m Hose)" 
+                        minlength="10"
+                        maxlength="200"
+                        required
+                    >
+                    <small style="font-size: 12px; color: var(--body-text); margin-top: 4px; display: block;">Summary of key specifications (10 to 200 characters)</small>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Technical Description (Specifications)</label>
+                    <div class="tech-section" id="tech-container">
+                        <% 
+                            const specKeys = (oldInput && oldInput.keysArr && oldInput.keysArr.length > 0) ? oldInput.keysArr : [''];
+                            const specVals = (oldInput && oldInput.valsArr && oldInput.valsArr.length > 0) ? oldInput.valsArr : [''];
+                            const rowCount = Math.max(specKeys.length, specVals.length, 1);
+                        %>
+                        <% for (let i = 0; i < rowCount; i++) { %>
+                            <div class="tech-row">
+                                <input type="text" name="techKeys[]" value="<%= specKeys[i] || '' %>" placeholder="Feature (e.g., Motor Power)" required>
+                                <input type="text" name="techValues[]" value="<%= specVals[i] || '' %>" placeholder="Value (e.g., 3 HP)" required>
+                                <% if (i > 0) { %>
+                                    <button type="button" class="btn-secondary" style="border-color: #ef4444; color: #ef4444;" onclick="this.parentElement.remove()">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                <% } %>
+                            </div>
+                        <% } %>
+                    </div>
+                    <button type="button" class="btn-secondary" onclick="addTechField()">
+                        <i class="fas fa-plus"></i> Add Another Field
+                    </button>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Main Image</label>
+                    <div class="file-upload-wrapper">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p style="font-weight: 500; color: var(--heading-color);">Drag & Drop your image here or click to browse</p>
+                        <p style="font-size: 12px; color: var(--body-text); margin-top: 5px;">Supports: JPG, PNG, WEBP</p>
+                        <input
+                            type="file"
+                            id="main-image-input"
+                            name="main_image"
+                            accept="image/*"
+                            onchange="previewMainImage()" 
+                            <%= (oldInput && oldInput.existing_main_image) ? '' : 'required' %>
+                        >
+                    </div>
+                    <% if (oldInput && oldInput.existing_main_image) { %>
+                        <input type="hidden" name="existing_main_image" value="<%= oldInput.existing_main_image %>">
+                        <div class="retained-badge">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Retained Main Image: <strong><%= String(oldInput.existing_main_image).split('/').pop() %></strong></span>
+                        </div>
+                    <% } %>
+
+                    <!-- Dedicated Main Image Preview Container (Positioned ABOVE Product Images field) -->
+                    <div id="main-image-preview-container" style="margin-top: 15px;">
+                        <% if (oldInput && oldInput.existing_main_image) { 
+                            const mainSrc = String(oldInput.existing_main_image).startsWith('http') 
+                                ? oldInput.existing_main_image 
+                                : (String(oldInput.existing_main_image).startsWith('/uploads/') ? oldInput.existing_main_image : '/uploads/' + oldInput.existing_main_image);
+                        %>
+                            <div class="preview-item main-preview-item">
+                                <span class="preview-badge"><i class="fas fa-star"></i> Main Image Preview</span>
+                                <img src="<%= mainSrc %>" class="preview-img main-preview-img" title="Main Image" alt="Main Image">
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Product Images (Max 10)</label>
+                    <div class="file-upload-wrapper">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p style="font-weight: 500; color: var(--heading-color);">Drag & Drop your images here or click to browse</p>
+                        <p style="font-size: 12px; color: var(--body-text); margin-top: 5px;">Supports: JPG, PNG, WEBP</p>
+                        <input
+                            type="file"
+                            id="product-images-input"
+                            name="images"
+                            multiple
+                            accept="image/*"
+                            onchange="previewProductImages()" 
+                            <%= (oldInput && oldInput.existing_images && oldInput.existing_images.length > 0) ? '' : 'required' %>
+                        >
+                    </div>
+                    <% if (oldInput && oldInput.existing_images && oldInput.existing_images.length > 0) { %>
+                        <% oldInput.existing_images.forEach(imgName => { %>
+                            <input type="hidden" name="existing_images" value="<%= imgName %>">
+                        <% }) %>
+                        <div class="retained-badge">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Retained (<%= oldInput.existing_images.length %>) Product Images</span>
+                        </div>
+                    <% } %>
+                    
+                    <!-- Previews of selected or retained pictures -->
+                    <div id="image-preview-container">
+                        <% if (oldInput && oldInput.existing_images) { %>
+                            <% oldInput.existing_images.forEach((img, idx) => { 
+                                const s3Src = String(img).startsWith('http') 
+                                    ? img 
+                                    : (String(img).startsWith('/uploads/') ? img : '/uploads/' + img);
+                            %>
+                                <div class="preview-item">
+                                    <span class="preview-badge-sub">Gallery Image <%= idx + 1 %></span>
+                                    <img src="<%= s3Src %>" class="preview-img" title="Product Image <%= idx + 1 %>" alt="Product Image">
+                                </div>
+                            <% }) %>
+                        <% } %>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    <% if (oldInput && oldInput.isUpdate) { %>
+                        <i class="fas fa-save"></i> Update Product
+                    <% } else { %>
+                        <i class="fas fa-paper-plane"></i> Publish Product to Store
+                    <% } %>
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 EZYTEK Clean Pvt. Ltd. | Secure Master Admin Portal
+    </footer>
+
+    <script>
+        // Calculate Final Price dynamically
+        function calculateFinalPrice() {
+            const priceInput = document.getElementById('basePrice');
+            const discountInput = document.getElementById('discount');
+            const finalPriceInput = document.getElementById('finalPrice');
+            if (!priceInput || !finalPriceInput) return;
+
+            const price = parseFloat(priceInput.value);
+            if (isNaN(price)) return;
+
+            let discount = parseFloat(discountInput.value) || 0;
+            if (discount > 100) {
+                alert("Discount cannot exceed 100%");
+                discount = 100;
+                discountInput.value = 100;
+            }
+
+            const finalPrice = price - (price * (discount / 100));
+            finalPriceInput.value = finalPrice > 0 ? finalPrice.toFixed(2) : price.toFixed(2);
+        }
+
+        // Add Dynamic Technical Fields
+        function addTechField() {
+            const container = document.getElementById('tech-container');
+            const row = document.createElement('div');
+            row.className = 'tech-row';
+            row.innerHTML = `
+                <input type="text" name="techKeys[]" placeholder="Feature (e.g., Pressure)" required>
+                <input type="text" name="techValues[]" placeholder="Value (e.g., 150 Bar)" required>
+                <button type="button" class="btn-secondary" style="border-color: #ef4444; color: #ef4444;" onclick="this.parentElement.remove()">
+                    <i class="fas fa-trash"></i>
+                </button>
+            `;
+            container.appendChild(row);
+        }
+
+        // 1. Main Image Preview (Separate Container Above Product Images)
+        function previewMainImage() {
+            const container = document.getElementById('main-image-preview-container');
+            const mainInput = document.getElementById('main-image-input');
+            if (!container || !mainInput) return;
+
+            const files = mainInput.files || [];
+            if (files.length === 0) return;
+
+            const file = files[0];
+            if (!file.type.startsWith('image/')) {
+                alert("Please select a valid image file for the Main Image.");
+                mainInput.value = "";
+                return;
+            }
+
+            container.innerHTML = '';
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'preview-item main-preview-item';
+                wrapper.innerHTML = `
+                    <span class="preview-badge"><i class="fas fa-star"></i> Main Image Preview</span>
+                    <img src="${e.target.result}" class="preview-img main-preview-img" title="Selected Main Image" alt="Main Image Preview">
+                `;
+                container.appendChild(wrapper);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // 2. Product Gallery Images Preview (Gallery Container)
+        function previewProductImages() {
+            const container = document.getElementById('image-preview-container');
+            const productInput = document.getElementById('product-images-input');
+            if (!container || !productInput) return;
+
+            const files = productInput.files || [];
+            if (files.length === 0) return;
+
+            if (files.length > 10) {
+                alert("You can only upload a maximum of 10 product images.");
+                productInput.value = "";
+                return;
+            }
+
+            container.innerHTML = '';
+            Array.from(files).forEach((file, idx) => {
+                if (!file.type.startsWith('image/')) {
+                    alert("Please select only image files.");
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'preview-item';
+                    wrapper.innerHTML = `
+                        <span class="preview-badge-sub">Gallery Image ${idx + 1}</span>
+                        <img src="${e.target.result}" class="preview-img" title="Gallery Image ${idx + 1}" alt="Product Image Preview">
+                    `;
+                    container.appendChild(wrapper);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Fallback for any legacy invocation
+        function previewImages() {
+            previewMainImage();
+            previewProductImages();
+        }
+    </script>
+</body>
+</html>

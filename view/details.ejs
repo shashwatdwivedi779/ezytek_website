@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= product.productName %> - Ezytek Clean</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/details.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header Navigation Partial -->
+    <%- include('nav') %>
+
+    <main class="details-wrapper">
+
+        <!-- Breadcrumb Navigation -->
+        <nav class="details-breadcrumb" aria-label="Breadcrumb">
+            <a href="/"><i class="fa-solid fa-house" style="margin-right: 4px;"></i> Home</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <a href="/products">Products</a>
+            <% if (product.category) { %>
+                <i class="fa-solid fa-chevron-right"></i>
+                <a href="/products?category=<%= encodeURIComponent(product.category) %>"><%= product.category %></a>
+            <% } %>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span class="current-crumb"><%= product.productName %></span>
+        </nav>
+
+        <!-- MAIN PRODUCT SECTION (2-Column Grid) -->
+        <%
+            // 1. Resolve Technical Specifications (supports both technical_specifications and technical_specification)
+            let techSpecs = [];
+            if (Array.isArray(product.technical_specifications) && product.technical_specifications.length > 0) {
+                techSpecs = product.technical_specifications;
+            } else if (Array.isArray(product.technical_specification) && product.technical_specification.length > 0) {
+                techSpecs = product.technical_specification;
+            } else if (Array.isArray(product.specifications) && product.specifications.length > 0) {
+                techSpecs = product.specifications;
+            } else if (product.specification && (product.specification.key || product.specification.value)) {
+                techSpecs = [product.specification];
+            }
+
+            // 2. Resolve Specifications (supports string or text overview)
+            let specText = '';
+            if (typeof product.specifications === 'string' && product.specifications.trim()) {
+                specText = product.specifications.trim();
+            } else if (typeof product.specification === 'string' && product.specification.trim()) {
+                specText = product.specification.trim();
+            }
+        %>
+
+        <div class="product-section">
+            
+            <!-- Left Column: Image Gallery -->
+            <div class="product-gallery">
+                <div class="main-image-container">
+                    <%
+                      let mainImgSrc = '/category/pressure_washer.png';
+                      let rawMain = product.main_image;
+                      if (Array.isArray(rawMain)) rawMain = rawMain[0];
+                      if (rawMain) {
+                        const trimmed = String(rawMain).trim();
+                        if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+                          mainImgSrc = trimmed;
+                        } else if (trimmed.startsWith('/uploads/')) {
+                          mainImgSrc = trimmed;
+                        } else if (trimmed.startsWith('uploads/')) {
+                          mainImgSrc = '/' + trimmed;
+                        } else {
+                          mainImgSrc = '/uploads/' + trimmed;
+                        }
+                      }
+                    %>
+                    <img 
+                        id="mainProductImg" 
+                        src="<%= mainImgSrc %>" 
+                        alt="<%= product.productName %>" 
+                        onerror="this.onerror=null;this.src='/category/pressure_washer.png';"
+                    >
+                </div>
+                
+                <!-- Gallery Thumbnails (Only shown if additional images exist) -->
+                <% if (product.images && product.images.length > 0) { %>
+                    <div class="thumbnail-track" id="thumbnailTrack">
+                        <img 
+                            class="gallery-thumb active" 
+                            src="<%= mainImgSrc %>" 
+                            alt="Main Thumbnail" 
+                            onclick="changeMainImage(this.src, this)"
+                            onerror="this.onerror=null;this.src='/category/pressure_washer.png';"
+                        >
+                        <% product.images.forEach((image, idx) => { %>
+                            <%
+                              let thumbSrc = '/category/pressure_washer.png';
+                              if (image) {
+                                const trimmed = String(image).trim();
+                                if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+                                  thumbSrc = trimmed;
+                                } else if (trimmed.startsWith('/uploads/')) {
+                                  thumbSrc = trimmed;
+                                } else if (trimmed.startsWith('uploads/')) {
+                                  thumbSrc = '/' + trimmed;
+                                } else {
+                                  thumbSrc = '/uploads/' + trimmed;
+                                }
+                              }
+                            %>
+                            <img 
+                                class="gallery-thumb" 
+                                src="<%= thumbSrc %>" 
+                                alt="<%= product.productName %> view <%= idx + 1 %>" 
+                                onclick="changeMainImage(this.src, this)" 
+                                onerror="this.onerror=null;this.src='/category/pressure_washer.png';"
+                            > 
+                        <% }) %>
+                    </div>
+                <% } %>
+            </div>
+
+            <!-- Right Column: Product Information -->
+            <div class="product-info">
+                <% if (product.category) { %>
+                    <span class="product-category-tag">
+                        <i class="fa-solid fa-tag"></i> <%= product.category %>
+                    </span>
+                <% } %>
+
+                <h1 class="product-title"><%= product.productName %></h1>
+                
+                <!-- Price Row -->
+                <div class="price-wrapper">
+                    <span class="final-price">₹<%= Number(product.finalPrice || product.price || 0).toLocaleString('en-IN') %></span>
+                    <% if (product.price && product.discount && Number(product.discount) > 0) { %>
+                        <span class="original-price">₹<%= Number(product.price).toLocaleString('en-IN') %></span>
+                        <span class="discount-badge"><%= product.discount %>% OFF</span>
+                    <% } %>
+
+                    <% if (product.isActive !== false) { %>
+                        <span class="stock-status-pill">
+                            <i class="fa-solid fa-circle-check"></i> In Stock &amp; Ready
+                        </span>
+                    <% } %>
+                </div>
+
+                <!-- Description -->
+                <% if (product.description) { %>
+                    <div class="description-box">
+                        <div class="description-title">Product Description</div>
+                        <p class="description"><%= product.description %></p>
+                    </div>
+                <% } %>
+
+                <!-- Action Area (Clean, Proportional Buttons) -->
+                <div class="action-area">
+
+                    <% if(!isLoggedIn){ %>
+
+                        <% if (product.isActive !== false) { %> 
+                        <a href="/login" class="btn-action-secondary">
+                            <i class="fa-solid fa-file-invoice"></i>
+                            <span>Get Quote</span>
+                        </a>
+                        <a href="/login" class="btn-action-secondary" title="View Cart">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span>Card</span>
+                        </a>
+
+                   <% }} else if (user && user.role === 'Admin') { %>
+
+                        <a href="/master/update/<%= product._id %>" class="btn-action-primary">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            <span>Update Details</span>
+                        </a>
+
+                   <% } else { %>
+                    
+                    <% if (product.isActive !== false) { %> 
+                        <a href="/costomer/quote/<%= product._id %>" class="btn-action-secondary">
+                            <i class="fa-solid fa-file-invoice"></i>
+                            <span>Get Quote</span>
+                        </a>
+                        <a href="/user/card/<%= product._id %>" class="btn-action-secondary" title="View Cart">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span>Card</span>
+                        </a>
+
+                    <% } else { %>
+                        <div class="out-of-stock-badge">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <span>Currently Out of Stock</span>
+                        </div>
+
+                    <% }} %>
+                    
+                  
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- SPECIFICATIONS & TECHNICAL DATA SECTION (Side-by-side as per layout diagram) -->
+        <% if (specText || techSpecs.length > 0) { %>
+            <section class="details-specs-section">
+                <% if (specText) { %>
+                    <div class="spec-card <%= (techSpecs.length === 0) ? 'spec-card-full' : '' %>">
+                        <div class="spec-card-header">
+                            <i class="fa-solid fa-list-check"></i>
+                            <span>Specification</span>
+                        </div>
+                        <div class="spec-card-body">
+                            <p class="spec-text"><%= specText %></p>
+                        </div>
+                    </div>
+                <% } %>
+
+                <% if (techSpecs.length > 0) { %>
+                    <div class="spec-card <%= (!specText) ? 'spec-card-full' : '' %>">
+                        <div class="spec-card-header">
+                            <i class="fa-solid fa-gears"></i>
+                            <span>Technical SPECIFICATION</span>
+                        </div>
+                        <div class="spec-card-body">
+                            <div class="tech-table">
+                                <% techSpecs.forEach(spec => { %>
+                                    <% if (spec && (spec.key || spec.value)) { %>
+                                        <div class="tech-row">
+                                            <span class="tech-key"><%= spec.key %></span>
+                                            <span class="tech-val"><%= spec.value %></span>
+                                        </div>
+                                    <% } %>
+                                <% }) %>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+            </section>
+        <% } %>
+
+        <!-- RELATED PRODUCTS SECTION -->
+        <% if (typeof category !== 'undefined' && Array.isArray(category) && category.length > 0) { 
+            const relatedItems = category.filter(item => String(item._id) !== String(product._id));
+        %>
+            <% if (relatedItems.length > 0) { %>
+                <section class="related-section">
+                    <h2 class="related-section-title">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <span>Explore Similar Equipment</span>
+                    </h2>
+                    
+                    <div class="related-grid">
+                        <% relatedItems.slice(0, 4).forEach(rel => { 
+                            let catImg = '/category/pressure_washer.png';
+                            if (rel.main_image) {
+                                const tr = String(rel.main_image).trim();
+                                if (tr.startsWith('http://') || tr.startsWith('https://')) {
+                                    catImg = tr;
+                                } else if (tr.startsWith('/uploads/')) {
+                                    catImg = tr;
+                                } else if (tr.startsWith('uploads/')) {
+                                    catImg = '/' + tr;
+                                } else {
+                                    catImg = '/uploads/' + tr;
+                                }
+                            }
+                        %>
+                            <article class="related-card">
+                                <div class="related-card-img">
+                                    <img 
+                                        src="<%= catImg %>" 
+                                        alt="<%= rel.productName %>" 
+                                        loading="lazy" 
+                                        decoding="async" 
+                                        onerror="this.onerror=null;this.src='/category/pressure_washer.png';"
+                                    >
+                                </div>
+                                <div class="related-card-body">
+                                    <h3 class="related-card-name" title="<%= rel.productName %>">
+                                        <%= rel.productName %>
+                                    </h3>
+                                    
+                                    <div class="related-card-prices">
+                                        <span class="related-card-price">₹<%= Number(rel.finalPrice || rel.price || 0).toLocaleString('en-IN') %></span>
+                                        <% if (rel.price && rel.discount && Number(rel.discount) > 0) { %>
+                                            <span class="related-card-mrp">₹<%= Number(rel.price).toLocaleString('en-IN') %></span>
+                                        <% } %>
+                                    </div>
+                                    
+                                    <a href="/products/<%= rel._id %>" class="related-card-btn">
+                                        <span>View Details</span>
+                                        <i class="fa-solid fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </article>
+                        <% }) %>
+                    </div>
+                </section>
+            <% } %>
+        <% } %>
+
+    </main>
+
+    <!-- Footer Partial -->
+    <%- include('footer') %>
+
+    <!-- Image Switcher Script -->
+    <script>
+      function changeMainImage(src, thumbElement) {
+        const mainImg = document.getElementById('mainProductImg');
+        if (mainImg && src) {
+          mainImg.src = src;
+        }
+        if (thumbElement) {
+          document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+          thumbElement.classList.add('active');
+        }
+      }
+    </script>
+
+</body>
+</html>

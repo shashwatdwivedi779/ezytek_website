@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO -->
+  <% 
+    const pageTitle = (typeof title !== 'undefined' && title) ? title : 'Ezytek Clean Pvt. Ltd. | Industrial Cleaning Equipment & Washing Plants';
+    const pageDesc = (typeof description !== 'undefined' && description) ? description : 'Ezytek Clean is a leading Indian manufacturer of automatic car wash plants, high pressure washers, industrial washing systems, and floor scrubbers.';
+  %>
+  <title><%= pageTitle %></title>
+  <meta name="description" content="<%= pageDesc %>" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="<%= pageTitle %>" />
+  <meta property="og:description" content="<%= pageDesc %>" />   
+  <meta property="og:image" content="/slider/Gemini_Generated_Image_bx7e6bbx7e6bbx7e.png" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="/css/home.css?v=3.8" />
+
+  <!-- Hero image preload for performance (LCP) -->
+  <link rel="preload" as="image" href="/slider/Gemini_Generated_Image_bx7e6bbx7e6bbx7e.png" fetchpriority="high" />
+
+  <!-- ── Frame Scroll Animation Styles ───────────────────────────────── -->
+  <style>
+    /* Scroll section wrapper — sets scroll distance (3 × viewport) */
+    .frame-scroll-section {
+      position: relative;
+      height: 300vh;
+      background: #000;
+    }
+
+    /* Sticky canvas container */
+    .frame-scroll-sticky {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Canvas fills the sticky container, cover-fit is handled in JS */
+    #frameCanvas {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Caption overlay */
+    .frame-caption-wrap {
+      position: absolute;
+      bottom: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      color: #fff;
+      opacity: 0;
+      pointer-events: none;
+      will-change: opacity;
+    }
+    .frame-caption-eyebrow {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.55);
+      margin-bottom: 10px;
+      font-family: 'Inter', sans-serif;
+    }
+    .frame-caption-title {
+      font-size: clamp(1.6rem, 4vw, 3rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Full-screen preload overlay */
+    #frameLoader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      transition: opacity 0.5s ease;
+    }
+    #frameLoader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .frame-loader-bar {
+      width: 220px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .frame-loader-fill {
+      height: 100%;
+      width: 0%;
+      background: #fff;
+      border-radius: 2px;
+      transition: width 0.1s linear;
+    }
+    .frame-loader-text {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.5);
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVBAR & FLOATING ACTIONS
+     ============================================================ -->
+<%- include('nav') %>
+
+<!-- ============================================================
+     SECTION 2: HERO SLIDER
+     ============================================================ -->
+<section class="hero" aria-label="Hero image slider">
+  <div class="slider-track" role="presentation">
+
+    <!-- Slide 1 -->
+    <div class="slide" role="group" aria-roledescription="slide" aria-label="Slide 1 of 3">
+      <img
+        class="slide-img"
+        src="/slider/Gemini_Generated_Image_bx7e6bbx7e6bbx7e.png"
+        alt="Industrial automatic car wash plant in operation"
+        width="1920" height="860"
+        fetchpriority="high"
+        decoding="sync"
+      />
+      <div class="slide-overlay" aria-hidden="true"></div>
+      <div class="slide-content">
+        <span class="slide-eyebrow">Industrial Cleaning Excellence</span>
+        <h1 class="slide-title">Advanced Cleaning Solutions for Every Industry</h1>
+        <p class="slide-desc">Discover innovative cleaning equipment, automated washing systems and industrial machinery engineered for maximum efficiency, uptime, and performance.</p>
+        <div class="slide-cta">
+          <a href="/products" class="btn btn-primary">
+            Explore Products
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+          <a href="/products" class="btn btn-secondary">Request a Quote</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide" role="group" aria-roledescription="slide" aria-label="Slide 2 of 3">
+      <img
+        class="slide-img"
+        src="/slider/Gemini_Generated_Image_1g2421g2421g2421.png"
+        alt="High pressure industrial washing system"
+        width="1920" height="860"
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="slide-overlay" aria-hidden="true"></div>
+      <div class="slide-content">
+        <span class="slide-eyebrow">Precision Engineering</span>
+        <h2 class="slide-title">Engineered for Performance, Built to Last</h2>
+        <p class="slide-desc">From heavy-duty high pressure washers to fully robotic wash lines, our machinery is built to withstand rigorous industrial standards.</p>
+        <div class="slide-cta">
+          <a href="/products/high-pressure-washers" class="btn btn-primary">
+            View Washers
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+          <a href="https://wa.me/919311313886?text=Hello%20Ezytek%20Clean,%20I%20would%20like%20to%20schedule%20a%20machinery%20demo." target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Get a Demo</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide" role="group" aria-roledescription="slide" aria-label="Slide 2 of 3">
+      <img
+        class="slide-img"
+        src="/slider/Gemini_Generated_Image_iz0c7tiz0c7tiz0c.png"
+        alt="Automated industrial washing plant installation"
+        width="1920" height="860"
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="slide-overlay" aria-hidden="true"></div>
+      <div class="slide-content">
+        <span class="slide-eyebrow">OEM Trusted Manufacturer</span>
+        <h2 class="slide-title">Trusted by India's Leading Automotive &amp; Govt Brands</h2>
+        <p class="slide-desc">As a preferred OEM supply partner, we deliver turnkey industrial cleaning systems to top automotive giants and national institutions across India.</p>
+        <div class="slide-cta">
+          <a href="/about" class="btn btn-primary">
+            Our Story
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+          <a href="https://wa.me/919311313886?text=Hello%20Ezytek%20Clean,%20I%20am%20interested%20in%20an%20OEM%20or%20dealer%20partnership." target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Partner With Us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide Counter Overlay -->
+  <div class="slide-counter" aria-hidden="true">
+    <span class="current-slide">01</span>
+    <span class="slide-sep">/</span>
+    <span class="total-slides">03</span>
+  </div>
+
+  <!-- Slide Linear Progress Bar -->
+  <div class="slide-progress-line" aria-hidden="true">
+    <div class="slide-progress-fill"></div>
+  </div>
+
+  <!-- Slider Arrows -->
+  <button class="slider-arrow slider-prev" aria-label="Previous slide">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+  </button>
+  <button class="slider-arrow slider-next" aria-label="Next slide">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </button>
+
+  <!-- Slider Pagination Dots -->
+  <div class="slider-dots" role="tablist" aria-label="Slider navigation">
+    <button class="slider-dot active" role="tab" aria-label="Go to slide 1" aria-selected="true"></button>
+    <button class="slider-dot" role="tab" aria-label="Go to slide 2" aria-selected="false"></button>
+    <button class="slider-dot" role="tab" aria-label="Go to slide 3" aria-selected="false"></button>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SECTION 3: COMPANY HIGHLIGHTS
+     ============================================================ -->
+<section class="highlights" aria-label="Company highlights">
+  <div class="highlights-grid">
+
+    <div class="highlight-item anim-fade-up">
+      <div class="highlight-icon" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 20h20M4 20V10l8-7 8 7v10"/><path d="M12 10v10"/>
+        </svg>
+      </div>
+      <div>
+        <div class="highlight-title">Manufacturing Expertise</div>
+        <div class="highlight-desc">In-house design, engineering and production for quality-assured equipment.</div>
+      </div>
+    </div>
+
+    <div class="highlight-item anim-fade-up anim-delay-1">
+      <div class="highlight-icon" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
+        </svg>
+      </div>
+      <div>
+        <div class="highlight-title">Customised Solutions</div>
+        <div class="highlight-desc">Bespoke cleaning systems engineered to your site and operational requirements.</div>
+      </div>
+    </div>
+
+    <div class="highlight-item anim-fade-up anim-delay-2">
+      <div class="highlight-icon" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+      </div>
+      <div>
+        <div class="highlight-title">Advanced Technology</div>
+        <div class="highlight-desc">Smart automation, PLC controls and energy-efficient technology across our range.</div>
+      </div>
+    </div>
+
+    <div class="highlight-item anim-fade-up anim-delay-3">
+      <div class="highlight-icon" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 15 19.79 19.79 0 0 1 1.61 6.42 2 2 0 0 1 3.59 4.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 11.91a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="highlight-title">Technical Support</div>
+        <div class="highlight-desc">Dedicated after-sales service, spare parts supply and technical assistance.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SECTION 4b: LIVE PRODUCTS FROM DATABASE
+     ============================================================ -->
+<% const hasProducts = data && data.some(d => d && d.length > 0); %>
+<% if (hasProducts) { %>
+<section class="live-products" aria-labelledby="live-products-heading">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow anim-fade-up">Our Catalogue</span>
+      <h2 class="section-title anim-fade-up anim-delay-1" id="live-products-heading">Products by Category</h2>
+      <p class="section-subtitle anim-fade-up anim-delay-2">Browse our complete range of industrial cleaning machinery, sourced directly from our product database.</p>
+    </div>
+    <% data.forEach((datas, idx) => { %>
+      <% if (datas && datas.length > 0) { %>
+      <div class="live-category-group anim-fade-up">
+        <div class="live-cat-header">
+          <div class="live-cat-title-wrap">
+            <h3 class="live-cat-title"><%= datas[0].category %></h3>
+            <span class="live-cat-count"><%= datas.length %> <%= datas.length === 1 ? 'item' : 'items' %></span>
+          </div>
+          <div class="live-cat-actions">
+            <a href="/products" class="live-cat-link">
+              View All
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <div class="live-scroll-controls" aria-label="Scroll products">
+              <button class="live-scroll-btn live-scroll-btn-prev" onclick="scrollProductTrack(this, -1)" aria-label="Scroll left" type="button">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+              <button class="live-scroll-btn live-scroll-btn-next" onclick="scrollProductTrack(this, 1)" aria-label="Scroll right" type="button">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="live-products-track-wrap">
+          <div class="live-products-track">
+            <% datas.forEach(p => { %>
+            <article class="live-product-card">
+              <div class="live-product-img">
+                <% 
+                  let imgSrc = '/category/pressure_washer.png';
+                  let rawMain = p.main_image;
+                  if (Array.isArray(rawMain)) rawMain = rawMain[0];
+                  if (rawMain) {
+                    const imgTrimmed = String(rawMain).trim();
+                    if (imgTrimmed.startsWith('http://') || imgTrimmed.startsWith('https://')) {
+                      imgSrc = imgTrimmed;
+                    } else if (imgTrimmed.startsWith('/uploads/')) {
+                      imgSrc = imgTrimmed;
+                    } else if (imgTrimmed.startsWith('uploads/')) {
+                      imgSrc = '/' + imgTrimmed;
+                    } else {
+                      imgSrc = '/uploads/' + imgTrimmed;
+                    }
+                  }
+                %>
+                <img src="<%= imgSrc %>" alt="<%= p.productName || 'Industrial Product' %>" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/category/pressure_washer.png';" />
+                <% if (p.discount > 0) { %><span class="live-product-badge"><%= p.discount %>% OFF</span><% } %>
+              </div>
+              <div class="live-product-body">
+                <h4 class="live-product-name" title="<%= p.productName %>"><%= p.productName %></h4>
+                <div class="live-product-pricing">
+                  <% if (p.finalPrice) { %>
+                    <span class="live-product-price">₹<%= Number(p.finalPrice).toLocaleString('en-IN') %></span>
+                  <% } %>
+                  <% if (p.price && p.discount > 0) { %>
+                    <span class="live-product-mrp">₹<%= Number(p.price).toLocaleString('en-IN') %></span>
+                  <% } %>
+                </div>
+                <a href="/products/<%= p._id %>" class="btn btn-xs btn-xs-primary live-product-btn">View Details</a>
+              </div>
+            </article>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    <% }) %>
+  </div>
+</section>
+<% } %>
+
+
+
+<!-- ============================================================
+     SECTION 6: FEATURED PRODUCTS (E-COMMERCE SHOWCASE)
+     ============================================================ -->
+<section class="featured-products section-pad" aria-labelledby="products-heading">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow anim-fade-up">Top Sellers</span>
+      <h2 class="section-title anim-fade-up anim-delay-1" id="products-heading">Featured Products</h2>
+      <p class="section-subtitle anim-fade-up anim-delay-2">Our most sought-after industrial cleaning machinery, trusted by workshops, fleet operators, and factories across India.</p>
+    </div>
+
+    <div class="products-grid">
+
+      <!-- Product 1 -->
+      <article class="product-card anim-fade-up anim-delay-1">
+        <div class="product-img-wrap">
+          <img
+            src="/category/autometic_wash.png"
+            alt="Fully Automatic Car Wash Plant - Ezytek Clean"
+            width="300" height="200"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="product-label label-featured">Featured</span>
+          <div class="product-hover-overlay">
+            <a href="/products" class="product-hover-btn">Quick View</a>
+          </div>
+        </div>
+        <div class="product-body">
+          <div class="product-cat">Car Wash Systems</div>
+          <h3 class="product-name">Fully Automatic Car Wash Plant</h3>
+          <div class="product-rating" aria-label="Rating 5 out of 5 stars">
+            <div class="stars" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            </div>
+            <span class="rating-text">5.0 (48 reviews)</span>
+          </div>
+          <p class="product-desc">Drive-through automatic vehicle wash with touch-free brush system, foam sprayers and contour-following blow dryers.</p>
+          <div class="product-actions">
+            <a href="/products" class="btn btn-xs btn-xs-primary">View Details</a>
+            <a href="https://wa.me/919311313886?text=Hello%20Ezytek%20Clean,%20I%20would%20like%20a%20quote%20for%20the%20Automatic%20Car%20Wash%20Plant." target="_blank" rel="noopener noreferrer" class="btn btn-xs btn-xs-outline">Get Quote</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Product 2 -->
+      <article class="product-card anim-fade-up anim-delay-2">
+        <div class="product-img-wrap">
+          <img
+            src="/category/pressure_washer.png"
+            alt="Industrial High Pressure Washer - Ezytek Clean"
+            width="300" height="200"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="product-label label-industrial">Heavy Duty</span>
+          <div class="product-hover-overlay">
+            <a href="/products" class="product-hover-btn">Quick View</a>
+          </div>
+        </div>
+        <div class="product-body">
+          <div class="product-cat">Pressure Washers</div>
+          <h3 class="product-name">Industrial High Pressure Washer</h3>
+          <div class="product-rating" aria-label="Rating 4.9 out of 5 stars">
+            <div class="stars" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            </div>
+            <span class="rating-text">4.9 (62 reviews)</span>
+          </div>
+          <p class="product-desc">Heavy-duty cold and hot water pressure washer for commercial degreasing, surface preparation, and fleet maintenance.</p>
+          <div class="product-actions">
+            <a href="/products" class="btn btn-xs btn-xs-primary">View Details</a>
+            <a href="https://wa.me/919311313886?text=Hello%20Ezytek%20Clean,%20I%20would%20like%20a%20quote%20for%20the%20Industrial%20High%20Pressure%20Washer." target="_blank" rel="noopener noreferrer" class="btn btn-xs btn-xs-outline">Get Quote</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Product 3 -->
+      <article class="product-card anim-fade-up anim-delay-3">
+        <div class="product-img-wrap">
+          <img
+            src="/category/floor_washing.png"
+            alt="Ride-on Floor Scrubber Dryer - Ezytek Clean"
+            width="300" height="200"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="product-label label-new">New Tech</span>
+          <div class="product-hover-overlay">
+            <a href="/products" class="product-hover-btn">Quick View</a>
+          </div>
+        </div>
+        <div class="product-body">
+          <div class="product-cat">Floor Cleaning</div>
+          <h3 class="product-name">Ride-on Floor Scrubber Dryer</h3>
+          <div class="product-rating" aria-label="Rating 4.8 out of 5 stars">
+            <div class="stars" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            </div>
+            <span class="rating-text">4.8 (34 reviews)</span>
+          </div>
+          <p class="product-desc">High-speed ride-on scrubber dryer for vast industrial plant floors and logistics warehouses with eco water recovery.</p>
+          <div class="product-actions">
+            <a href="/products" class="btn btn-xs btn-xs-primary">View Details</a>
+            <a href="https://wa.me/919311313886?text=Hello%20Ezytek%20Clean,%20I%20would%20like%20a%20quote%20for%20the%20Ride-on%20Floor%20Scrubber%20Dryer." target="_blank" rel="noopener noreferrer" class="btn btn-xs btn-xs-outline">Get Quote</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Product 4 -->
+      <article class="product-card anim-fade-up anim-delay-4">
+        <div class="product-img-wrap">
+          <img
+            src="/category/industrial_plants.png"
+            alt="Industrial Component Washing Plant - Ezytek Clean"
+            width="300" height="200"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="product-label label-industrial">Turnkey</span>
+          <div class="product-hover-overlay">
+            <a href="/products" class="product-hover-btn">Quick View</a>
+          </div>
+        </div>
+        <div class="product-body">
+          <div class="product-cat">Industrial Plants</div>
+          <h3 class="product-name">Industrial Component Washing Plant</h3>
+          <div class="product-rating" aria-label="Rating 5.0 out of 5 stars">
+            <div class="stars" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            </div>
+            <span class="rating-text">5.0 (27 reviews)</span>
+          </div>
+          <p class="product-desc">Automated multi-stage aqueous cleaning and degreasing plant custom-tailored for automotive and precision manufacturing.</p>
+          <div class="product-actions">
+            <a href="/products" class="btn btn-xs btn-xs-primary">View Details</a>
+            <a href="https://wa.me/919311313886?text=Hello%20Ezytek%20Clean,%20I%20would%20like%20a%20quote%20for%20the%20Industrial%20Component%20Washing%20Plant." target="_blank" rel="noopener noreferrer" class="btn btn-xs btn-xs-outline">Get Quote</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="products-cta anim-fade-up">
+      <a href="/products" class="btn btn-outline btn-lg">View All Products</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 7: INDUSTRIAL SOLUTIONS
+     ============================================================ -->
+<section class="solutions section-pad" aria-labelledby="solutions-heading">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow anim-fade-up">Industry Applications</span>
+      <h2 class="section-title anim-fade-up anim-delay-1" id="solutions-heading">Industrial Cleaning Solutions</h2>
+      <p class="section-subtitle anim-fade-up anim-delay-2">Complete cleaning and washing systems designed for the unique operational demands of key industrial segments.</p>
+    </div>
+
+    <div class="solutions-grid">
+
+      <!-- Automotive -->
+      <div class="solution-card anim-fade-up anim-delay-1">
+        <div class="solution-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="2"/>
+            <circle cx="12" cy="20" r="1"/><circle cx="20" cy="20" r="1"/>
+          </svg>
+        </div>
+        <h3 class="solution-title">Automotive Solutions</h3>
+        <div class="solution-items">
+          <div class="solution-item">Car washing centres and authorised dealerships</div>
+          <div class="solution-item">Automobile service garages and body shops</div>
+          <div class="solution-item">Vehicle detailing studios and coating centres</div>
+          <div class="solution-item">Commercial fleet management operations</div>
+        </div>
+        <a href="/industries/automotive" class="solution-link">
+          Explore Solutions
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Railway -->
+      <div class="solution-card anim-fade-up anim-delay-2">
+        <div class="solution-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="3" width="16" height="16" rx="2"/><path d="M4 11h16"/><path d="M12 3v8"/><circle cx="8" cy="19" r="2"/><circle cx="16" cy="19" r="2"/><path d="M8 17l-4 4M16 17l4 4"/>
+          </svg>
+        </div>
+        <h3 class="solution-title">Railway Solutions</h3>
+        <div class="solution-items">
+          <div class="solution-item">Automatic train exterior washing plants</div>
+          <div class="solution-item">Metro rail and EMU washing systems</div>
+          <div class="solution-item">Coach interior sanitisation equipment</div>
+          <div class="solution-item">Railway depot bogie wash stations</div>
+        </div>
+        <a href="/industries/railway" class="solution-link">
+          Explore Solutions
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Industrial -->
+      <div class="solution-card anim-fade-up anim-delay-3">
+        <div class="solution-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 20h20M4 20V10l4-7h8l4 7v10"/><path d="M12 20V14h-4v6"/>
+          </svg>
+        </div>
+        <h3 class="solution-title">Industrial Solutions</h3>
+        <div class="solution-items">
+          <div class="solution-item">Precision component &amp; parts washing machines</div>
+          <div class="solution-item">Heavy factory floor cleaning &amp; scrubbing</div>
+          <div class="solution-item">Industrial aqueous degreasing systems</div>
+          <div class="solution-item">Warehouse automated sweeping machinery</div>
+        </div>
+        <a href="/industries/industrial" class="solution-link">
+          Explore Solutions
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Transport -->
+      <div class="solution-card anim-fade-up anim-delay-4">
+        <div class="solution-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="3" width="22" height="13" rx="2"/><path d="M5 3v13"/><path d="M12 3v13"/><path d="M19 3v13"/><path d="M2 10h20"/><circle cx="7" cy="20" r="1"/><circle cx="17" cy="20" r="1"/><path d="M5 16l2 4M17 16l2 4"/>
+          </svg>
+        </div>
+        <h3 class="solution-title">Transport Solutions</h3>
+        <div class="solution-items">
+          <div class="solution-item">Intercity bus and coach washing gantries</div>
+          <div class="solution-item">Heavy commercial vehicle cleaning systems</div>
+          <div class="solution-item">Truck chassis wash stations</div>
+          <div class="solution-item">Public municipal transport sanitation</div>
+        </div>
+        <a href="/industries/transport" class="solution-link">
+          Explore Solutions
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 8: WHY CHOOSE EZYTEK
+     ============================================================ -->
+<section class="why-ezytek section-pad" aria-labelledby="why-heading">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow anim-fade-up">Our Strengths</span>
+      <h2 class="section-title anim-fade-up anim-delay-1" id="why-heading">Why Choose Ezytek?</h2>
+      <p class="section-subtitle anim-fade-up anim-delay-2">We combine robust engineering expertise with customer focus to deliver machinery that performs reliably day in, day out.</p>
+    </div>
+
+    <div class="why-grid">
+
+      <div class="why-card anim-fade-up anim-delay-1">
+        <div class="why-icon" aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <h3 class="why-title">Quality Manufacturing</h3>
+        <p class="why-desc">Every machine is built with precision-engineered components, rigorous quality checks and durable materials for long-lasting performance.</p>
+      </div>
+
+      <div class="why-card anim-fade-up anim-delay-2">
+        <div class="why-icon" aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+        </div>
+        <h3 class="why-title">Advanced Technology</h3>
+        <p class="why-desc">PLC-controlled automation, variable frequency drives and smart telemetry bring modern operational technology to your floor.</p>
+      </div>
+
+      <div class="why-card anim-fade-up anim-delay-3">
+        <div class="why-icon" aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
+          </svg>
+        </div>
+        <h3 class="why-title">Customised Engineering</h3>
+        <p class="why-desc">Our design engineers build plants tailored to your physical floor space, utility limits and required cleaning cycles.</p>
+      </div>
+
+      <div class="why-card anim-fade-up anim-delay-1">
+        <div class="why-icon" aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 15 19.79 19.79 0 0 1 1.61 6.42 2 2 0 0 1 3.59 4.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 11.91a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </div>
+        <h3 class="why-title">Professional Support</h3>
+        <p class="why-desc">Responsive after-sales service, preventative maintenance programmes and readily available spare parts to eliminate downtime.</p>
+      </div>
+
+      <div class="why-card anim-fade-up anim-delay-2">
+        <div class="why-icon" aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 20h20M4 20V10l8-7 8 7v10"/>
+          </svg>
+        </div>
+        <h3 class="why-title">Industry Experience</h3>
+        <p class="why-desc">Decades of verified experience serving the automotive, railway, defence and manufacturing sectors throughout India.</p>
+      </div>
+
+      <div class="why-card anim-fade-up anim-delay-3">
+        <div class="why-icon" aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <h3 class="why-title">Reliable Solutions</h3>
+        <p class="why-desc">Our high-uptime installations deliver proven performance across diverse demanding environments from small workshops to mega plants.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SECTION 10: OEM SUPPLY / PARTNERS (AUTOMATIC INFINITE MARQUEE)
+     ============================================================ -->
+<section class="partners section-pad" id="workproof" aria-labelledby="partners-heading">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow anim-fade-up">OEM Supply Partners</span>
+      <h2 class="section-title anim-fade-up anim-delay-1" id="partners-heading">Trusted OEM Supply Partners</h2>
+      <p class="section-subtitle anim-fade-up anim-delay-2">Building trusted engineering relationships with world-class automotive manufacturers.</p>
+    </div>
+  </div>
+
+  <!-- Infinite Marquee (Right-to-Left, Continuous) -->
+  <div class="marquee-outer">
+    <div class="marquee-track" id="oem-track">
+
+      <!-- SET 1 -->
+      <div class="marquee-logo-card">
+        <img src="/partners/force-motors.png" alt="Force Motors" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'FORCE MOTORS')" />
+        <span class="marquee-logo-name">Force Motors</span>
+      </div>
+      <div class="marquee-logo-card">
+        <img src="/partners/renault.png" alt="Renault" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'RENAULT')" />
+        <span class="marquee-logo-name">Renault</span>
+      </div>
+      <div class="marquee-logo-card">
+        <img src="/partners/tata.png" alt="Tata Motors" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'TATA MOTORS')" />
+        <span class="marquee-logo-name">Tata Motors</span>
+      </div>
+      <div class="marquee-logo-card">
+        <img src="/partners/suzuki.png" alt="Suzuki" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'SUZUKI')" />
+        <span class="marquee-logo-name">Suzuki</span>
+      </div>
+      <div class="marquee-logo-card">
+        <img src="/partners/skoda.png" alt="Skoda" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'SKODA')" />
+        <span class="marquee-logo-name">Skoda</span>
+      </div>
+      <div class="marquee-logo-card">
+        <img src="/partners/rolls-royce.png" alt="Rolls-Royce" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'ROLLS-ROYCE')" />
+        <span class="marquee-logo-name">Rolls-Royce</span>
+      </div>
+      <div class="marquee-logo-card">
+        <img src="/partners/nissan.png" alt="Nissan" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'NISSAN')" />
+        <span class="marquee-logo-name">Nissan</span>
+      </div>
+      <div class="marquee-logo-card">
+        <img src="/partners/mitsubishi.png" alt="Mitsubishi" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'MITSUBISHI')" />
+        <span class="marquee-logo-name">Mitsubishi</span>
+      </div>
+      <div class="marquee-logo-card">
+        <img src="/partners/land-rover.png" alt="Land Rover" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'LAND ROVER')" />
+        <span class="marquee-logo-name">Land Rover</span>
+      </div>
+      <div class="marquee-logo-card">
+        <img src="/partners/volkswagen.png" alt="Volkswagen" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'VOLKSWAGEN')" />
+        <span class="marquee-logo-name">Volkswagen</span>
+      </div>
+
+      <!-- DUPLICATE SET FOR SEAMLESS INFINITE LOOP -->
+      <div class="marquee-logo-card" aria-hidden="true">
+        <img src="/partners/force-motors.png" alt="" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'FORCE MOTORS')" />
+        <span class="marquee-logo-name">Force Motors</span>
+      </div>
+      <div class="marquee-logo-card" aria-hidden="true">
+        <img src="/partners/renault.png" alt="" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'RENAULT')" />
+        <span class="marquee-logo-name">Renault</span>
+      </div>
+      <div class="marquee-logo-card" aria-hidden="true">
+        <img src="/partners/tata.png" alt="" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'TATA MOTORS')" />
+        <span class="marquee-logo-name">Tata Motors</span>
+      </div>
+      <div class="marquee-logo-card" aria-hidden="true">
+        <img src="/partners/suzuki.png" alt="" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'SUZUKI')" />
+        <span class="marquee-logo-name">Suzuki</span>
+      </div>
+      <div class="marquee-logo-card" aria-hidden="true">
+        <img src="/partners/skoda.png" alt="" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'SKODA')" />
+        <span class="marquee-logo-name">Skoda</span>
+      </div>
+      <div class="marquee-logo-card" aria-hidden="true">
+        <img src="/partners/rolls-royce.png" alt="" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'ROLLS-ROYCE')" />
+        <span class="marquee-logo-name">Rolls-Royce</span>
+      </div>
+      <div class="marquee-logo-card" aria-hidden="true">
+        <img src="/partners/nissan.png" alt="" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'NISSAN')" />
+        <span class="marquee-logo-name">Nissan</span>
+      </div>
+      <div class="marquee-logo-card" aria-hidden="true">
+        <img src="/partners/mitsubishi.png" alt="" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'MITSUBISHI')" />
+        <span class="marquee-logo-name">Mitsubishi</span>
+      </div>
+      <div class="marquee-logo-card" aria-hidden="true">
+        <img src="/partners/land-rover.png" alt="" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'LAND ROVER')" />
+        <span class="marquee-logo-name">Land Rover</span>
+      </div>
+      <div class="marquee-logo-card" aria-hidden="true">
+        <img src="/partners/volkswagen.png" alt="" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'VOLKSWAGEN')" />
+        <span class="marquee-logo-name">Volkswagen</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 11: GOVERNMENT SUPPLY (AUTOMATIC INFINITE MARQUEE)
+     ============================================================ -->
+<section class="govt-section" aria-labelledby="govt-heading">
+  <div class="container">
+    <div class="section-header">
+      <div class="govt-badge anim-fade-up">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        Serving the Nation
+      </div>
+      <h2 class="section-title anim-fade-up anim-delay-1" id="govt-heading">Government Supply</h2>
+      <p class="section-subtitle anim-fade-up anim-delay-2">Supplying industrial cleaning equipment and machinery to premier national defence, aerospace, and public sector undertakings.</p>
+    </div>
+  </div>
+
+  <!-- Infinite Marquee (Right-to-Left, Continuous) -->
+  <div class="marquee-outer">
+    <div class="govt-marquee-track" id="govt-track">
+
+      <!-- SET 1 (15 Government Organisations) -->
+      <div class="govt-logo-card">
+        <img src="/govt/ISRO-1.png" alt="ISRO" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'ISRO')" />
+        <span class="govt-logo-name">ISRO</span>
+      </div>
+      <div class="govt-logo-card">
+        <img src="/govt/NTPC-1.png" alt="NTPC" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'NTPC')" />
+        <span class="govt-logo-name">NTPC</span>
+      </div>
+      <div class="govt-logo-card">
+        <img src="/govt/DRDO-1.png" alt="DRDO" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'DRDO')" />
+        <span class="govt-logo-name">DRDO</span>
+      </div>
+      <div class="govt-logo-card">
+        <img src="/govt/INDIAN-AIR-FORCE-1.png" alt="Indian Air Force" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'AIR FORCE')" />
+        <span class="govt-logo-name">Indian Air Force</span>
+      </div>
+      <div class="govt-logo-card">
+        <img src="/govt/INDIAN-ARMY.png" alt="Indian Army" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'INDIAN ARMY')" />
+        <span class="govt-logo-name">Indian Army</span>
+      </div>
+      <div class="govt-logo-card">
+        <img src="/govt/BEML.png" alt="BEML" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'BEML')" />
+        <span class="govt-logo-name">BEML</span>
+      </div>
+      <div class="govt-logo-card">
+        <img src="/govt/BHARAT-PETROLEUM-1.png" alt="Bharat Petroleum" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'BPCL')" />
+        <span class="govt-logo-name">Bharat Petroleum</span>
+      </div>
+      <div class="govt-logo-card">
+        <img src="/govt/BHEL.png" alt="BHEL" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'BHEL')" />
+        <span class="govt-logo-name">BHEL</span>
+      </div>
+      <div class="govt-logo-card">
+        <img src="/govt/INDIAN-NAVY-1.png" alt="Indian Navy" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'INDIAN NAVY')" />
+        <span class="govt-logo-name">Indian Navy</span>
+      </div>
+      <div class="govt-logo-card">
+        <img src="/govt/INDIAN-OIL-1.png" alt="Indian Oil" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'IOCL')" />
+        <span class="govt-logo-name">Indian Oil</span>
+      </div>
+      <div class="govt-logo-card">
+        <img src="/govt/INDIAN-RAILWAYS.png" alt="Indian Railways" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'RAILWAYS')" />
+        <span class="govt-logo-name">Indian Railways</span>
+      </div>
+      <div class="govt-logo-card">
+        <img src="/govt/GEM.png" alt="GeM - Government e Marketplace" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'GeM')" />
+        <span class="govt-logo-name">GeM</span>
+      </div>
+      <div class="govt-logo-card">
+        <img src="/govt/HP-1.png" alt="Hindustan Petroleum" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'HPCL')" />
+        <span class="govt-logo-name">HPCL</span>
+      </div>
+      <div class="govt-logo-card">
+        <img src="/govt/DAE.png" alt="Department of Atomic Energy" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'DAE')" />
+        <span class="govt-logo-name">DAE</span>
+      </div>
+      <div class="govt-logo-card">
+        <img src="/govt/HAL.png" alt="Hindustan Aeronautics Limited" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'HAL')" />
+        <span class="govt-logo-name">HAL</span>
+      </div>
+
+      <!-- DUPLICATE SET FOR SEAMLESS INFINITE LOOP -->
+      <div class="govt-logo-card" aria-hidden="true">
+        <img src="/govt/ISRO-1.png" alt="" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'ISRO')" />
+        <span class="govt-logo-name">ISRO</span>
+      </div>
+      <div class="govt-logo-card" aria-hidden="true">
+        <img src="/govt/NTPC-1.png" alt="" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'NTPC')" />
+        <span class="govt-logo-name">NTPC</span>
+      </div>
+      <div class="govt-logo-card" aria-hidden="true">
+        <img src="/govt/DRDO-1.png" alt="" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'DRDO')" />
+        <span class="govt-logo-name">DRDO</span>
+      </div>
+      <div class="govt-logo-card" aria-hidden="true">
+        <img src="/govt/INDIAN-AIR-FORCE-1.png" alt="" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'AIR FORCE')" />
+        <span class="govt-logo-name">Indian Air Force</span>
+      </div>
+      <div class="govt-logo-card" aria-hidden="true">
+        <img src="/govt/INDIAN-ARMY.png" alt="" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'INDIAN ARMY')" />
+        <span class="govt-logo-name">Indian Army</span>
+      </div>
+      <div class="govt-logo-card" aria-hidden="true">
+        <img src="/govt/BEML.png" alt="" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'BEML')" />
+        <span class="govt-logo-name">BEML</span>
+      </div>
+      <div class="govt-logo-card" aria-hidden="true">
+        <img src="/govt/BHARAT-PETROLEUM-1.png" alt="" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'BPCL')" />
+        <span class="govt-logo-name">Bharat Petroleum</span>
+      </div>
+      <div class="govt-logo-card" aria-hidden="true">
+        <img src="/govt/BHEL.png" alt="" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'BHEL')" />
+        <span class="govt-logo-name">BHEL</span>
+      </div>
+      <div class="govt-logo-card" aria-hidden="true">
+        <img src="/govt/INDIAN-NAVY-1.png" alt="" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'INDIAN NAVY')" />
+        <span class="govt-logo-name">Indian Navy</span>
+      </div>
+      <div class="govt-logo-card" aria-hidden="true">
+        <img src="/govt/INDIAN-OIL-1.png" alt="" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'IOCL')" />
+        <span class="govt-logo-name">Indian Oil</span>
+      </div>
+      <div class="govt-logo-card" aria-hidden="true">
+        <img src="/govt/INDIAN-RAILWAYS.png" alt="" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'RAILWAYS')" />
+        <span class="govt-logo-name">Indian Railways</span>
+      </div>
+      <div class="govt-logo-card" aria-hidden="true">
+        <img src="/govt/GEM.png" alt="" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'GeM')" />
+        <span class="govt-logo-name">GeM</span>
+      </div>
+      <div class="govt-logo-card" aria-hidden="true">
+        <img src="/govt/HP-1.png" alt="" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'HPCL')" />
+        <span class="govt-logo-name">HPCL</span>
+      </div>
+      <div class="govt-logo-card" aria-hidden="true">
+        <img src="/govt/DAE.png" alt="" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'DAE')" />
+        <span class="govt-logo-name">DAE</span>
+      </div>
+      <div class="govt-logo-card" aria-hidden="true">
+        <img src="/govt/HAL.png" alt="" width="140" height="54" loading="lazy" decoding="async" onerror="handleLogoError(this, 'HAL')" />
+        <span class="govt-logo-name">HAL</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 12: DEALER NETWORK
+     ============================================================ -->
+<section class="dealers section-pad" aria-labelledby="dealers-heading">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow anim-fade-up">Nationwide Presence</span>
+      <h2 class="section-title anim-fade-up anim-delay-1" id="dealers-heading">Our Dealer Network</h2>
+      <p class="section-subtitle anim-fade-up anim-delay-2">Connecting customers with sales, spares, and factory-trained technicians across all regions of India.</p>
+    </div>
+
+    <!-- Region Tabs -->
+    <div class="dealers-tabs anim-fade-up" role="tablist" aria-label="Dealer regions">
+      <button class="dealer-tab active" data-tab="region-north" role="tab" aria-selected="true" aria-controls="region-north">
+        North India
+      </button>
+      <button class="dealer-tab" data-tab="region-east" role="tab" aria-selected="false" aria-controls="region-east">
+        East India
+      </button>
+      <button class="dealer-tab" data-tab="region-south" role="tab" aria-selected="false" aria-controls="region-south">
+        South India
+      </button>
+      <button class="dealer-tab" data-tab="region-west" role="tab" aria-selected="false" aria-controls="region-west">
+        West India
+      </button>
+    </div>
+
+    <!-- North India -->
+    <div class="dealer-panel active" id="region-north" role="tabpanel" aria-labelledby="region-north-tab">
+      <div class="dealer-region-header">
+        <div class="dealer-region-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <div>
+          <div class="dealer-region-title">North India</div>
+          <div class="dealer-region-count">6 regional dealer centres</div>
+        </div>
+      </div>
+      <div class="dealer-locations">
+        <div class="dealer-location">
+          <div class="dealer-pin" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="dealer-state">Punjab</div><div class="dealer-city">Chandigarh</div></div>
+        </div>
+        <div class="dealer-location">
+          <div class="dealer-pin" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="dealer-state">Uttarakhand</div><div class="dealer-city">Dehradun</div></div>
+        </div>
+        <div class="dealer-location">
+          <div class="dealer-pin" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="dealer-state">Uttar Pradesh</div><div class="dealer-city">Lucknow</div></div>
+        </div>
+        <div class="dealer-location">
+          <div class="dealer-pin" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="dealer-state">Jammu &amp; Kashmir</div><div class="dealer-city">Srinagar</div></div>
+        </div>
+        <div class="dealer-location">
+          <div class="dealer-pin" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="dealer-state">Himachal Pradesh</div><div class="dealer-city">Shimla</div></div>
+        </div>
+        <div class="dealer-location">
+          <div class="dealer-pin" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="dealer-state">Haryana</div><div class="dealer-city">Ambala</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- East India -->
+    <div class="dealer-panel" id="region-east" role="tabpanel" aria-labelledby="region-east-tab">
+      <div class="dealer-region-header">
+        <div class="dealer-region-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <div>
+          <div class="dealer-region-title">East India</div>
+          <div class="dealer-region-count">6 regional dealer centres</div>
+        </div>
+      </div>
+      <div class="dealer-locations">
+        <div class="dealer-location">
+          <div class="dealer-pin" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="dealer-state">West Bengal</div><div class="dealer-city">Kolkata</div></div>
+        </div>
+        <div class="dealer-location">
+          <div class="dealer-pin" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="dealer-state">Bihar</div><div class="dealer-city">Patna</div></div>
+        </div>
+        <div class="dealer-location">
+          <div class="dealer-pin" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="dealer-state">Odisha</div><div class="dealer-city">Bhubaneswar</div></div>
+        </div>
+        <div class="dealer-location">
+          <div class="dealer-pin" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="dealer-state">Assam</div><div class="dealer-city">Guwahati</div></div>
+        </div>
+        <div class="dealer-location">
+          <div class="dealer-pin" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="dealer-state">Arunachal Pradesh</div><div class="dealer-city">Itanagar</div></div>
+        </div>
+        <div class="dealer-location">
+          <div class="dealer-pin" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="dealer-state">Chhattisgarh</div><div class="dealer-city">Raipur</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- South India -->
+    <div class="dealer-panel" id="region-south" role="tabpanel" aria-labelledby="region-south-tab">
+      <div class="dealer-region-header">
+        <div class="dealer-region-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <div>
+          <div class="dealer-region-title">South India</div>
+          <div class="dealer-region-count">6 regional dealer centres</div>
+        </div>
+      </div>
+      <div class="dealer-locations">
+        <div class="dealer-location">
+          <div class="dealer-pin" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="dealer-state">Karnataka</div><div class="dealer-city">Bengaluru</div></div>
+        </div>
+        <div class="dealer-location">
+          <div class="dealer-pin" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="dealer-state">Kerala</div><div class="dealer-city">Thiruvananthapuram</div></div>
+        </div>
+        <div class="dealer-location">
+          <div class="dealer-pin" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="dealer-state">Telangana</div><div class="dealer-city">Hyderabad</div></div>
+        </div>
+        <div class="dealer-location">
+          <div class="dealer-pin" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="dealer-state">Tamil Nadu</div><div class="dealer-city">Chennai</div></div>
+        </div>
+        <div class="dealer-location">
+          <div class="dealer-pin" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="dealer-state">Andhra Pradesh</div><div class="dealer-city">Amaravati</div></div>
+        </div>
+        <div class="dealer-location">
+          <div class="dealer-pin" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="dealer-state">Puducherry</div><div class="dealer-city">Puducherry</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- West India -->
+    <div class="dealer-panel" id="region-west" role="tabpanel" aria-labelledby="region-west-tab">
+      <div class="dealer-region-header">
+        <div class="dealer-region-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <div>
+          <div class="dealer-region-title">West India</div>
+          <div class="dealer-region-count">6 regional dealer centres</div>
+        </div>
+      </div>
+      <div class="dealer-locations">
+        <div class="dealer-location">
+          <div class="dealer-pin" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="dealer-state">Gujarat</div><div class="dealer-city">Gandhinagar</div></div>
+        </div>
+        <div class="dealer-location">
+          <div class="dealer-pin" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="dealer-state">Maharashtra</div><div class="dealer-city">Mumbai</div></div>
+        </div>
+        <div class="dealer-location">
+          <div class="dealer-pin" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="dealer-state">Rajasthan</div><div class="dealer-city">Jaipur</div></div>
+        </div>
+        <div class="dealer-location">
+          <div class="dealer-pin" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="dealer-state">Goa</div><div class="dealer-city">Panaji</div></div>
+        </div>
+        <div class="dealer-location">
+          <div class="dealer-pin" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="dealer-state">Madhya Pradesh</div><div class="dealer-city">Bhopal</div></div>
+        </div>
+        <div class="dealer-location">
+          <div class="dealer-pin" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="dealer-state">Daman &amp; Diu</div><div class="dealer-city">Daman</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 13: TESTIMONIALS
+     ============================================================ -->
+<section class="testimonials section-pad-sm" aria-labelledby="testimonials-heading">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow anim-fade-up">Client Feedback</span>
+      <h2 class="section-title anim-fade-up anim-delay-1" id="testimonials-heading">What Our Clients Say</h2>
+    </div>
+    <div class="testimonials-placeholder anim-fade-up anim-delay-2">
+      <div class="placeholder-icon" aria-hidden="true">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+      </div>
+      <h3>Customer Testimonials Coming Soon</h3>
+      <p>We are collecting verified video and written testimonials from our corporate and institutional clients. Please check back soon.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 14: CONTACT OUR TEAM & DIRECT WHATSAPP CONSULTATION
+     ============================================================ -->
+<section class="final-cta" id="contact" aria-labelledby="cta-heading">
+  <div class="container">
+    
+    <div class="contact-header-block anim-fade-up">
+      <span class="contact-eyebrow-pill">
+        <i class="fa-solid fa-headset" style="margin-right: 6px;"></i> Industrial Application &amp; Sales Support
+      </span>
+      <h2 class="final-cta-title" id="cta-heading">Contact Our Engineering &amp; Sales Team</h2>
+      <p class="final-cta-desc">
+        Connect directly with our industrial equipment specialists for commercial pricing, turnkey wash plant layouts, customized water recycling, and rapid spares support.
+      </p>
+
+      <!-- Primary Quick Actions Row -->
+      <div class="contact-primary-actions">
+        <!-- Direct WhatsApp Chat -->
+        <a 
+          href="https://wa.me/919311313886?text=Hello%20Ezytek%20Clean%20Team,%20I%20would%20like%20to%20enquire%20about%20your%20industrial%20washing%20equipment." 
+          class="btn-cta-whatsapp"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fa-brands fa-whatsapp" style="font-size: 1.25rem;"></i>
+          <span>Chat on WhatsApp (+91 93113 13886)</span>
+        </a>
+
+        <!-- Call Sales -->
+        <a href="tel:+919311313886" class="btn-cta-call">
+          <i class="fa-solid fa-phone"></i>
+          <span>Call: +91 93113 13886</span>
+        </a>
+
+        <!-- Turnkey Setup (Coming Soon) -->
+        <a href="/products/setup" class="btn-cta-setup">
+          <i class="fa-solid fa-rocket"></i>
+          <span>Car-Washing Setup <span class="badge-soon">Soon</span></span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Contact Cards Grid -->
+    <div class="contact-info-grid anim-fade-up anim-delay-1">
+      
+      <!-- Card 1: Direct WhatsApp Consultation -->
+      <div class="contact-info-card">
+        <div>
+          <div class="contact-card-icon icon-wa">
+            <i class="fa-brands fa-whatsapp"></i>
+          </div>
+          <h3 class="contact-card-title">Instant WhatsApp Support</h3>
+          <p class="contact-card-text">
+            Fast-track equipment quotes, machinery catalogs, technical specs, and live video demonstrations directly on WhatsApp.
+          </p>
+          <div class="contact-card-meta">
+            <span class="meta-label">Direct Line:</span>
+            <a href="https://wa.me/919311313886?text=Hello%20Ezytek%20Clean,%20I%20need%20product%20details." target="_blank" rel="noopener noreferrer" class="contact-link-highlight">
+              +91 93113 13886
+            </a>
+          </div>
+          <div class="contact-card-meta">
+            <span class="meta-label">Response Time:</span>
+            <span>Typically within 10-15 mins</span>
+          </div>
+        </div>
+        <a href="https://wa.me/919311313886?text=Hello%20Ezytek%20Clean,%20I%20need%20product%20details." target="_blank" rel="noopener noreferrer" class="contact-card-btn btn-wa-card">
+          <i class="fa-brands fa-whatsapp"></i> Open WhatsApp Chat
+        </a>
+      </div>
+
+      <!-- Card 2: Interactive Quick Message to WhatsApp -->
+      <div class="contact-info-card contact-form-card">
+        <div>
+          <div class="contact-card-icon icon-chat">
+            <i class="fa-solid fa-paper-plane"></i>
+          </div>
+          <h3 class="contact-card-title">Quick Enquiry to WhatsApp</h3>
+          <p class="contact-card-text">
+            Type your enquiry details below to launch a direct chat with our sales engineers immediately.
+          </p>
+          
+          <form class="home-quick-contact-form" onsubmit="handleHomeWhatsAppRedirect(event)">
+            <div class="form-row-compact">
+              <input type="text" id="homeContactName" placeholder="Your Name / Company" required class="input-compact" />
+            </div>
+            <div class="form-row-compact">
+              <select id="homeContactProduct" class="select-compact">
+                <option value="Automatic Car Wash Plant">Automatic Car Wash Plant</option>
+                <option value="Car-Washing Setup (Turnkey)">Car-Washing Setup (Turnkey)</option>
+                <option value="High Pressure Washer">High Pressure Washer</option>
+                <option value="Floor Scrubber & Sweeper">Floor Scrubber &amp; Sweeper</option>
+                <option value="Component Washing Plant">Component Washing Plant</option>
+                <option value="General Commercial Enquiry">General Commercial Enquiry</option>
+              </select>
+            </div>
+            <div class="form-row-compact">
+              <input type="text" id="homeContactMsg" placeholder="Brief requirement (e.g. 50 cars/day)" class="input-compact" />
+            </div>
+            <button type="submit" class="contact-card-btn btn-send-wa">
+              <i class="fa-brands fa-whatsapp"></i> Send via WhatsApp
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Card 3: Plant Location & Corporate Email -->
+      <div class="contact-info-card">
+        <div>
+          <div class="contact-card-icon icon-mail">
+            <i class="fa-solid fa-envelope-open-text"></i>
+          </div>
+          <h3 class="contact-card-title">Corporate &amp; Factory Office</h3>
+          <p class="contact-card-text">
+            Submit formal RFQs, tender drawings, technical specifications, and dealership enquiries.
+          </p>
+          <div class="contact-card-meta">
+            <span class="meta-label">Email:</span>
+            <a href="mailto:info@ezytek.in" class="contact-link-highlight">info@ezytek.in</a>
+          </div>
+          <div class="contact-card-meta">
+            <span class="meta-label">Working Hours:</span>
+            <span>Mon–Sat: 9:00 AM – 6:30 PM IST</span>
+          </div>
+        </div>
+        <a href="mailto:info@ezytek.in?subject=Commercial%20Equipment%20Enquiry%20-%20Ezytek%20Clean" class="contact-card-btn btn-mail-card">
+          <i class="fa-solid fa-envelope"></i> Send Email Proposal
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 15: FOOTER
+     ============================================================ -->
+<%- include('footer') %>
+
+<!-- Main Scripts -->
+<script src="/js/home.js?v=3.8" defer></script>
+
+<!-- ── Apple-style Scroll Frame Animation ──────────────────────────── -->
+<script>
+(function () {
+  // ── CONFIG ───────────────────────────────────────────────────────────
+  var TOTAL_FRAMES = 300;                     // 300 frames total
+  var FRAME_PREFIX = '/frame_images/ezgif-frame-';  // exact folder + filename prefix
+  var FRAME_EXT    = '.jpg';
+  // ─────────────────────────────────────────────────────────────────────
+
+  /* Zero-pad frame number: 1 → "001", 12 → "012", 300 → "300" */
+  function padFrame(n) {
+    return n < 10 ? '00' + n : n < 100 ? '0' + n : '' + n;
+  }
+
+  var canvas      = document.getElementById('frameCanvas');
+  var ctx         = canvas.getContext('2d');
+  var loader      = document.getElementById('frameLoader');
+  var loaderFill  = document.getElementById('frameLoaderFill');
+  var loaderText  = document.getElementById('frameLoaderText');
+  var captionWrap = document.getElementById('frameCaptionWrap');
+
+  var frames         = [];
+  var currentFrame   = 0;
+  var rafPending     = false;
+
+  /* ── Responsive canvas: fills viewport with cover-fit ── */
+  function resizeCanvas() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    drawFrame(currentFrame);
+  }
+  window.addEventListener('resize', resizeCanvas, { passive: true });
+  resizeCanvas();
+
+  /* ── Draw a single frame, cover-scaled ── */
+  function drawFrame(index) {
+    var i   = Math.max(0, Math.min(TOTAL_FRAMES - 1, Math.round(index)));
+    var img = frames[i];
+    if (!img || !img.complete || !img.naturalWidth) return;
+    currentFrame = i;
+
+    var cw = canvas.width,  ch = canvas.height;
+    var iw = img.naturalWidth, ih = img.naturalHeight;
+    var scale  = Math.max(cw / iw, ch / ih);
+    var drawW  = iw * scale,  drawH = ih * scale;
+    var dx     = (cw - drawW) / 2, dy = (ch - drawH) / 2;
+
+    ctx.clearRect(0, 0, cw, ch);
+    ctx.drawImage(img, dx, dy, drawW, drawH);
+  }
+
+  /* ── Preload all frames, show progress ── */
+  function preload(onDone) {
+    document.body.style.overflow = 'hidden'; // lock scroll during load
+    var loaded = 0;
+    for (var i = 1; i <= TOTAL_FRAMES; i++) {
+      (function (idx) {
+        var img = new Image();
+        img.src = FRAME_PREFIX + padFrame(idx) + FRAME_EXT;
+        frames[idx - 1] = img;
+        img.onload = img.onerror = function () {
+          loaded++;
+          var pct = Math.round((loaded / TOTAL_FRAMES) * 100);
+          loaderFill.style.width = pct + '%';
+          loaderText.textContent = pct + '%';
+          if (loaded === TOTAL_FRAMES) onDone();
+        };
+      })(i);
+    }
+  }
+
+  /* ── Init GSAP scroll animation after preload ── */
+  function initAnimation() {
+    document.body.style.overflow = ''; // restore scroll
+
+    // Fade out loader
+    loader.classList.add('hidden');
+    setTimeout(function () { loader.style.display = 'none'; }, 520);
+
+    drawFrame(0); // paint first frame immediately
+
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+      console.warn('GSAP not available — frame animation skipped.');
+      return;
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    var anim = { frame: 0 };
+
+    gsap.to(anim, {
+      frame: TOTAL_FRAMES - 1,
+      ease: 'none',
+      snap: { snapTo: 1, duration: 0 },
+      scrollTrigger: {
+        trigger: '#frameScrollSection',
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 0.6,
+        onUpdate: function (self) {
+          if (!rafPending) {
+            rafPending = true;
+            requestAnimationFrame(function () {
+              drawFrame(anim.frame);
+              rafPending = false;
+            });
+          }
+          // Fade caption in during the second half of the scroll
+          if (captionWrap) {
+            captionWrap.style.opacity = self.progress > 0.45
+              ? Math.min(1, (self.progress - 0.45) * 2.5).toFixed(3)
+              : '0';
+          }
+        }
+      }
+    });
+  }
+
+  /* ── Load GSAP from CDN if not already on the page ── */
+  function loadScript(src, cb) {
+    var s   = document.createElement('script');
+    s.src   = src;
+    s.onload = cb;
+    document.head.appendChild(s);
+  }
+
+  /* ── Entry point ── */
+  preload(function () {
+    if (typeof gsap !== 'undefined') {
+      initAnimation();
+    } else {
+      loadScript(
+        'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',
+        function () {
+          loadScript(
+            'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js',
+            initAnimation
+          );
+        }
+      );
+    }
+  });
+})();
+
+// WhatsApp Direct Lead Generator for Homepage Contact Section
+function handleHomeWhatsAppRedirect(e) {
+  e.preventDefault();
+  var nameEl = document.getElementById('homeContactName');
+  var prodEl = document.getElementById('homeContactProduct');
+  var msgEl  = document.getElementById('homeContactMsg');
+
+  var name = nameEl ? nameEl.value.trim() : 'Client';
+  var prod = prodEl ? prodEl.value : 'Industrial Cleaning Equipment';
+  var msg  = msgEl ? msgEl.value.trim() : '';
+
+  var text = 'Hello Ezytek Clean Team,\nMy name is ' + name + '.\nI am interested in: ' + prod + '.';
+  if (msg) {
+    text += '\nRequirement details: ' + msg;
+  }
+
+  var waUrl = 'https://wa.me/919311313886?text=' + encodeURIComponent(text);
+  window.open(waUrl, '_blank');
+}
+</script>
+
+</body>
+</html>

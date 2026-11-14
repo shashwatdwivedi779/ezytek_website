@@ -1,0 +1,461 @@
+/* ============================================================
+   EZYTEK CLEAN — OPTIMIZED NAVBAR STYLES
+   Fields: Home | Products (No Slider) | WorkProof | Contact us
+   Actions: Search | Account | Card | Get Quote
+   ============================================================ */
+
+.site-header {
+  position: fixed;
+  top: 0; 
+  left: 0; 
+  right: 0;
+  z-index: 9999;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+  padding: 0;
+  border-bottom: 1px solid rgba(16, 42, 67, 0.06);
+}
+
+.site-header.scrolled {
+  box-shadow: 0 4px 20px rgba(16, 42, 67, 0.08);
+  border-bottom-color: #E2EAF4;
+  background: rgba(255, 255, 255, 0.98);
+}
+
+.nav-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+}
+
+/* ── Brand Logo ── */
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.nav-logo-mark {
+  width: 44px; 
+  height: 44px;
+  background: #FFFFFF;
+  border-radius: 10px;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  border: 1px solid rgba(16, 42, 67, 0.08);
+  box-shadow: 0 2px 8px rgba(16, 42, 67, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.nav-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.nav-logo:hover .nav-logo-mark {
+  transform: scale(1.05);
+  border-color: rgba(2, 132, 199, 0.35);
+  box-shadow: 0 6px 18px rgba(2, 132, 199, 0.25);
+}
+
+.nav-logo-text { 
+  display: flex; 
+  flex-direction: column; 
+  line-height: 1.1; 
+}
+
+.nav-logo-name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #102A43;
+  letter-spacing: -0.01em;
+}
+
+.nav-logo-tagline {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #1E88E5;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ── Desktop Links (Home, Products, WorkProof, Contact us) ── */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item { 
+  position: relative; 
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #172B3A;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+  position: relative;
+  border: 1px solid transparent;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 2px; 
+  left: 14px; 
+  right: 14px;
+  height: 3px;
+  background: linear-gradient(90deg, #1565C0, #2196F3, #60A5FA);
+  transform: scaleX(0);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border-radius: 3px;
+}
+
+.nav-link:hover::after { 
+  transform: scaleX(1); 
+}
+
+.nav-link:hover {
+  color: #1565C0;
+  background: #EAF4FF;
+}
+
+/* ── Glowing Active State for Desktop Nav Links ── */
+.nav-link.active {
+  color: #0D47A1 !important;
+  background: linear-gradient(135deg, rgba(234, 244, 255, 0.95), rgba(219, 234, 254, 0.85)) !important;
+  border: 1px solid rgba(33, 150, 243, 0.5) !important;
+  box-shadow: 0 0 16px rgba(33, 150, 243, 0.4), 0 2px 6px rgba(21, 101, 192, 0.15);
+  font-weight: 700;
+  animation: navGlowPulse 3s infinite ease-in-out;
+}
+
+.nav-link.active::after {
+  transform: scaleX(1);
+  box-shadow: 0 0 10px rgba(33, 150, 243, 0.95), 0 0 18px rgba(33, 150, 243, 0.6);
+}
+
+@keyframes navGlowPulse {
+  0%, 100% {
+    box-shadow: 0 0 12px rgba(33, 150, 243, 0.35), 0 2px 6px rgba(21, 101, 192, 0.12);
+  }
+  50% {
+    box-shadow: 0 0 22px rgba(33, 150, 243, 0.65), 0 2px 8px rgba(21, 101, 192, 0.22);
+  }
+}
+
+/* ── Actions: Search, Account, Card, Get Quote ── */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-icon-btn {
+  width: 40px; 
+  height: 40px;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  border-radius: 50%;
+  color: #64748B;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.nav-icon-btn:hover { 
+  background: #EAF4FF; 
+  color: #1565C0;
+  transform: translateY(-1px);
+}
+
+/* ── Glowing Active State for Icon Buttons ── */
+.nav-icon-btn.active {
+  color: #0D47A1 !important;
+  background: linear-gradient(135deg, #EAF4FF, rgba(219, 234, 254, 0.95)) !important;
+  border: 1px solid rgba(33, 150, 243, 0.5) !important;
+  box-shadow: 0 0 16px rgba(33, 150, 243, 0.45), 0 2px 6px rgba(21, 101, 192, 0.18) !important;
+  transform: translateY(-1px);
+  animation: navGlowPulse 3s infinite ease-in-out;
+}
+
+.nav-icon-btn.active svg {
+  stroke: #0D47A1;
+  filter: drop-shadow(0 0 4px rgba(33, 150, 243, 0.6));
+}
+
+.nav-icon-btn svg {
+  display: block;
+}
+
+/* Card / Cart Badge */
+.cart-badge {
+  position: absolute;
+  top: 4px; 
+  right: 4px;
+  min-width: 17px; 
+  height: 17px;
+  padding: 0 4px;
+  background: #1565C0;
+  color: #FFFFFF;
+  font-size: 0.62rem;
+  font-weight: 700;
+  border-radius: 10px;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  line-height: 1;
+}
+
+/* Get Quote CTA */
+.nav-quote-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 20px;
+  background: #1565C0;
+  color: #FFFFFF;
+  border-radius: 50px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(21, 101, 192, 0.2);
+}
+
+.nav-quote-btn:hover {
+  background: #0D47A1;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(21, 101, 192, 0.35);
+  color: #FFFFFF;
+}
+
+.nav-quote-btn.active {
+  background: #0D47A1 !important;
+  border: 1px solid rgba(147, 197, 253, 0.6) !important;
+  box-shadow: 0 0 18px rgba(33, 150, 243, 0.65), 0 4px 14px rgba(21, 101, 192, 0.4) !important;
+  animation: navGlowPulse 3s infinite ease-in-out;
+}
+
+/* ── Mobile Hamburger ── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.nav-hamburger:hover { 
+  background: #EAF4FF; 
+}
+
+.nav-hamburger span {
+  display: block;
+  width: 22px; 
+  height: 2px;
+  background: #102A43;
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+  margin: 0 auto;
+}
+
+.nav-hamburger.open span:nth-child(1) { 
+  transform: translateY(7px) rotate(45deg); 
+}
+.nav-hamburger.open span:nth-child(2) { 
+  opacity: 0; 
+  transform: scaleX(0); 
+}
+.nav-hamburger.open span:nth-child(3) { 
+  transform: translateY(-7px) rotate(-45deg); 
+}
+
+/* ── Mobile Menu Drawer ── */
+.mobile-menu {
+  position: fixed;
+  top: 70px; 
+  left: 0; 
+  right: 0; 
+  bottom: 0;
+  width: 100%;
+  height: calc(100vh - 70px);
+  height: calc(100dvh - 70px);
+  background: #FFFFFF;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  z-index: 9998;
+  padding: 20px 24px 60px;
+  transform: translateY(-8px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.28s ease;
+  box-shadow: 0 20px 40px rgba(16, 42, 67, 0.12);
+  border-top: 1px solid #E2EAF4;
+}
+
+.mobile-menu.open { 
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.mobile-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mobile-nav-link {
+  display: block;
+  padding: 14px 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #172B3A;
+  text-decoration: none;
+  border-bottom: 1px solid #E2EAF4;
+  transition: color 0.2s ease, padding-left 0.2s ease;
+}
+
+.mobile-nav-link:hover { 
+  color: #1565C0;
+  padding-left: 6px;
+}
+
+.mobile-nav-link.active {
+  color: #0D47A1 !important;
+  font-weight: 700 !important;
+  background: linear-gradient(90deg, rgba(234, 244, 255, 0.95), rgba(255, 255, 255, 0.2)) !important;
+  padding-left: 14px !important;
+  border-left: 4px solid #1565C0 !important;
+  border-radius: 0 8px 8px 0;
+  box-shadow: inset 4px 0 12px rgba(33, 150, 243, 0.35), 0 0 12px rgba(33, 150, 243, 0.15) !important;
+}
+
+.mobile-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.mobile-action-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 8px;
+  background: #F8FAFC;
+  border: 1px solid #E2EAF4;
+  border-radius: 10px;
+  color: #102A43;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.mobile-action-pill:hover {
+  background: #EAF4FF;
+  border-color: #1565C0;
+  color: #1565C0;
+}
+
+.mobile-action-pill.active {
+  background: #EAF4FF !important;
+  border-color: #1565C0 !important;
+  color: #0D47A1 !important;
+  box-shadow: 0 0 14px rgba(33, 150, 243, 0.45) !important;
+  font-weight: 700 !important;
+}
+
+.mobile-action-pill svg {
+  color: #1565C0;
+}
+
+.mobile-cta { 
+  margin-top: 20px; 
+}
+
+.mobile-quote-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 13px 20px;
+  background: #1565C0;
+  color: #FFFFFF;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(21, 101, 192, 0.3);
+}
+
+.mobile-quote-btn:hover {
+  background: #0D47A1;
+}
+
+/* ── Responsive Viewports ── */
+@media (max-width: 960px) {
+  .nav-links {
+    display: none;
+  }
+  .nav-hamburger {
+    display: flex;
+  }
+  .nav-quote-btn {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-logo-name {
+    font-size: 1.1rem;
+  }
+  .nav-logo-tagline {
+    font-size: 0.6rem;
+  }
+  .nav-logo-mark {
+    width: 36px;
+    height: 36px;
+    font-size: 0.95rem;
+  }
+}

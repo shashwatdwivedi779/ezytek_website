@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard – Ezytek Clean</title>
+
+  <!-- Preconnect & Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Self-Contained Stylesheets -->
+  <link rel="stylesheet" href="/css/after.css" />
+  <link rel="stylesheet" href="/css/footer.css" />
+</head>
+<body>
+
+<% if (!user) { %>
+  <!-- Fallback Guard if session has expired or user is undefined -->
+  <main class="dash-wrap" style="text-align:center; padding: 80px 20px;">
+    <div style="max-width: 440px; margin: 0 auto; background: var(--bg-surface); padding: 36px; border: 1px solid var(--border-light); border-radius: var(--radius-lg); box-shadow: var(--shadow-card);">
+      <i class="fa-solid fa-lock" style="font-size: 2.5rem; color: var(--brand-blue); margin-bottom: 16px;"></i>
+      <h2 style="font-size: 1.35rem; color: var(--brand-navy); margin-bottom: 8px;">Access Restricted</h2>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 24px;">Please sign in to access your personal dashboard.</p>
+      <a href="/login" style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; background: var(--brand-blue); color: #fff; border-radius: var(--radius-md); font-weight: 600;">
+        <i class="fa-solid fa-right-to-bracket"></i> Sign In
+      </a>
+    </div>
+  </main>
+<% } else { %>
+
+  <!-- ══ EXECUTIVE DASHBOARD NAVBAR ══════════════════════════════ -->
+  <nav class="navbar" role="navigation" aria-label="Dashboard Navigation">
+    <a href="/" class="nav-logo" aria-label="Ezytek Clean - Home">
+      <div class="nav-logo-mark" aria-hidden="true">
+        <img src="/uploads/logo_op.jpeg" alt="Ezytek Clean Logo" class="nav-logo-img" onerror="this.onerror=null; this.src='/logo_op.jpeg';" />
+      </div>
+      <div>
+        <div class="nav-logo-name">EZYTEK</div>
+        <div class="nav-logo-tag">Clean Pvt. Ltd.</div>
+      </div>
+    </a>
+
+    <!-- Role-Based Nav Links -->
+    <ul class="nav-links" role="list">
+      <li><a href="/"><i class="fa-solid fa-house" style="margin-right: 6px;"></i>Home</a></li>
+      <% if (user.role === 'Admin') { %>
+        <li><a href="/master/upload"><i class="fa-solid fa-plus-circle" style="margin-right: 6px;"></i>Upload Product</a></li>
+        <li><a href="/master/products"><i class="fa-solid fa-boxes-stacked" style="margin-right: 6px;"></i>All Products</a></li>
+        <li><a href="/master/quotes"><i class="fa-solid fa-file-invoice-dollar" style="margin-right: 6px;"></i>Manage Quotes</a></li>
+        <li><a href="/master/costomer_data"><i class="fa-solid fa-users" style="margin-right: 6px;"></i>Customers</a></li>
+        <li><a href="/master/workproof"><i class="fa-solid fa-video" style="margin-right: 6px;"></i>Work Proof</a></li>
+      <% } else { %>
+        <li><a href="/user/card"><i class="fa-solid fa-cart-shopping" style="margin-right: 6px;"></i>My Cart</a></li>
+        <li><a href="/user/orders"><i class="fa-solid fa-box-open" style="margin-right: 6px;"></i>My Orders</a></li>
+        <li><a href="/user/change_pass"><i class="fa-solid fa-key" style="margin-right: 6px;"></i>Change Password</a></li>
+      <% } %>
+    </ul>
+
+    <!-- User Header Controls -->
+    <div class="nav-right">
+      <div class="avatar" title="<%= user.userName %>"><%= (user.userName || 'U').charAt(0).toUpperCase() %></div>
+      <span class="nav-username"><%= user.userName %></span>
+      <span class="nav-role-badge <%= user.role === 'Admin' ? 'admin' : '' %>"><%= user.role %></span>
+      
+      <form action="/logout" method="GET" style="margin:0;">
+        <button type="submit" class="btn-logout" aria-label="Sign out of account">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          <span>Logout</span>
+        </button>
+      </form>
+
+      <button class="hamburger" id="hamburger" aria-label="Open mobile menu" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile Navigation">
+    <a href="/"><i class="fa-solid fa-house" style="margin-right: 8px;"></i>Home</a>
+    <% if (user.role === 'Admin') { %>
+      <a href="/master/upload"><i class="fa-solid fa-plus-circle" style="margin-right: 8px;"></i>Upload Product</a>
+      <a href="/master/products"><i class="fa-solid fa-boxes-stacked" style="margin-right: 8px;"></i>All Products</a>
+      <a href="/master/quotes"><i class="fa-solid fa-file-invoice-dollar" style="margin-right: 8px;"></i>Manage Quotes</a>
+      <a href="/master/costomer_data"><i class="fa-solid fa-users" style="margin-right: 8px;"></i>Customers</a>
+      <a href="/master/workproof"><i class="fa-solid fa-video" style="margin-right: 8px;"></i>Work Proof</a>
+    <% } else { %>
+      <a href="/user/card"><i class="fa-solid fa-cart-shopping" style="margin-right: 8px;"></i>My Cart</a>
+      <a href="/user/orders"><i class="fa-solid fa-box-open" style="margin-right: 8px;"></i>My Orders</a>
+      <a href="/user/change_pass"><i class="fa-solid fa-key" style="margin-right: 8px;"></i>Change Password</a>
+    <% } %>
+    <form action="/logout" method="GET" style="margin-top: 0.8rem;">
+      <button type="submit" class="btn-logout" style="width: 100%; justify-content: center;">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+      </button>
+    </form>
+  </div>
+
+  <!-- ══ MAIN DASHBOARD CONTENT ═════════════════════════════════ -->
+  <main class="dash-wrap">
+
+    <!-- HERO WELCOME BANNER -->
+    <header class="hero">
+      <div class="hero-text">
+        <h1>Welcome back, <span><%= user.userName %></span> 👋</h1>
+        <p>
+          <%= user.role === 'Admin' 
+            ? 'Executive Operations & Industrial Equipment Management Portal.' 
+            : 'Your personal commercial cleaning machinery and quotations portal.' %>
+        </p>
+        <div class="hero-meta">
+          <span class="hero-pill"><i class="fa-solid fa-envelope"></i> <%= user.email %></span>
+          <span class="hero-pill"><i class="fa-solid fa-location-dot"></i> <%= user.city || 'India' %></span>
+          <span class="hero-pill">
+            <i class="fa-solid fa-calendar-check"></i> Member since <%= new Date(user.createdAt).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' }) %>
+          </span>
+        </div>
+      </div>
+      <div class="hero-img">
+        <img src="/category/pressure_washer.png" alt="Industrial Cleaning Equipment" onerror="this.onerror=null;this.src='/category/pressure_washer.png';" />
+      </div>
+    </header>
+
+    <!-- ━━ ADMIN OPERATIONS SECTION ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <% if (user.role === 'Admin') { %>
+
+      <!-- Overview KPI Stats -->
+      <section aria-labelledby="overview-heading" style="margin-bottom: 2.2rem;">
+        <div class="section-title" id="overview-heading">
+          <i class="fa-solid fa-chart-line"></i>
+          <span>Store Overview &amp; Metrics</span>
+          <div class="line"></div>
+        </div>
+
+        <div class="card-grid cols-4">
+          <!-- Stat 1: Total Products -->
+          <div class="stat-card">
+            <div class="stat-icon blue"><i class="fa-solid fa-box-archive"></i></div>
+            <div class="stat-info">
+              <div class="num" style="color: var(--blue);"><%= (typeof stats !== 'undefined' && stats) ? stats.totalProducts : '—' %></div>
+              <div class="label">Total Listed Products</div>
+            </div>
+          </div>
+
+          <!-- Stat 2: Total Customers -->
+          <div class="stat-card">
+            <div class="stat-icon green"><i class="fa-solid fa-users"></i></div>
+            <div class="stat-info">
+              <div class="num" style="color: var(--green);"><%= (typeof stats !== 'undefined' && stats) ? stats.totalCustomers : '—' %></div>
+              <div class="label">Registered Customers</div>
+            </div>
+          </div>
+
+          <!-- Stat 3: Orders / Quotes -->
+          <a href="/master/quotes" class="stat-card" style="text-decoration: none; color: inherit;">
+            <div class="stat-icon orange"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+            <div class="stat-info">
+              <div class="num" style="color: var(--orange);"><%= (typeof stats !== 'undefined' && stats) ? stats.totalOrders : '—' %></div>
+              <div class="label">Quotation Enquiries</div>
+            </div>
+          </a>
+
+          <!-- Stat 4: Revenue (Pending) -->
+          <div class="stat-card">
+            <div class="stat-icon purple"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+            <div class="stat-info">
+              <div class="num" style="color: var(--purple);">—</div>
+              <div class="label">Revenue (Pending)</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Admin Quick Actions -->
+      <section aria-labelledby="admin-actions-heading" style="margin-bottom: 2.2rem;">
+        <div class="section-title" id="admin-actions-heading">
+          <i class="fa-solid fa-bolt"></i>
+          <span>Admin Quick Actions</span>
+          <div class="line"></div>
+        </div>
+
+        <div class="card-grid cols-4">
+          <!-- Upload Product -->
+          <a href="/master/upload" class="action-card">
+            <div class="card-icon blue"><i class="fa-solid fa-plus-circle"></i></div>
+            <h3>Upload Product</h3>
+            <p>Publish new commercial machinery with specifications, pricing &amp; gallery images.</p>
+            <span class="card-arrow">Upload <i class="fa-solid fa-arrow-right"></i></span>
+          </a>
+
+          <!-- Manage Products -->
+          <a href="/master/products" class="action-card">
+            <div class="card-icon green"><i class="fa-solid fa-boxes-stacked"></i></div>
+            <h3>Manage Products</h3>
+            <p>Browse full catalog, update technical details, edit pricing, or remove equipment.</p>
+            <span class="card-arrow">Manage <i class="fa-solid fa-arrow-right"></i></span>
+          </a>
+
+          <!-- Quote Management -->
+          <a href="/master/quotes" class="action-card">
+            <div class="card-icon orange"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+            <h3>Quote Management</h3>
+            <p>Review customer quotation requests, analyze technical requirements, accept or manage quotes.</p>
+            <span class="card-arrow">Manage Quotes <i class="fa-solid fa-arrow-right"></i></span>
+          </a>
+
+        
+
+          <!-- Work Proof -->
+          <a href="/master/workproof" class="action-card">
+            <div class="card-icon purple"><i class="fa-solid fa-video"></i></div>
+            <h3>Work Proof</h3>
+            <p>Add YouTube videos and verified installation projects for client reference.</p>
+            <span class="card-arrow">Add Video <i class="fa-solid fa-arrow-right"></i></span>
+          </a>
+        </div>
+      </section>
+
+    <% } %>
+
+    <!-- ━━ CUSTOMER QUICK ACTIONS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <% if (user.role !== 'Admin') { %>
+      <section aria-labelledby="customer-actions-heading" style="margin-bottom: 2.2rem;">
+        <div class="section-title" id="customer-actions-heading">
+          <i class="fa-solid fa-bolt"></i>
+          <span>Account Quick Actions</span>
+          <div class="line"></div>
+        </div>
+
+        <div class="card-grid cols-4">
+          <!-- Browse Products -->
+          <a href="/products" class="action-card">
+            <div class="card-icon blue"><i class="fa-solid fa-store"></i></div>
+            <h3>Browse Catalog</h3>
+            <p>Explore high-pressure washers, vehicle washing plants, and accessories.</p>
+            <span class="card-arrow">Catalog <i class="fa-solid fa-arrow-right"></i></span>
+          </a>
+
+          <!-- My Cart -->
+          <a href="/user/card" class="action-card">
+            <div class="card-icon green"><i class="fa-solid fa-cart-shopping"></i></div>
+            <h3>My Saved Cart</h3>
+            <p>Review machinery saved to your enquiry cart and request commercial quotes.</p>
+            <span class="card-arrow">View Cart <i class="fa-solid fa-arrow-right"></i></span>
+          </a>
+
+          <!-- My Orders -->
+          <a href="/user/orders" class="action-card">
+            <div class="card-icon orange"><i class="fa-solid fa-box-open"></i></div>
+            <h3>My Orders &amp; Quotes</h3>
+            <p>Track formal quotations, requested proposals, and order statuses in real time.</p>
+            <span class="card-arrow">Track <i class="fa-solid fa-arrow-right"></i></span>
+          </a>
+
+          <!-- Change Password -->
+          <a href="/user/change_pass" class="action-card">
+            <div class="card-icon purple"><i class="fa-solid fa-key"></i></div>
+            <h3>Security Settings</h3>
+            <p>Update your account access credentials and manage security preferences.</p>
+            <span class="card-arrow">Update <i class="fa-solid fa-arrow-right"></i></span>
+          </a>
+        </div>
+      </section>
+    <% } %>
+
+    <!-- ━━ PROFILE DETAILS SECTION ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <section aria-labelledby="profile-heading" style="margin-bottom: 2rem;">
+      <div class="section-title" id="profile-heading">
+        <i class="fa-solid fa-circle-user"></i>
+        <span>My Account Profile</span>
+        <div class="line"></div>
+      </div>
+
+      <div class="profile-card" style="max-width: 540px;">
+        <!-- Name -->
+        <div class="profile-row">
+          <div class="profile-row-icon"><i class="fa-solid fa-user"></i></div>
+          <span class="label">Full Name</span>
+          <span class="val"><%= user.userName %></span>
+        </div>
+        <div class="profile-sep"></div>
+
+        <!-- Email -->
+        <div class="profile-row">
+          <div class="profile-row-icon"><i class="fa-solid fa-envelope"></i></div>
+          <span class="label">Email Address</span>
+          <span class="val"><%= user.email %></span>
+        </div>
+        <div class="profile-sep"></div>
+
+        <!-- City -->
+        <div class="profile-row">
+          <div class="profile-row-icon"><i class="fa-solid fa-location-dot"></i></div>
+          <span class="label">City / Region</span>
+          <span class="val"><%= user.city || 'India' %></span>
+        </div>
+        <div class="profile-sep"></div>
+
+        <!-- Role -->
+        <div class="profile-row">
+          <div class="profile-row-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <span class="label">Account Role</span>
+          <span class="val"><%= user.role %></span>
+        </div>
+        <div class="profile-sep"></div>
+
+        <!-- Registration Date -->
+        <div class="profile-row">
+          <div class="profile-row-icon"><i class="fa-solid fa-calendar-check"></i></div>
+          <span class="label">Registered On</span>
+          <span class="val"><%= new Date(user.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }) %></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ━━ IN-DASHBOARD CHANGE PASSWORD MODAL (CUSTOMER) ━━━━━━━━ -->
+    <% if (user.role !== 'Admin') { %>
+      <div class="dash-modal-backdrop" id="pwdModalBackdrop" style="display: none;">
+        <div class="dash-modal" id="pwdModal" role="dialog" aria-modal="true" aria-labelledby="pwdModalTitle">
+          <div class="dash-modal-header">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div style="width: 40px; height: 40px; border-radius: 10px; background: #EDE9FE; color: #7C3AED; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">
+                <i class="fa-solid fa-key"></i>
+              </div>
+              <div>
+                <h3 id="pwdModalTitle" style="margin: 0; font-size: 1.15rem; color: var(--brand-navy); font-weight: 700;">Change Password</h3>
+                <p style="margin: 2px 0 0; font-size: 0.8rem; color: var(--text-muted);">Manage your customer portal credentials</p>
+              </div>
+            </div>
+            <button type="button" class="dash-modal-close" id="closePwdModal" aria-label="Close dialog">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+
+          <div class="dash-modal-body">
+            <div id="modalAlert" style="display: none; padding: 10px 14px; border-radius: 8px; font-size: 0.85rem; margin-bottom: 16px;"></div>
+
+            <form id="modalPwdForm" action="/user/change_pass" method="POST" novalidate>
+              <!-- Current Password -->
+              <div style="margin-bottom: 16px;">
+                <label style="display: block; font-size: 0.84rem; font-weight: 600; color: var(--brand-navy); margin-bottom: 6px;">Current Password</label>
+                <div style="position: relative; display: flex; align-items: center;">
+                  <i class="fa-solid fa-lock" style="position: absolute; left: 12px; color: #94A3B8; font-size: 0.9rem;"></i>
+                  <input type="password" id="mCurrentPass" name="currentPassword" required style="width: 100%; height: 42px; padding: 0 40px 0 36px; border: 1px solid var(--border-medium); border-radius: 8px; font-size: 0.9rem;" placeholder="Enter current password" />
+                  <button type="button" class="m-toggle-eye" data-target="mCurrentPass" style="position: absolute; right: 10px; background: none; border: none; color: #94A3B8; cursor: pointer; padding: 4px;">
+                    <i class="fa-regular fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- New Password -->
+              <div style="margin-bottom: 16px;">
+                <label style="display: block; font-size: 0.84rem; font-weight: 600; color: var(--brand-navy); margin-bottom: 6px;">New Password</label>
+                <div style="position: relative; display: flex; align-items: center;">
+                  <i class="fa-solid fa-key" style="position: absolute; left: 12px; color: #94A3B8; font-size: 0.9rem;"></i>
+                  <input type="password" id="mNewPass" name="newPassword" minlength="6" required style="width: 100%; height: 42px; padding: 0 40px 0 36px; border: 1px solid var(--border-medium); border-radius: 8px; font-size: 0.9rem;" placeholder="At least 6 characters" />
+                  <button type="button" class="m-toggle-eye" data-target="mNewPass" style="position: absolute; right: 10px; background: none; border: none; color: #94A3B8; cursor: pointer; padding: 4px;">
+                    <i class="fa-regular fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Confirm Password -->
+              <div style="margin-bottom: 16px;">
+                <label style="display: block; font-size: 0.84rem; font-weight: 600; color: var(--brand-navy); margin-bottom: 6px;">Confirm New Password</label>
+                <div style="position: relative; display: flex; align-items: center;">
+                  <i class="fa-solid fa-check-double" style="position: absolute; left: 12px; color: #94A3B8; font-size: 0.9rem;"></i>
+                  <input type="password" id="mConfirmPass" name="confirmPassword" required style="width: 100%; height: 42px; padding: 0 40px 0 36px; border: 1px solid var(--border-medium); border-radius: 8px; font-size: 0.9rem;" placeholder="Re-enter new password" />
+                  <button type="button" class="m-toggle-eye" data-target="mConfirmPass" style="position: absolute; right: 10px; background: none; border: none; color: #94A3B8; cursor: pointer; padding: 4px;">
+                    <i class="fa-regular fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Live Validation Checklist -->
+              <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 10px 14px; margin-bottom: 20px; font-size: 0.78rem; color: #64748B;">
+                <div id="mReqLen" style="display: flex; align-items: center; gap: 6px; margin-bottom: 3px;">
+                  <i class="fa-regular fa-circle"></i> <span>Minimum 6 characters</span>
+                </div>
+                <div id="mReqDiff" style="display: flex; align-items: center; gap: 6px; margin-bottom: 3px;">
+                  <i class="fa-regular fa-circle"></i> <span>Different from current password</span>
+                </div>
+                <div id="mReqMatch" style="display: flex; align-items: center; gap: 6px;">
+                  <i class="fa-regular fa-circle"></i> <span>Passwords match</span>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button type="button" id="btnCancelModal" style="height: 40px; padding: 0 16px; border: 1px solid #E2E8F0; background: #F8FAFC; border-radius: 8px; font-size: 0.88rem; font-weight: 600; color: #475569; cursor: pointer;">
+                  Cancel
+                </button>
+                <button type="submit" id="btnSubmitModal" style="height: 40px; padding: 0 20px; border: none; background: #7C3AED; color: #fff; border-radius: 8px; font-size: 0.88rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);">
+                  <i class="fa-solid fa-shield-halved"></i> <span>Update Password</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <style>
+        .dash-modal-backdrop {
+          position: fixed;
+          top: 0; left: 0; right: 0; bottom: 0;
+          background: rgba(15, 32, 56, 0.5);
+          backdrop-filter: blur(4px);
+          -webkit-backdrop-filter: blur(4px);
+          z-index: 10000;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+        }
+        .dash-modal {
+          background: #FFFFFF;
+          width: 100%;
+          max-width: 480px;
+          border-radius: 16px;
+          box-shadow: 0 20px 48px rgba(15, 32, 56, 0.25);
+          overflow: hidden;
+          animation: modalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes modalPop {
+          from { opacity: 0; transform: scale(0.95) translateY(8px); }
+          to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .dash-modal-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 18px 24px;
+          border-bottom: 1px solid #E2E8F0;
+          background: #F8FAFC;
+        }
+        .dash-modal-close {
+          background: none;
+          border: none;
+          font-size: 1.2rem;
+          color: #94A3B8;
+          cursor: pointer;
+          width: 32px;
+          height: 32px;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.2s;
+        }
+        .dash-modal-close:hover {
+          background: #EDE9FE;
+          color: #7C3AED;
+        }
+        .dash-modal-body {
+          padding: 24px;
+        }
+      </style>
+    <% } %>
+
+  </main>
+
+  <!-- Global Footer -->
+  <%- include('footer') %>
+
+<% } %>
+
+<script>
+  // Mobile Hamburger Menu Toggle
+  const hamburgerBtn = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (hamburgerBtn && mobileMenu) {
+    hamburgerBtn.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      hamburgerBtn.setAttribute('aria-expanded', isOpen);
+    });
+  }
+
+  // Active Navigation Link Highlight
+  (function() {
+    const curPath = (window.location.pathname || '').replace(/\/+$/, '') || '/';
+    const links = document.querySelectorAll('.nav-links a, .mobile-menu a');
+    links.forEach(a => {
+      const href = a.getAttribute('href');
+      if (href) {
+        const cleanHref = href.split('?')[0].replace(/\/+$/, '') || '/';
+        if (cleanHref === curPath) {
+          a.classList.add('active');
+        }
+      }
+    });
+  })();
+
+  // ━━ In-Dashboard Change Password Modal Interactions (Customer) ━━
+  (function() {
+    const backdrop = document.getElementById('pwdModalBackdrop');
+    const closeBtn = document.getElementById('closePwdModal');
+    const cancelBtn = document.getElementById('btnCancelModal');
+    const form = document.getElementById('modalPwdForm');
+    const alertBox = document.getElementById('modalAlert');
+    const btnSubmit = document.getElementById('btnSubmitModal');
+
+    const curPass = document.getElementById('mCurrentPass');
+    const newPass = document.getElementById('mNewPass');
+    const confPass = document.getElementById('mConfirmPass');
+
+    const reqLen = document.getElementById('mReqLen');
+    const reqDiff = document.getElementById('mReqDiff');
+    const reqMatch = document.getElementById('mReqMatch');
+
+    function openModal() {
+      if (!backdrop) return;
+      backdrop.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      if (curPass) curPass.focus();
+    }
+
+    function closeModal() {
+      if (!backdrop) return;
+      backdrop.style.display = 'none';
+      document.body.style.overflow = '';
+      if (form) form.reset();
+      if (alertBox) alertBox.style.display = 'none';
+      updateReqs();
+    }
+
+    // Attach to all Change Password links on dashboard
+    document.querySelectorAll('a[href="/user/change_pass"]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        // If meta/ctrl key or middle click, allow opening in new tab
+        if (e.metaKey || e.ctrlKey || e.button === 1) return;
+        e.preventDefault();
+        openModal();
+      });
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+    if (backdrop) {
+      backdrop.addEventListener('click', function(e) {
+        if (e.target === backdrop) closeModal();
+      });
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && backdrop && backdrop.style.display !== 'none') {
+        closeModal();
+      }
+    });
+
+    // Eye toggles in modal
+    document.querySelectorAll('.m-toggle-eye').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-target');
+        const input = document.getElementById(targetId);
+        const icon = btn.querySelector('i');
+        if (input) {
+          if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+          } else {
+            input.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+          }
+        }
+      });
+    });
+
+    // Live Validation Checklist
+    function updateReqs() {
+      if (!newPass || !reqLen) return;
+      const c = curPass ? curPass.value : '';
+      const n = newPass.value;
+      const m = confPass ? confPass.value : '';
+
+      // Len >= 6
+      if (n.length >= 6) {
+        reqLen.style.color = '#059669';
+        reqLen.querySelector('i').className = 'fa-solid fa-circle-check';
+      } else {
+        reqLen.style.color = '#64748B';
+        reqLen.querySelector('i').className = 'fa-regular fa-circle';
+      }
+
+      // Diff
+      if (n.length > 0 && c.length > 0 && n !== c) {
+        reqDiff.style.color = '#059669';
+        reqDiff.querySelector('i').className = 'fa-solid fa-circle-check';
+      } else {
+        reqDiff.style.color = '#64748B';
+        reqDiff.querySelector('i').className = 'fa-regular fa-circle';
+      }
+
+      // Match
+      if (n.length > 0 && m.length > 0 && n === m) {
+        reqMatch.style.color = '#059669';
+        reqMatch.querySelector('i').className = 'fa-solid fa-circle-check';
+      } else {
+        reqMatch.style.color = '#64748B';
+        reqMatch.querySelector('i').className = 'fa-regular fa-circle';
+      }
+    }
+
+    if (curPass) curPass.addEventListener('input', updateReqs);
+    if (newPass) newPass.addEventListener('input', updateReqs);
+    if (confPass) confPass.addEventListener('input', updateReqs);
+
+    // Form submission
+    if (form) {
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const currentPassword = curPass.value.trim();
+        const newPassword = newPass.value.trim();
+        const confirmPassword = confPass.value.trim();
+
+        function showMsg(type, msg) {
+          if (!alertBox) return;
+          alertBox.style.display = 'block';
+          if (type === 'danger') {
+            alertBox.style.background = '#FEF2F2';
+            alertBox.style.color = '#991B1B';
+            alertBox.style.border = '1px solid #FCA5A5';
+            alertBox.innerHTML = '<i class="fa-solid fa-circle-exclamation" style="margin-right:6px;"></i> ' + msg;
+          } else {
+            alertBox.style.background = '#F0FDF4';
+            alertBox.style.color = '#166534';
+            alertBox.style.border = '1px solid #86EFAC';
+            alertBox.innerHTML = '<i class="fa-solid fa-circle-check" style="margin-right:6px;"></i> ' + msg;
+          }
+        }
+
+        if (!currentPassword || !newPassword || !confirmPassword) {
+          showMsg('danger', 'Please enter all required password fields.');
+          return;
+        }
+
+        if (newPassword.length < 6) {
+          showMsg('danger', 'New password must have at least 6 characters.');
+          return;
+        }
+
+        if (newPassword !== confirmPassword) {
+          showMsg('danger', 'New password and confirmation password do not match.');
+          return;
+        }
+
+        if (currentPassword === newPassword) {
+          showMsg('danger', 'New password must be different from current password.');
+          return;
+        }
+
+        btnSubmit.disabled = true;
+        btnSubmit.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Updating...';
+
+        try {
+          const res = await fetch('/user/change_pass', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({ currentPassword, newPassword, confirmPassword })
+          });
+
+          const data = await res.json();
+          if (res.ok && data.success) {
+            showMsg('success', data.message || 'Password changed successfully!');
+            form.reset();
+            updateReqs();
+            setTimeout(closeModal, 1800);
+          } else {
+            showMsg('danger', data.message || 'Failed to change password.');
+          }
+        } catch (err) {
+          form.submit();
+        } finally {
+          btnSubmit.disabled = false;
+          btnSubmit.innerHTML = '<i class="fa-solid fa-shield-halved"></i> <span>Update Password</span>';
+        }
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>

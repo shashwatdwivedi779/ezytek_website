@@ -1,0 +1,311 @@
+<link rel="stylesheet" href="/css/nav.css">
+
+<!-- Scroll Progress Indicator -->
+<div class="scroll-progress-bar" aria-hidden="true"></div>
+
+<!-- Floating Action Buttons -->
+<a href="https://wa.me/919311313886?text=Hello%20Ezytek%20Clean,%20I%20would%20like%20to%20enquire%20about%20your%20industrial%20washing%20equipment" 
+   class="whatsapp-fab" 
+   target="_blank" 
+   rel="noopener noreferrer" 
+   aria-label="Chat on WhatsApp with Ezytek Clean (+91 93113 13886)">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.064-2.18-.553-1.895-.788-3.111-2.73-3.206-2.856-.095-.127-.768-1.021-.768-1.947 0-.926.486-1.381.659-1.57.173-.189.38-.236.507-.236.126 0 .253.002.364.007.118.006.276-.045.431.328.16.386.549 1.341.597 1.439.048.098.08.213.016.34-.064.127-.096.206-.19.317-.095.111-.2.247-.286.332-.095.095-.195.198-.084.388.111.19.493.813 1.057 1.316.726.647 1.338.847 1.528.942.19.095.301.079.412-.048.111-.127.476-.554.603-.744.127-.19.254-.158.428-.095.174.063 1.11.523 1.3.618.19.095.317.143.365.222.048.079.048.46-.096.865zM12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2.05 22l4.98-1.306A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.2a8.163 8.163 0 01-4.242-1.182l-.304-.18-2.96.776.79-2.884-.198-.315A8.16 8.16 0 013.8 12c0-4.52 3.68-8.2 8.2-8.2 4.52 0 8.2 3.68 8.2 8.2 0 4.52-3.68 8.2-8.2 8.2z"/>
+  </svg>
+</a>
+
+<button class="back-to-top" aria-label="Back to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="18 15 12 9 6 15"></polyline>
+  </svg>
+</button>
+
+<!-- ============================================================
+     SITE HEADER / NAVBAR
+     ============================================================ -->
+<header class="site-header" role="banner">
+  <div class="container">
+    <nav class="nav-wrapper" aria-label="Main navigation">
+
+      <!-- Logo -->
+      <a href="/" class="nav-logo" aria-label="Ezytek Clean - Home">
+        <div class="nav-logo-mark" aria-hidden="true">
+          <img src="/uploads/logo_op.jpeg" alt="Ezytek Clean Logo" class="nav-logo-img" onerror="this.onerror=null; this.src='/logo_op.jpeg';" />
+        </div>
+        <div class="nav-logo-text">
+          <span class="nav-logo-name">EZYTEK</span>
+          <span class="nav-logo-tagline">Clean Pvt. Ltd.</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <ul class="nav-links" role="list">
+        <li class="nav-item">
+          <a href="/" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="/products" class="nav-link">Products</a>
+        </li>
+        <li class="nav-item">
+          <a href="/workproof" class="nav-link">WorkProof</a>
+        </li>
+         <li class="nav-item">
+          <a href="/products/setup" class="nav-link">Car-Washing Setup <span style="font-size:0.65rem; background:#E0F2FE; color:#0284C7; border:1px solid #BAE6FD; padding:1px 6px; border-radius:999px; margin-left:4px; font-weight:700; text-transform:uppercase;">Soon</span></a>
+        </li>
+        <li class="nav-item">
+          <a href="/#contact" class="nav-link">Contact us</a>
+        </li>
+      </ul>
+
+      <!-- Nav Actions: Search, Account, Card, Get Quote -->
+      <div class="nav-actions">
+        <!-- Search -->
+        <a href="/products" class="nav-icon-btn" aria-label="Search" title="Search Machinery">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </a>
+
+        <!-- Account -->
+        <% const accountHref = (typeof isLoggedIn !== 'undefined' && isLoggedIn) ? '/user' : '/login'; %>
+        <a href="<%= accountHref %>" class="nav-icon-btn" aria-label="Account" title="<%= (typeof isLoggedIn !== 'undefined' && isLoggedIn) ? 'My Account / Dashboard' : 'Sign In' %>">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </a>
+
+        <!-- Card / Cart -->
+        <a href="/user/card" class="nav-icon-btn" aria-label="Card" title="Card / Cart">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span class="cart-badge" aria-label="Card items">0</span>
+        </a>
+
+        <!-- Get Quote Button -->
+        <a href="/#contact" class="nav-quote-btn" aria-label="Get Quote">Get Quote</a>
+
+        <!-- Mobile Hamburger Toggle -->
+        <button class="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+    </nav>
+  </div>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+    <ul role="list">
+      <li><a href="/" class="mobile-nav-link">Home</a></li>
+      <li><a href="/products" class="mobile-nav-link">Products</a></li>
+      <li><a href="/products/setup" class="mobile-nav-link">Car-Washing Setup <span style="font-size:0.65rem; background:#E0F2FE; color:#0284C7; border:1px solid #BAE6FD; padding:1px 6px; border-radius:999px; margin-left:4px; font-weight:700;">Soon</span></a></li>
+      <li><a href="/workproof" class="mobile-nav-link">WorkProof</a></li>
+      <li><a href="/#contact" class="mobile-nav-link">Contact us</a></li>
+    </ul>
+
+    <div class="mobile-actions-grid">
+      <a href="/products" class="mobile-action-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <span>Search</span>
+      </a>
+      <a href="<%= accountHref %>" class="mobile-action-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <span>Account</span>
+      </a>
+      <a href="/user/card" class="mobile-action-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+        <span>Card</span>
+      </a>
+    </div>
+
+    <div class="mobile-cta">
+      <a href="/#contact" class="mobile-quote-btn">Get Quote</a>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Self-contained core navbar behavior for any page including this partial
+  (function() {
+    const siteHeader = document.querySelector('.site-header');
+    const hamburgerBtn = document.querySelector('.nav-hamburger');
+    const mobileDrawer = document.getElementById('mobile-menu');
+    const progressBar = document.querySelector('.scroll-progress-bar');
+    const topBtn = document.querySelector('.back-to-top');
+
+    // ── Active Page Glowing Navigation Highlighter ──
+    function updateActiveNavLink() {
+      const currentPath = (window.location.pathname || '/').replace(/\/+$/, '') || '/';
+      const currentHash = window.location.hash || '';
+
+      const navLinks = document.querySelectorAll('.nav-links .nav-link');
+      const mobileLinks = document.querySelectorAll('.mobile-menu .mobile-nav-link');
+      const iconBtns = document.querySelectorAll('.nav-actions .nav-icon-btn');
+      const mobilePills = document.querySelectorAll('.mobile-actions-grid .mobile-action-pill');
+      const quoteBtns = document.querySelectorAll('.nav-quote-btn, .mobile-quote-btn');
+
+      // Clear previous active states
+      navLinks.forEach(l => l.classList.remove('active'));
+      mobileLinks.forEach(l => l.classList.remove('active'));
+      iconBtns.forEach(b => b.classList.remove('active'));
+      mobilePills.forEach(p => p.classList.remove('active'));
+      quoteBtns.forEach(q => q.classList.remove('active'));
+
+      // 1. Contact section (#contact)
+      const contactSection = document.getElementById('contact');
+      let isInContact = (currentHash === '#contact');
+      if (!isInContact && currentPath === '/' && contactSection) {
+        const rect = contactSection.getBoundingClientRect();
+        if (rect.top <= 250 && rect.bottom >= 150) {
+          isInContact = true;
+        }
+      }
+      if (isInContact) {
+        document.querySelectorAll('a[href="/#contact"], a[href="#contact"]').forEach(el => el.classList.add('active'));
+        return;
+      }
+
+      // 2. WorkProof page (/workproof)
+      if (currentPath === '/workproof' || currentHash === '#workproof') {
+        document.querySelectorAll('a[href="/workproof"], a[href="/#workproof"]').forEach(el => el.classList.add('active'));
+        return;
+      }
+
+      // 3. Car Washing Setup (/products/setup)
+      if (currentPath === '/products/setup') {
+        document.querySelectorAll('a[href="/products/setup"]').forEach(el => el.classList.add('active'));
+        return;
+      }
+
+      // 4. Products Catalog & Details (/products, /products/..., /costomer/quote/...)
+      if (currentPath === '/products' || (currentPath.startsWith('/products/') && currentPath !== '/products/setup') || currentPath.startsWith('/costomer/quote')) {
+        document.querySelectorAll('a[href="/products"]').forEach(el => {
+          if (el.classList.contains('nav-link') || el.classList.contains('mobile-nav-link')) {
+            el.classList.add('active');
+          }
+        });
+        return;
+      }
+
+      // 5. Cart / Saved Items (/user/card)
+      if (currentPath.startsWith('/user/card')) {
+        document.querySelectorAll('a[href="/user/card"]').forEach(el => el.classList.add('active'));
+        return;
+      }
+
+      // 6. User Account / Master / Login (/user, /login, /signup, /master...)
+      if (currentPath === '/user' || currentPath === '/login' || currentPath === '/signup' || currentPath.startsWith('/master')) {
+        document.querySelectorAll('a[href="/user"], a[href="/login"]').forEach(el => {
+          if (el.classList.contains('nav-icon-btn') || el.classList.contains('mobile-action-pill')) {
+            el.classList.add('active');
+          }
+        });
+        return;
+      }
+
+      // 7. Orders & Quotes (/user/orders, /user/quotes)
+      if (currentPath === '/user/orders' || currentPath === '/user/quotes') {
+        document.querySelectorAll('a[href="/user/card"]').forEach(el => el.classList.add('active'));
+        return;
+      }
+
+      // 8. Home page default (when on / and not in contact)
+      if (currentPath === '/') {
+        document.querySelectorAll('a[href="/"]').forEach(el => {
+          if (el.classList.contains('nav-link') || el.classList.contains('mobile-nav-link')) {
+            el.classList.add('active');
+          }
+        });
+      }
+    }
+
+    // Sticky shadow & progress updates
+    function handleNavScroll() {
+      const scrollY = window.scrollY || window.pageYOffset;
+      if (siteHeader) {
+        if (scrollY > 15) {
+          siteHeader.classList.add('scrolled');
+        } else {
+          siteHeader.classList.remove('scrolled');
+        }
+      }
+      if (progressBar) {
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
+        progressBar.style.width = Math.min(100, Math.max(0, progress)) + '%';
+      }
+      if (topBtn) {
+        if (scrollY > 350) {
+          topBtn.classList.add('visible');
+        } else {
+          topBtn.classList.remove('visible');
+        }
+      }
+
+      // Check contact section viewport only on home page
+      if (window.location.pathname === '/' || window.location.pathname === '') {
+        updateActiveNavLink();
+      }
+    }
+
+    window.addEventListener('scroll', handleNavScroll, { passive: true });
+    window.addEventListener('hashchange', updateActiveNavLink);
+    window.addEventListener('DOMContentLoaded', updateActiveNavLink);
+    handleNavScroll();
+    updateActiveNavLink();
+
+    if (topBtn) {
+      topBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // Mobile Hamburger toggle (with single-bind guarantee & outside-click close)
+    if (hamburgerBtn && mobileDrawer && !hamburgerBtn.dataset.bound) {
+      hamburgerBtn.dataset.bound = 'true';
+
+      function closeMobileDrawer() {
+        hamburgerBtn.classList.remove('open');
+        mobileDrawer.classList.remove('open');
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+
+      hamburgerBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = hamburgerBtn.classList.toggle('open');
+        mobileDrawer.classList.toggle('open', isOpen);
+        hamburgerBtn.setAttribute('aria-expanded', isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      });
+
+      // Close mobile drawer when clicking any link inside it
+      mobileDrawer.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          closeMobileDrawer();
+        });
+      });
+
+      // Close if tapped outside header/drawer
+      document.addEventListener('click', (e) => {
+        if (mobileDrawer.classList.contains('open')) {
+          if (!siteHeader.contains(e.target)) {
+            closeMobileDrawer();
+          }
+        }
+      });
+
+      // Close on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileDrawer.classList.contains('open')) {
+          closeMobileDrawer();
+        }
+      });
+    }
+  })();
+</script>

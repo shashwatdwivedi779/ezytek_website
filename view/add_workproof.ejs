@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Proof Manager | Ezytek Clean</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/workflow.css">
+</head>
+<body>
+
+<header>
+    <div>
+        <h1><i class="fa fa-video" style="margin-right:8px"></i>Work Proof Manager</h1>
+        <p>Add YouTube video links to showcase your completed work</p>
+    </div>
+    <a href="/user" class="btn-back"><i class="fas fa-arrow-left"></i> Dashboard</a>
+</header>
+
+<div class="container">
+
+    <% if (errorMessages && errorMessages.length > 0) { %>
+        <div class="error-box">
+            <% errorMessages.forEach(msg => { %><div><i class="fa fa-circle-exclamation"></i> <%= msg %></div><% }) %>
+        </div>
+    <% } %>
+
+    <!-- Add New Work Proof Form -->
+    <div class="form-card">
+        <h2><i class="fa fa-plus-circle"></i> Add New Work Proof</h2>
+        <form action="/master/workproof" method="POST">
+            <div class="form-group">
+                <label>YouTube Video URL *</label>
+                <input type="url" name="youtubeUrl" placeholder="https://www.youtube.com/watch?v=..." required>
+            </div>
+            <div class="form-group">
+                <label>Title *</label>
+                <input type="text" name="title" placeholder="e.g. Automatic Car Wash Installation – Delhi" required maxlength="100">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea name="description" placeholder="Brief details about this project..." maxlength="500"></textarea>
+            </div>
+            <button type="submit" class="btn-submit">
+                <i class="fas fa-paper-plane"></i> Add Work Proof
+            </button>
+        </form>
+    </div>
+
+    <!-- Existing Work Proofs -->
+    <div class="section-title">
+        <i class="fa fa-film"></i> All Work Proofs (<%= proofs.length %>)
+    </div>
+
+    <% if (proofs.length === 0) { %>
+        <div class="empty-state">
+            <i class="fa fa-video-slash"></i>
+            No work proofs added yet. Add your first one above!
+        </div>
+    <% } else { %>
+        <div class="proofs-grid">
+            <% proofs.forEach(proof => {
+                // Convert YouTube URL to embed URL
+                let embedId = '';
+                try {
+                    const url = new URL(proof.youtubeUrl);
+                    if (url.hostname.includes('youtu.be')) {
+                        embedId = url.pathname.slice(1);
+                    } else {
+                        embedId = url.searchParams.get('v') || '';
+                    }
+                } catch(e) { embedId = ''; }
+            %>
+                <div class="proof-card">
+                    <% if (embedId) { %>
+                        <div class="proof-thumb">
+                            <iframe
+                                src="https://www.youtube.com/embed/<%= embedId %>"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen
+                                loading="lazy"
+                            ></iframe>
+                        </div>
+                    <% } %>
+                    <div class="proof-body">
+                        <div class="proof-title"><%= proof.title %></div>
+                        <% if (proof.description) { %>
+                            <div class="proof-desc"><%= proof.description %></div>
+                        <% } %>
+                        <form action="/master/workproof/delete/<%= proof._id %>" method="POST" onsubmit="return confirm('Delete this work proof?')">
+                            <button type="submit" class="btn-delete">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    <% } %>
+
+</div>
+
+</body>
+</html>
+

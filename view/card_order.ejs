@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <%
+    const currentType = (typeof type !== 'undefined' && type) ? String(type).toLowerCase().trim() : 'card';
+    const isQuoteMode = (currentType === 'quote' || currentType === 'quotes' || currentType === 'order' || currentType === 'orders');
+    const isCardMode = !isQuoteMode;
+    const pageTitle = isQuoteMode 
+      ? 'My Quote Requests & Enquiries | Ezytek Clean' 
+      : 'My Saved Machinery & Cart | Ezytek Clean';
+  %>
+  <title><%= pageTitle %></title>
+  <meta name="description" content="View and manage your industrial cleaning machinery quotation requests, cart items, and commercial orders at Ezytek Clean Pvt. Ltd." />
+
+  <!-- Fonts & Icons (Matching all_products.ejs) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Theme Stylesheets -->
+  <link rel="stylesheet" href="/css/nav.css" />
+  <link rel="stylesheet" href="/css/footer.css" />
+  <link rel="stylesheet" href="/css/card.css">
+
+</head>
+<body>
+
+  <!-- Navigation Partial -->
+  <%- include('nav') %>
+
+  <!-- Resolve Items Array Robustly -->
+  <%
+    let itemsList = [];
+    if (isQuoteMode) {
+      if (typeof quotes !== 'undefined' && Array.isArray(quotes)) {
+        itemsList = quotes;
+      } else if (typeof quote !== 'undefined' && quote) {
+        itemsList = Array.isArray(quote) ? quote : [quote];
+      } else if (typeof items !== 'undefined' && Array.isArray(items)) {
+        itemsList = items;
+      } else if (typeof cards !== 'undefined' && Array.isArray(cards)) {
+        itemsList = cards;
+      }
+    } else {
+      if (typeof cards !== 'undefined' && Array.isArray(cards)) {
+        itemsList = cards;
+      } else if (typeof items !== 'undefined' && Array.isArray(items)) {
+        itemsList = items;
+      } else if (typeof quotes !== 'undefined' && Array.isArray(quotes)) {
+        itemsList = quotes;
+      }
+    }
+  %>
+
+  <main>
+    <!-- Header / Hero Section -->
+    <header class="catalog-hero">
+      <div class="catalog-hero-inner">
+        <!-- Breadcrumb -->
+        <nav class="catalog-breadcrumb" aria-label="Breadcrumb">
+          <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+          <i class="fa-solid fa-chevron-right"></i>
+          <a href="/user">Dashboard</a>
+          <i class="fa-solid fa-chevron-right"></i>
+          <span><%= isQuoteMode ? 'My Quotations & Inquiries' : 'My Saved Cart' %></span>
+        </nav>
+
+        <div class="catalog-title-row">
+          <div>
+            <div class="catalog-badge-pill">
+              <% if (isQuoteMode) { %>
+                <i class="fa-solid fa-file-invoice"></i> Quotation Requests
+              <% } else { %>
+                <i class="fa-solid fa-cart-shopping"></i> Commercial Equipment Cart
+              <% } %>
+            </div>
+            <h1 class="catalog-title">
+              <%= isQuoteMode ? 'My Quotation Requests & Orders' : 'My Saved Equipment Cart' %>
+            </h1>
+            <p class="catalog-subtitle">
+              <%= isQuoteMode 
+                ? 'Track live quotation requests, technical specs, and official dispatch confirmations for your machinery.'
+                : 'Review the high-pressure washers, vehicle washing plants, and industrial systems you have added for purchase & quotation.' %>
+            </p>
+          </div>
+
+          <div class="hero-action-buttons">
+            <a href="/user" class="btn-dashboard-back">
+              <i class="fa-solid fa-arrow-left"></i> Dashboard
+            </a>
+          </div>
+        </div>
+
+        <!-- Mode Toggle Tabs Strip -->
+        <nav class="tabs-nav-strip" aria-label="Order Views">
+          <a href="/user/card" class="tab-pill <%= isCardMode ? 'active' : '' %>">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Saved Cart</span>
+            <% if (typeof cartCount !== 'undefined') { %>
+              <span class="pill-counter"><%= cartCount %></span>
+            <% } else if (isCardMode) { %>
+              <span class="pill-counter"><%= itemsList.length %></span>
+            <% } %>
+          </a>
+          <a href="/user/orders" class="tab-pill <%= isQuoteMode ? 'active' : '' %>">
+            <i class="fa-solid fa-file-invoice"></i>
+            <span>Quote Enquiries</span>
+            <% if (typeof quoteCount !== 'undefined') { %>
+              <span class="pill-counter"><%= quoteCount %></span>
+            <% } else if (isQuoteMode) { %>
+              <span class="pill-counter"><%= itemsList.length %></span>
+            <% } %>
+          </a>
+          <a href="/products" class="tab-pill">
+            <i class="fa-solid fa-store"></i>
+            <span>Browse Full Catalog</span>
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Catalog Main Area -->
+    <section class="catalog-wrapper">
+      
+      <!-- Toolbar -->
+      <div class="catalog-toolbar">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input 
+            type="search" 
+            id="itemSearchInput" 
+            placeholder="Search equipment by name or category..." 
+            autocomplete="off" 
+            aria-label="Search items"
+          />
+        </div>
+
+        <% if (isQuoteMode) { %>
+          <!-- Status Filter Buttons for Quote Mode -->
+          <div class="status-filters-wrap" id="statusFiltersWrap">
+            <button type="button" class="status-filter-pill active" data-status-filter="all">
+              All Status
+            </button>
+            <button type="button" class="status-filter-pill filter-pending" data-status-filter="pending">
+              <i class="fa-solid fa-clock"></i> Pending
+            </button>
+            <button type="button" class="status-filter-pill filter-approved" data-status-filter="approved">
+              <i class="fa-solid fa-circle-check"></i> Approved
+            </button>
+            <button type="button" class="status-filter-pill filter-rejected" data-status-filter="rejected">
+              <i class="fa-solid fa-circle-xmark"></i> Rejected
+            </button>
+          </div>
+        <% } %>
+
+        <div class="toolbar-metrics">
+          <div>
+            Total items: <strong id="itemCountDisplay"><%= itemsList.length %></strong>
+          </div>
+          <a href="/products" class="btn-browse-catalog">
+            <i class="fa-solid fa-plus"></i> Add More Equipment
+          </a>
+        </div>
+      </div>
+
+      <!-- Items Grid -->
+      <div class="catalog-grid" id="itemsGrid">
+        <% if (itemsList.length > 0) { %>
+          <% itemsList.forEach(item => { 
+            // Extract product and quote data cleanly
+            const prod = (item && item.product && typeof item.product === 'object' && item.product._id) 
+              ? item.product 
+              : item;
+
+            const prodId = prod._id || (item && item.product) || item._id || '';
+            const prodName = prod.productName || item.productName || 'Industrial Machinery';
+            const prodCategory = prod.category || 'Industrial Cleaning Equipment';
+            const prodPrice = Number(prod.finalPrice || prod.price || item.unitPrice || 0);
+            const prodMrp = Number(prod.price || 0);
+            const prodDiscount = Number(prod.discount || 0);
+
+            // Image URL resolution matching all_products.ejs
+            let imgSrc = '/category/pressure_washer.png';
+            let rawImg = prod.main_image || item.main_image;
+            if (Array.isArray(rawImg)) rawImg = rawImg[0];
+            if (rawImg) {
+              const imgTrimmed = String(rawImg).trim();
+              if (imgTrimmed.startsWith('http://') || imgTrimmed.startsWith('https://')) {
+                imgSrc = imgTrimmed;
+              } else if (imgTrimmed.startsWith('/uploads/')) {
+                imgSrc = imgTrimmed;
+              } else if (imgTrimmed.startsWith('uploads/')) {
+                imgSrc = '/' + imgTrimmed;
+              } else {
+                imgSrc = '/uploads/' + imgTrimmed;
+              }
+            }
+
+            // Specs resolution
+            let specSummary = '';
+            if (Array.isArray(prod.technical_specification) && prod.technical_specification.length > 0) {
+              specSummary = prod.technical_specification[0].key + ': ' + prod.technical_specification[0].value;
+            } else if (typeof prod.specifications === 'string' && prod.specifications.trim()) {
+              specSummary = prod.specifications.trim();
+            }
+
+            // Quote status mapping
+            const rawStatus = (item && item.status) ? String(item.status).trim() : 'Pending';
+            const statusKey = rawStatus.toLowerCase();
+            let statusIcon = 'fa-solid fa-clock';
+            if (statusKey === 'approved') statusIcon = 'fa-solid fa-circle-check';
+            else if (statusKey === 'contacted') statusIcon = 'fa-solid fa-phone';
+            else if (statusKey === 'completed') statusIcon = 'fa-solid fa-box-check';
+            else if (statusKey === 'rejected') statusIcon = 'fa-solid fa-circle-xmark';
+
+            const quoteQty = Number(item.quantity || 1);
+            const quoteTotal = Number(item.totalPrice || (prodPrice * quoteQty));
+          %>
+            <article 
+              class="catalog-card"
+              data-name="<%= prodName.toLowerCase() %>"
+              data-category="<%= prodCategory.toLowerCase() %>"
+              data-status="<%= statusKey %>"
+            >
+              <!-- Media Box -->
+              <div class="catalog-card-img">
+                <a href="/products/<%= prodId %>" tabindex="-1" style="display:contents;">
+                  <img 
+                    src="<%= imgSrc %>" 
+                    alt="<%= prodName %>" 
+                    loading="lazy" 
+                    decoding="async"
+                    onerror="this.onerror=null;this.src='/category/pressure_washer.png';"
+                  />
+                </a>
+
+                <% if (isQuoteMode) { %>
+                  <span class="quote-status-badge status-<%= statusKey %>">
+                    <i class="<%= statusIcon %>"></i> <%= rawStatus %>
+                  </span>
+                <% } else if (prodDiscount > 0) { %>
+                  <span class="catalog-badge-discount"><%= prodDiscount %>% OFF</span>
+                <% } %>
+              </div>
+
+              <!-- Body -->
+              <div class="catalog-card-body">
+                <div class="catalog-card-cat" title="<%= prodCategory %>">
+                  <%= prodCategory %>
+                </div>
+
+                <h2 class="catalog-card-title">
+                  <a href="/products/<%= prodId %>" title="<%= prodName %>">
+                    <%= prodName %>
+                  </a>
+                </h2>
+
+                <% if (specSummary) { %>
+                  <div class="catalog-spec-line" title="<%= specSummary %>">
+                    <i class="fa-solid fa-wrench"></i>
+                    <span><%= specSummary %></span>
+                  </div>
+                <% } %>
+
+                <div class="catalog-card-pricing">
+                  <% if (prodPrice > 0) { %>
+                    <span class="catalog-card-price">₹<%= prodPrice.toLocaleString('en-IN') %></span>
+                  <% } %>
+                  <% if (prodMrp > 0 && prodDiscount > 0) { %>
+                    <span class="catalog-card-mrp">₹<%= prodMrp.toLocaleString('en-IN') %></span>
+                  <% } %>
+                </div>
+
+                <% if (isQuoteMode) { %>
+                  <div class="quote-meta-strip">
+                    <span><i class="fa-solid fa-box" style="margin-right:3px;"></i> Qty: <strong><%= quoteQty %></strong></span>
+                    <span>Total: <strong>₹<%= quoteTotal.toLocaleString('en-IN') %></strong></span>
+                  </div>
+                <% } %>
+
+                <div class="card-actions-group">
+                  <a href="/products/<%= prodId %>" class="catalog-card-btn">
+                    <span>View Details</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                  </a>
+
+                  <% if (isCardMode) { %>
+                    <div style="display: flex; gap: 6px; width: 100%;">
+                      <a href="/costomer/quote/<%= prodId %>" class="catalog-card-btn-secondary" style="flex: 1;">
+                        <i class="fa-solid fa-file-invoice"></i> Get Quote
+                      </a>
+                      <form action="/user/delete_cart/<%= prodId %>" method="POST" style="margin: 0; display: inline;">
+                        <input type="hidden" name="productId" value="<%= prodId %>">
+                        <input type="hidden" name="action" value="remove">
+                        <button type="submit" class="catalog-card-btn-remove" title="Remove from cart" onclick="return confirm('Remove this product from your cart?');">
+                          <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                      </form>
+                    </div>
+                  <% } %>
+                </div>
+              </div>
+            </article>
+          <% }) %>
+        <% } %>
+
+        <!-- Dynamic Empty State (shown if no items or search gives 0 results) -->
+        <div class="catalog-empty-state" id="emptyState" style="<%= itemsList.length === 0 ? 'display: block;' : 'display: none;' %>">
+          <div class="empty-state-icon">
+            <% if (isQuoteMode) { %>
+              <i class="fa-solid fa-file-invoice"></i>
+            <% } else { %>
+              <i class="fa-solid fa-cart-shopping"></i>
+            <% } %>
+          </div>
+          <h3 class="empty-state-title">
+            <%= isQuoteMode ? 'No Quotation Requests Found' : 'Your Equipment Cart is Empty' %>
+          </h3>
+          <p class="empty-state-desc">
+            <%= isQuoteMode 
+              ? 'You have not submitted any commercial machinery quotation enquiries yet. Explore our equipment catalog to request tailored pricing.'
+              : 'You have not added any industrial equipment to your cart. Browse our commercial washing plants, pressure washers, and industrial scrubbers.' %>
+          </p>
+          <a href="/products" class="empty-state-btn">
+            <i class="fa-solid fa-store"></i> Browse Equipment Catalog
+          </a>
+        </div>
+
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Footer Partial -->
+  <%- include('footer') %>
+
+  <!-- Instant Search & Status Filter Script -->
+  <script>
+    const searchInput = document.getElementById('itemSearchInput');
+    const itemsGrid = document.getElementById('itemsGrid');
+    const emptyState = document.getElementById('emptyState');
+    const countDisplay = document.getElementById('itemCountDisplay');
+    const statusPills = document.querySelectorAll('.status-filter-pill');
+
+    let currentStatusFilter = 'all';
+
+    function filterCards() {
+      if (!itemsGrid) return;
+      const query = (searchInput ? searchInput.value : '').toLowerCase().trim();
+      const cards = itemsGrid.querySelectorAll('.catalog-card');
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const name = (card.getAttribute('data-name') || '');
+        const category = (card.getAttribute('data-category') || '');
+        const status = (card.getAttribute('data-status') || '').toLowerCase().trim();
+
+        const matchesQuery = !query || name.includes(query) || category.includes(query);
+        const matchesStatus = (currentStatusFilter === 'all') || (status === currentStatusFilter);
+
+        if (matchesQuery && matchesStatus) {
+          card.style.display = '';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (countDisplay) {
+        countDisplay.textContent = visibleCount;
+      }
+
+      if (emptyState) {
+        emptyState.style.display = (visibleCount === 0) ? 'block' : 'none';
+      }
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', filterCards);
+    }
+
+    if (statusPills && statusPills.length > 0) {
+      statusPills.forEach(pill => {
+        pill.addEventListener('click', function() {
+          statusPills.forEach(p => p.classList.remove('active'));
+          this.classList.add('active');
+          currentStatusFilter = this.getAttribute('data-status-filter') || 'all';
+          filterCards();
+        });
+      });
+    }
+  </script>
+</body>
+</html>

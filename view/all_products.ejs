@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= typeof title !== 'undefined' ? title : 'Commercial & Industrial Cleaning Machinery | Ezytek Clean' %></title>
+  <meta name="description" content="Browse commercial automatic car washers, high-pressure pumps, vacuum scrubbers, and industrial cleaning plants engineered by Ezytek Clean Pvt. Ltd." />
+
+  <!-- Preconnect & Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Self-Contained Stylesheets (Optimized: Removed redundant home.css) -->
+  <link rel="stylesheet" href="/css/nav.css" />
+  <link rel="stylesheet" href="/css/footer.css" />
+  <link rel="stylesheet" href="/css/all.css" />
+</head>
+<body>
+
+  <!-- Global Header Navigation -->
+  <%- include('nav') %>
+
+  <!-- Catalog Hero / Page Banner -->
+  <header class="catalog-hero" role="region" aria-label="Catalog Overview">
+    <div class="catalog-hero-inner">
+      <!-- Breadcrumb Navigation -->
+      <nav class="catalog-breadcrumb" aria-label="Breadcrumb">
+        <a href="/"><i class="fa-solid fa-house" style="margin-right: 5px;"></i> Home</a>
+        <i class="fa-solid fa-chevron-right crumb-sep"></i>
+        <span>Industrial Machinery</span>
+        <i class="fa-solid fa-chevron-right crumb-sep"></i>
+        <span class="crumb-current">All Products</span>
+      </nav>
+
+      <!-- Trust Badge -->
+      <div class="catalog-badge-pill">
+        <i class="fa-solid fa-shield-halved"></i> Factory Direct · Certified Commercial Equipment
+      </div>
+
+      <!-- Title & Subtitle -->
+      <div class="catalog-title-row">
+        <div>
+          <h1 class="catalog-title">Industrial Equipment &amp; Washing Plants</h1>
+          <p class="catalog-subtitle">
+            Engineered for high-throughput automotive centers, commercial wash facilities, transport depots, and heavy industrial plants across India.
+          </p>
+        </div>
+      </div>
+
+      <!-- Trust Strip -->
+      <div class="catalog-trust-strip">
+        <div class="catalog-trust-item">
+          <i class="fa-solid fa-circle-check"></i>
+          <span>100% Factory Tested &amp; Commissioned</span>
+        </div>
+        <div class="catalog-trust-item">
+          <i class="fa-solid fa-certificate"></i>
+          <span>ISO Certified Manufacturing</span>
+        </div>
+        <div class="catalog-trust-item">
+          <i class="fa-solid fa-truck-fast"></i>
+          <span>Pan-India On-Site Installation Support</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Catalog Content -->
+  <main class="catalog-wrapper">
+
+    <!-- Interactive Filtering & Search Toolbar -->
+    <section class="catalog-toolbar" aria-label="Machinery Catalog Controls">
+      <div class="toolbar-top-row">
+        <!-- Live Search -->
+        <div class="search-box" role="search">
+          <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+          <input 
+            type="search" 
+            id="catalogSearch" 
+            placeholder="Search machinery by model, category, or spec..." 
+            autocomplete="off"
+            aria-label="Search machinery catalog"
+          />
+          <span class="search-shortcut-hint" title="Press / to search">/</span>
+          <button type="button" class="clear-search-btn" id="clearSearchBtn" aria-label="Clear search">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <!-- Sort Select -->
+        <div class="toolbar-actions">
+          <div class="sort-group">
+            <label for="catalogSort">
+              <i class="fa-solid fa-arrow-down-short-wide" aria-hidden="true"></i> Sort by:
+            </label>
+            <div class="sort-select-wrapper">
+              <select id="catalogSort" class="sort-select" aria-label="Sort machinery catalog">
+                <option value="default">Featured / Newest</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="discount-desc">Highest Discount</option>
+                <option value="name-asc">Model: A to Z</option>
+              </select>
+              <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <%
+        const safeProducts = (typeof products !== 'undefined' && Array.isArray(products)) ? products : [];
+        const currentSelectedCategory = (typeof selectedCategory !== 'undefined') ? selectedCategory : 'All';
+
+        const categoryList = [
+          'All',
+          'Automatic Car Washer',
+          'High Pressure Washer',
+          'Plunger Pump',
+          'Dry Cleaner & Vacuum Cleaner',
+          'Underbody & Top Wash Cleaner',
+          'Heavy Vehicle Washing Plant',
+          'Steam Cleaner',
+          'ABC Setup',
+          'Accessories'
+        ];
+      %>
+
+      <div class="category-pills-row" id="categoryPillsRow" role="tablist" aria-label="Machinery Categories">
+        <% categoryList.forEach(cat => { 
+          const count = cat === 'All' 
+            ? safeProducts.length 
+            : safeProducts.filter(p => p.category === cat).length;
+        %>
+          <button 
+            type="button" 
+            class="category-pill <%= currentSelectedCategory === cat ? 'active' : '' %>" 
+            data-category="<%= cat %>"
+            role="tab"
+            aria-selected="<%= currentSelectedCategory === cat ? 'true' : 'false' %>"
+          >
+            <span><%= cat === 'All' ? 'All Machinery' : cat %></span>
+            <span class="pill-count"><%= count %></span>
+          </button>
+        <% }) %>
+      </div>
+
+      <!-- Active Filter Chips (Dynamically populated via JS) -->
+      <div class="active-filters-row" id="activeFiltersRow" aria-live="polite">
+        <span class="active-filters-label">Active filters:</span>
+        <div id="activeChipsList" style="display:contents;"></div>
+        <button type="button" class="clear-all-chips-btn" id="clearAllChipsBtn">Clear all</button>
+      </div>
+    </section>
+
+    <!-- Results Status Bar -->
+    <div class="catalog-status-bar">
+      <div aria-live="polite">
+        Showing <strong id="visibleCount"><%= safeProducts.length %></strong> commercial equipment systems
+      </div>
+      <button type="button" class="reset-filters-btn" id="resetFiltersBtn">
+        <i class="fa-solid fa-rotate-left"></i> Reset All Filters
+      </button>
+    </div>
+
+    <!-- Product Cards Grid -->
+    <div class="catalog-grid" id="productsGrid" role="region" aria-label="Machinery Grid">
+      <% if (safeProducts.length > 0) { %>
+        <% safeProducts.forEach(product => { 
+          // Image URL Resolution (Supports AWS S3 full URLs & local uploads)
+          let imgSrc = '/category/pressure_washer.png';
+          let rawMain = product.main_image;
+          if (Array.isArray(rawMain)) rawMain = rawMain[0];
+          if (rawMain) {
+            const imgTrimmed = String(rawMain).trim();
+            if (imgTrimmed.startsWith('http://') || imgTrimmed.startsWith('https://')) {
+              imgSrc = imgTrimmed;
+            } else if (imgTrimmed.startsWith('/uploads/')) {
+              imgSrc = imgTrimmed;
+            } else if (imgTrimmed.startsWith('uploads/')) {
+              imgSrc = '/' + imgTrimmed;
+            } else {
+              imgSrc = '/uploads/' + imgTrimmed;
+            }
+          }
+
+          // Top technical specification preview
+          let topSpec = null;
+          let specSummaryText = '';
+          if (Array.isArray(product.technical_specification) && product.technical_specification.length > 0) {
+            topSpec = product.technical_specification[0];
+          } else if (Array.isArray(product.specifications) && product.specifications.length > 0) {
+            topSpec = product.specifications[0];
+          } else if (typeof product.specifications === 'string' && product.specifications.trim()) {
+            specSummaryText = product.specifications.trim();
+          }
+
+          const finalPriceNum = Number(product.finalPrice || product.price || 0);
+          const originalPriceNum = Number(product.price || 0);
+          const discountNum = Number(product.discount || 0);
+        %>
+          <article 
+            class="catalog-card" 
+            data-category="<%= product.category || '' %>"
+            data-name="<%= (product.productName || '').toLowerCase() %>"
+            data-price="<%= finalPriceNum %>"
+            data-discount="<%= discountNum %>"
+            data-spec="<%= topSpec ? (topSpec.key + ' ' + topSpec.value).toLowerCase() : specSummaryText.toLowerCase() %>"
+          >
+            <!-- Card Media -->
+            <div class="catalog-card-img">
+              <a href="/products/<%= product._id %>" aria-label="View <%= product.productName %>">
+                <img 
+                  src="<%= imgSrc %>" 
+                  alt="<%= product.productName || 'Industrial Machinery' %>" 
+                  loading="lazy" 
+                  decoding="async" 
+                  onerror="this.onerror=null;this.src='/category/pressure_washer.png';"
+                />
+              </a>
+
+              <% if (discountNum > 0) { %>
+                <span class="catalog-badge-discount"><%= discountNum %>% OFF</span>
+              <% } %>
+
+              <span class="catalog-badge-oem">OEM Grade</span>
+            </div>
+
+            <!-- Card Body -->
+            <div class="catalog-card-body">
+              <div class="catalog-card-cat" title="<%= product.category || 'Industrial Machinery' %>">
+                <i class="fa-solid fa-tag"></i>
+                <span><%= product.category || 'Industrial Machinery' %></span>
+              </div>
+
+              <h2 class="catalog-card-title">
+                <a href="/products/<%= product._id %>" title="<%= product.productName %>">
+                  <%= product.productName %>
+                </a>
+              </h2>
+
+              <% if (topSpec && topSpec.key && topSpec.value) { %>
+                <div class="catalog-spec-line" title="<%= topSpec.key %>: <%= topSpec.value %>">
+                  <i class="fa-solid fa-wrench"></i>
+                  <span><%= topSpec.key %>: <%= topSpec.value %></span>
+                </div>
+              <% } else if (specSummaryText) { %>
+                <div class="catalog-spec-line" title="<%= specSummaryText %>">
+                  <i class="fa-solid fa-circle-info"></i>
+                  <span><%= specSummaryText %></span>
+                </div>
+              <% } else { %>
+                <div class="catalog-spec-line">
+                  <i class="fa-solid fa-circle-check"></i>
+                  <span>Heavy-Duty Industrial Construction</span>
+                </div>
+              <% } %>
+
+              <!-- Price Row -->
+              <div class="catalog-card-pricing">
+                <% if (finalPriceNum > 0) { %>
+                  <span class="catalog-card-price">₹<%= finalPriceNum.toLocaleString('en-IN') %></span>
+                <% } %>
+
+                <% if (originalPriceNum > 0 && discountNum > 0) { %>
+                  <span class="catalog-card-mrp">₹<%= originalPriceNum.toLocaleString('en-IN') %></span>
+                <% } %>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="catalog-card-actions">
+                <a href="/products/<%= product._id %>" class="catalog-card-btn">
+                  <span>View Details</span>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <% if (typeof user !== 'undefined' && user && user.role === 'Admin') { %>
+                  <!-- Quick Admin Edit Shortcut -->
+                  <a href="/master/update/<%= product._id %>" class="catalog-card-icon-btn" title="Edit Product Details">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </a>
+                <% } else { %>
+                  <!-- Quick Customer Quote Shortcut -->
+                  <a href="/costomer/quote/<%= product._id %>" class="catalog-card-icon-btn" title="Request Instant Quote">
+                    <i class="fa-solid fa-file-invoice"></i>
+                  </a>
+                <% } %>
+              </div>
+            </div>
+          </article>
+        <% }) %>
+      <% } %>
+
+      <!-- Dynamic Empty State (displayed when no matching products exist) -->
+      <div class="catalog-empty-state" id="catalogEmptyState" style="<%= safeProducts.length === 0 ? 'display: block;' : 'display: none;' %>">
+        <div class="empty-state-icon" aria-hidden="true">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        <h3 class="empty-state-title">No industrial machinery found</h3>
+        <p class="empty-state-desc">
+          We couldn't find any equipment matching your active search keywords or category filters. Try clearing your filters or exploring our other industrial cleaning categories.
+        </p>
+        <button type="button" class="empty-state-reset-btn" id="emptyStateResetBtn">
+          <i class="fa-solid fa-rotate-left"></i> Reset All Filters
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Global Footer Navigation -->
+  <%- include('footer') %>
+
+  <!-- Interactive Search, Filter, Sort & Chips Controller -->
+  <script>
+    (function() {
+      const searchInput = document.getElementById('catalogSearch');
+      const clearSearchBtn = document.getElementById('clearSearchBtn');
+      const sortSelect = document.getElementById('catalogSort');
+      const pills = document.querySelectorAll('.category-pill');
+      const grid = document.getElementById('productsGrid');
+      const visibleCountEl = document.getElementById('visibleCount');
+      const emptyStateEl = document.getElementById('catalogEmptyState');
+      const resetFiltersBtn = document.getElementById('resetFiltersBtn');
+      const emptyStateResetBtn = document.getElementById('emptyStateResetBtn');
+      const activeFiltersRow = document.getElementById('activeFiltersRow');
+      const activeChipsList = document.getElementById('activeChipsList');
+      const clearAllChipsBtn = document.getElementById('clearAllChipsBtn');
+
+      let currentCategory = 'All';
+      let currentQuery = '';
+
+      // Read initial category if pre-selected
+      const initialActivePill = document.querySelector('.category-pill.active');
+      if (initialActivePill) {
+        currentCategory = initialActivePill.getAttribute('data-category') || 'All';
+      }
+
+      // Render Active Filter Chips
+      function renderActiveChips() {
+        if (!activeFiltersRow || !activeChipsList) return;
+        const hasCategory = (currentCategory !== 'All');
+        const hasQuery = (currentQuery.length > 0);
+
+        if (!hasCategory && !hasQuery) {
+          activeFiltersRow.style.display = 'none';
+          activeChipsList.innerHTML = '';
+          return;
+        }
+
+        activeFiltersRow.style.display = 'flex';
+        let html = '';
+
+        if (hasCategory) {
+          html += `
+            <div class="active-chip">
+              <span>Category: <strong>${escapeHtml(currentCategory)}</strong></span>
+              <button type="button" aria-label="Remove category filter" onclick="window.catalogClearCategory()">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+          `;
+        }
+
+        if (hasQuery) {
+          html += `
+            <div class="active-chip">
+              <span>Search: <strong>"${escapeHtml(currentQuery)}"</strong></span>
+              <button type="button" aria-label="Remove search query" onclick="window.catalogClearSearch()">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+          `;
+        }
+
+        activeChipsList.innerHTML = html;
+      }
+
+      function escapeHtml(str) {
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      function updateCatalog() {
+        const cards = Array.from(grid.querySelectorAll('.catalog-card'));
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+          const cardCat = card.getAttribute('data-category') || '';
+          const cardName = card.getAttribute('data-name') || '';
+          const cardSpec = card.getAttribute('data-spec') || '';
+
+          const matchesCat = (currentCategory === 'All' || cardCat === currentCategory);
+          const matchesQuery = !currentQuery || 
+                               cardName.includes(currentQuery) || 
+                               cardCat.toLowerCase().includes(currentQuery) ||
+                               cardSpec.includes(currentQuery);
+
+          if (matchesCat && matchesQuery) {
+            card.style.display = 'flex';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        // Re-sort visible cards
+        sortCards();
+
+        // Update counts
+        if (visibleCountEl) {
+          visibleCountEl.textContent = visibleCount;
+        }
+
+        // Toggle Empty State
+        if (emptyStateEl) {
+          emptyStateEl.style.display = (visibleCount === 0) ? 'block' : 'none';
+        }
+
+        // Show/hide reset button
+        if (resetFiltersBtn) {
+          resetFiltersBtn.style.display = (currentCategory !== 'All' || currentQuery !== '') ? 'inline-flex' : 'none';
+        }
+
+        // Render chips
+        renderActiveChips();
+      }
+
+      function sortCards() {
+        if (!sortSelect) return;
+        const sortMode = sortSelect.value;
+        const cards = Array.from(grid.querySelectorAll('.catalog-card'));
+
+        cards.sort((a, b) => {
+          const priceA = parseFloat(a.getAttribute('data-price') || 0);
+          const priceB = parseFloat(b.getAttribute('data-price') || 0);
+          const discountA = parseFloat(a.getAttribute('data-discount') || 0);
+          const discountB = parseFloat(b.getAttribute('data-discount') || 0);
+          const nameA = a.getAttribute('data-name') || '';
+          const nameB = b.getAttribute('data-name') || '';
+
+          if (sortMode === 'price-asc') return priceA - priceB;
+          if (sortMode === 'price-desc') return priceB - priceA;
+          if (sortMode === 'discount-desc') return discountB - discountA;
+          if (sortMode === 'name-asc') return nameA.localeCompare(nameB);
+          return 0; // Default order
+        });
+
+        cards.forEach(card => grid.appendChild(card));
+        if (emptyStateEl) {
+          grid.appendChild(emptyStateEl);
+        }
+      }
+
+      // Search Input Handler
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          currentQuery = e.target.value.trim().toLowerCase();
+          if (clearSearchBtn) {
+            clearSearchBtn.style.display = currentQuery ? 'block' : 'none';
+          }
+          updateCatalog();
+        });
+
+        // Keyboard Shortcut: Press '/' to focus search
+        window.addEventListener('keydown', (e) => {
+          if (e.key === '/' && document.activeElement !== searchInput && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+            e.preventDefault();
+            searchInput.focus();
+            searchInput.select();
+          } else if (e.key === 'Escape' && document.activeElement === searchInput) {
+            window.catalogClearSearch();
+          }
+        });
+      }
+
+      // Clear Search
+      window.catalogClearSearch = function() {
+        if (!searchInput) return;
+        searchInput.value = '';
+        currentQuery = '';
+        if (clearSearchBtn) clearSearchBtn.style.display = 'none';
+        updateCatalog();
+      };
+
+      if (clearSearchBtn) {
+        clearSearchBtn.addEventListener('click', window.catalogClearSearch);
+      }
+
+      // Category Pill Handlers
+      pills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          pills.forEach(p => {
+            p.classList.remove('active');
+            p.setAttribute('aria-selected', 'false');
+          });
+          pill.classList.add('active');
+          pill.setAttribute('aria-selected', 'true');
+          currentCategory = pill.getAttribute('data-category') || 'All';
+          updateCatalog();
+        });
+      });
+
+      // Clear Category
+      window.catalogClearCategory = function() {
+        currentCategory = 'All';
+        pills.forEach(p => {
+          const isAll = (p.getAttribute('data-category') === 'All');
+          p.classList.toggle('active', isAll);
+          p.setAttribute('aria-selected', isAll ? 'true' : 'false');
+        });
+        updateCatalog();
+      };
+
+      // Sort Change Handler
+      if (sortSelect) {
+        sortSelect.addEventListener('change', sortCards);
+      }
+
+      // Reset All Filters
+      window.resetAllFilters = function() {
+        window.catalogClearCategory();
+        window.catalogClearSearch();
+        if (sortSelect) sortSelect.value = 'default';
+        updateCatalog();
+      };
+
+      if (resetFiltersBtn) {
+        resetFiltersBtn.addEventListener('click', window.resetAllFilters);
+      }
+      if (emptyStateResetBtn) {
+        emptyStateResetBtn.addEventListener('click', window.resetAllFilters);
+      }
+      if (clearAllChipsBtn) {
+        clearAllChipsBtn.addEventListener('click', window.resetAllFilters);
+      }
+
+      // Initial execution
+      updateCatalog();
+    })();
+  </script>
+</body>
+</html>

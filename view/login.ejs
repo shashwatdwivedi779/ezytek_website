@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ezytek Clean - Client &amp; Partner Portal</title>
+
+    <!-- Google Font: Inter & Poppins (Executive, Clean, High-Legibility) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Main Stylesheets -->
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/footer.css">
+
+    <!-- FontAwesome 6 for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Subtle Architectural Blueprint Grid -->
+    <div class="grid-overlay" aria-hidden="true"></div>
+
+    <!-- Top Navigation Header -->
+    <header class="portal-header">
+        <a href="/" class="portal-logo" aria-label="Ezytek Clean - Home">
+            <div class="logo-badge" aria-hidden="true">
+                <img src="/uploads/logo_op.jpeg" alt="Ezytek Clean Logo" onerror="this.onerror=null; this.src='/logo_op.jpeg';" />
+            </div>
+            <div>
+                <div class="logo-title">EZYTEK <span>Clean</span></div>
+                <div class="logo-tagline">Industrial Washing Systems</div>
+            </div>
+        </a>
+
+        <div class="header-actions">
+            <a href="/" class="back-store-btn">
+                <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                <span>Back to Store</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Portal Stage Container -->
+    <main class="portal-container">
+
+        <!-- ================= LEFT: PRODUCT SHOWCASE ================= -->
+        <section class="showcase-column">
+            
+            <div class="showcase-header">
+                <div class="showcase-eyebrow">
+                    <i class="fas fa-shield-halved" aria-hidden="true"></i>
+                    Enterprise Equipment Portal
+                </div>
+                <h1 class="showcase-headline">
+                    Industrial Washing Solutions. <br />
+                    <span>Engineered for Reliability.</span>
+                </h1>
+                <p class="showcase-subtext">
+                    Access your account to manage machinery enquiries, track order dispatches, view plant layout specifications, and request priority technical service.
+                </p>
+            </div>
+
+            <!-- Featured Product Showcase Card -->
+            <div class="featured-product-card" id="featured-card">
+                <div class="product-img-display">
+                    <img 
+                        id="featured-image"
+                        src="/category/autometic_wash.png" 
+                        alt="Automatic Car Wash Plants - Ezytek Clean"
+                        width="380" height="210"
+                    />
+                </div>
+                <div class="product-info-box">
+                    <span class="product-tag" id="featured-tag">Automated Series</span>
+                    <h2 class="product-name-title" id="featured-title">Automatic Car Wash Plants</h2>
+                    
+                    <div class="product-specs-list" id="featured-specs">
+                        <div class="product-spec-item">
+                            <i class="fas fa-check" aria-hidden="true"></i>
+                            <span>Touchless chemical arch and contour wash brushes</span>
+                        </div>
+                        <div class="product-spec-item">
+                            <i class="fas fa-check" aria-hidden="true"></i>
+                            <span>Rapid 3-minute complete cleaning and dry cycle</span>
+                        </div>
+                        <div class="product-spec-item">
+                            <i class="fas fa-check" aria-hidden="true"></i>
+                            <span>Siemens PLC automated telemetry controls</span>
+                        </div>
+                    </div>
+
+                    <div class="product-action-row">
+                        <a href="/products/car-wash-plants" class="product-link-btn" id="featured-link">
+                            <span>View Specifications</span>
+                            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Thumbnails Selection -->
+            <div class="product-thumbnails-grid">
+                <div class="thumb-item active" onclick="switchProduct(0)">
+                    <img src="/category/autometic_wash.png" alt="Automatic Car Wash" class="thumb-img" />
+                    <span class="thumb-name">Car Wash Plants</span>
+                </div>
+                <div class="thumb-item" onclick="switchProduct(1)">
+                    <img src="/category/pressure_washer.png" alt="High Pressure Washers" class="thumb-img" />
+                    <span class="thumb-name">Pressure Washers</span>
+                </div>
+                <div class="thumb-item" onclick="switchProduct(2)">
+                    <img src="/category/floor_washing.png" alt="Sweeper &amp; Scrubber" class="thumb-img" />
+                    <span class="thumb-name">Floor Scrubbers</span>
+                </div>
+                <div class="thumb-item" onclick="switchProduct(3)">
+                    <img src="/category/industrial_plants.png" alt="Industrial Plants" class="thumb-img" />
+                    <span class="thumb-name">Industrial Plants</span>
+                </div>
+            </div>
+
+            <!-- Trust Badges & Supply Proof -->
+            <div class="trust-row">
+                <div class="trust-item">
+                    <i class="fas fa-building" aria-hidden="true"></i>
+                    <span>OEM Approved Supplier</span>
+                </div>
+                <div class="trust-item">
+                    <i class="fas fa-landmark" aria-hidden="true"></i>
+                    <span>Govt &amp; Defence Contractor</span>
+                </div>
+                <div class="trust-item">
+                    <i class="fas fa-screwdriver-wrench" aria-hidden="true"></i>
+                    <span>48hr Rapid Spares Support</span>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ================= RIGHT: 3D AUTH CARD (LOGIN / SIGNUP) ================= -->
+        <section class="auth-column">
+            <div class="wrapper" id="auth-wrapper">
+                <div class="card-3d-wrap">
+                    
+                    <!-- ================= FRONT: LOGIN ================= -->
+                    <div class="card-front">
+                        <div class="inner-content">
+                            <div class="form-header">
+                                <h2 class="form-title">Account Login</h2>
+                                <p class="form-subtitle">Enter your registered business credentials to continue</p>
+                            </div>
+
+                            <div id="login-alert" class="auth-alert <%= (typeof error !== 'undefined' && error) ? 'auth-alert-error' : '' %>" style="<%= (typeof error !== 'undefined' && error) ? 'display: flex;' : 'display: none;' %>" role="alert">
+                                <% if (typeof error !== 'undefined' && error) { %>
+                                    <i class="fas fa-circle-exclamation"></i>
+                                    <span><%= error %></span>
+                                <% } %>
+                            </div>
+
+                            <form id="login-form" action="/login" method="POST" onsubmit="handleLoginSubmit(event)">
+                                <div class="form-group">
+                                    <i class="fas fa-envelope field-icon" aria-hidden="true"></i>
+                                    <input type="email" name="email" id="login-email" placeholder="Business email address" required autocomplete="email" aria-label="Business email address">
+                                </div>
+
+                                <div class="form-group">
+                                    <i class="fas fa-lock field-icon" aria-hidden="true"></i>
+                                    <input type="password" name="password" id="login-password" placeholder="Account password" required autocomplete="current-password" aria-label="Account password">
+                                    <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility('login-password', this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();togglePasswordVisibility('login-password', this);}" title="Toggle password visibility" role="button" tabindex="0" aria-label="Toggle password visibility"></i>
+                                </div>
+
+                                <div class="form-extras">
+                                    <label class="remember-me">
+                                        <input type="checkbox" name="remember" id="login-remember">
+                                        <span>Remember this device</span>
+                                    </label>
+                                    <a href="/contact" class="forgot-link">Forgot password?</a>
+                                </div>
+
+                                <button type="submit" id="login-submit-btn" class="submit-btn">
+                                    <span>Sign In</span>
+                                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                                </button>
+                            </form>
+
+                            <div class="toggle-text">
+                                Don't have an enterprise account? 
+                                <a onclick="toggleForm()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleForm();}" role="button" tabindex="0">Register</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ================= BACK: SIGNUP WITH 2-STEP OTP ================= -->
+                    <div class="card-back">
+                        <div class="inner-content">
+
+                            <!-- Dynamic Alert Message (Error / Success) -->
+                            <div id="signup-alert" class="auth-alert" style="display: none;" role="alert"></div>
+
+                            <!-- STEP 1: Details Entry -->
+                            <div id="signup-step-details">
+                                <div class="form-header">
+                                    <h2 class="form-title">Register Account</h2>
+                                    <p class="form-subtitle">Fill in details. We'll send a 6-digit OTP to verify your email.</p>
+                                </div>
+                                
+                                <form id="signup-details-form" onsubmit="handleSendOtp(event)" class="signup-form">
+                                    <div class="form-group">
+                                        <i class="fas fa-user field-icon" aria-hidden="true"></i>
+                                        <input type="text" id="reg-name" name="userName" placeholder="Full name / Representative" required autocomplete="name" aria-label="Full name or representative">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <i class="fas fa-envelope field-icon" aria-hidden="true"></i>
+                                        <input type="email" id="reg-email" name="email" placeholder="Business email address" required autocomplete="email" aria-label="Business email address">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <i class="fas fa-location-dot field-icon" aria-hidden="true"></i>
+                                        <input type="text" id="reg-city" name="city" placeholder="Facility city / Location" required autocomplete="address-level2" aria-label="Facility city or location">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <i class="fas fa-lock field-icon" aria-hidden="true"></i>
+                                        <input type="password" id="signup-password" name="password" placeholder="Create password (min 6 chars)" required minlength="6" autocomplete="new-password" aria-label="Create password">
+                                        <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility('signup-password', this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();togglePasswordVisibility('signup-password', this);}" title="Toggle password visibility" role="button" tabindex="0" aria-label="Toggle password visibility"></i>
+                                    </div>
+
+                                    <button type="submit" id="btn-send-otp" class="submit-btn">
+                                        <span id="btn-send-otp-text">Send Verification OTP</span>
+                                        <i class="fas fa-paper-plane" id="btn-send-otp-icon" aria-hidden="true"></i>
+                                    </button>
+                                </form>
+
+                                <div class="toggle-text">
+                                    Already have an account? 
+                                    <a onclick="toggleForm()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleForm();}" role="button" tabindex="0">Sign In</a>
+                                </div>
+                            </div>
+
+                            <!-- STEP 2: OTP Verification & Completion -->
+                            <div id="signup-step-otp" style="display: none;">
+                                <div class="form-header">
+                                    <h2 class="form-title">Verify Email OTP</h2>
+                                    <p class="form-subtitle">Enter the 6-digit code sent to your business email.</p>
+                                </div>
+
+                                <div class="otp-target-badge">
+                                    <i class="fas fa-shield-halved" aria-hidden="true"></i>
+                                    <span id="otp-target-email-display">user@example.com</span>
+                                    <button type="button" class="btn-edit-email" onclick="backToStepDetails()" title="Change email address">
+                                        <i class="fas fa-pen-to-square" aria-hidden="true"></i> Edit
+                                    </button>
+                                </div>
+
+                                <form id="signup-otp-form" onsubmit="handleVerifyAndSignup(event)">
+                                    <div class="otp-input-wrap">
+                                        <input 
+                                            type="text" 
+                                            id="reg-otp" 
+                                            name="otp" 
+                                            maxlength="6" 
+                                            inputmode="numeric" 
+                                            pattern="[0-9]{6}" 
+                                            placeholder="• • • • • •" 
+                                            autocomplete="one-time-code" 
+                                            class="otp-input-field" 
+                                            required
+                                        >
+                                    </div>
+
+                                    <div class="otp-resend-row">
+                                        <span>Didn't receive code?</span>
+                                        <button type="button" id="btn-resend-otp" class="btn-resend" onclick="resendOtp()" disabled>
+                                            Resend OTP <span id="resend-countdown">(30s)</span>
+                                        </button>
+                                    </div>
+
+                                    <button type="submit" id="btn-verify-signup" class="submit-btn">
+                                        <span id="btn-verify-text">Verify &amp; Create Account</span>
+                                        <i class="fas fa-check-circle" id="btn-verify-icon" aria-hidden="true"></i>
+                                    </button>
+                                </form>
+
+                                <div class="toggle-text">
+                                    <a onclick="backToStepDetails()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();backToStepDetails();}" role="button" tabindex="0">
+                                        <i class="fas fa-arrow-left"></i> Edit Registration Details
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Bottom Status / Legal Bar -->
+   <%- include('footer.ejs') %>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // ==========================================
+        // Alert Helper Functions
+        // ==========================================
+        function showAlert(containerId, message, type = 'error') {
+            const alertBox = document.getElementById(containerId);
+            if (!alertBox) return;
+            alertBox.className = `auth-alert auth-alert-${type}`;
+            alertBox.innerHTML = `
+                <i class="fas ${type === 'error' ? 'fa-circle-exclamation' : 'fa-circle-check'}"></i>
+                <span>${message}</span>
+            `;
+            alertBox.style.display = 'flex';
+        }
+
+        function clearAlert(containerId) {
+            const alertBox = document.getElementById(containerId);
+            if (alertBox) {
+                alertBox.style.display = 'none';
+                alertBox.innerHTML = '';
+            }
+        }
+
+        // ==========================================
+        // 3D Flip Form Toggle (Reliable, Non-Blocking)
+        // ==========================================
+        let isFlipping = false;
+        function toggleForm() {
+            const wrapper = document.getElementById('auth-wrapper');
+            if (!wrapper) return;
+
+            clearAlert('login-alert');
+            clearAlert('signup-alert');
+
+            isFlipping = true;
+            wrapper.classList.toggle('flipped');
+
+            // Temporarily neutralize tilt during the flip so rotation is clean & centered
+            wrapper.style.transition = 'transform 0.35s ease-out';
+            wrapper.style.transform = 'rotateY(0deg) rotateX(0deg)';
+
+            setTimeout(() => {
+                isFlipping = false;
+                wrapper.style.transition = 'transform 0.15s ease-out';
+            }, 750);
+        }
+
+        // Show/Hide Password Toggle
+        function togglePasswordVisibility(inputId, icon) {
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // ==========================================
+        // OTP & Sign Up Logic (Same-Page Flow)
+        // ==========================================
+        let countdownTimer = null;
+        let remainingSeconds = 30;
+
+        function startResendCountdown() {
+            clearInterval(countdownTimer);
+            remainingSeconds = 30;
+            const resendBtn = document.getElementById('btn-resend-otp');
+            const countdownSpan = document.getElementById('resend-countdown');
+            if (!resendBtn || !countdownSpan) return;
+
+            resendBtn.disabled = true;
+            countdownSpan.textContent = `(${remainingSeconds}s)`;
+
+            countdownTimer = setInterval(() => {
+                remainingSeconds--;
+                if (remainingSeconds <= 0) {
+                    clearInterval(countdownTimer);
+                    resendBtn.disabled = false;
+                    countdownSpan.textContent = '';
+                } else {
+                    countdownSpan.textContent = `(${remainingSeconds}s)`;
+                }
+            }, 1000);
+        }
+
+        // Step 1: Request OTP for Email
+        async function handleSendOtp(e) {
+            e.preventDefault();
+            clearAlert('signup-alert');
+
+            const name = document.getElementById('reg-name').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const city = document.getElementById('reg-city').value.trim();
+            const password = document.getElementById('signup-password').value;
+
+            if (!name || !email || !password) {
+                showAlert('signup-alert', 'Please fill in all required fields.', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                showAlert('signup-alert', 'Password must be at least 6 characters.', 'error');
+                return;
+            }
+
+            const sendBtn = document.getElementById('btn-send-otp');
+            const sendBtnText = document.getElementById('btn-send-otp-text');
+            const sendBtnIcon = document.getElementById('btn-send-otp-icon');
+
+            sendBtn.disabled = true;
+            sendBtnText.textContent = 'Sending OTP...';
+            sendBtnIcon.className = 'fas fa-spinner fa-spin';
+
+            try {
+                const response = await fetch('/send-otp', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    // Transition smoothly to Step 2
+                    document.getElementById('signup-step-details').style.display = 'none';
+                    document.getElementById('signup-step-otp').style.display = 'block';
+                    document.getElementById('otp-target-email-display').textContent = email;
+
+                    showAlert('signup-alert', data.message || 'OTP sent! Please check your business email.', 'success');
+                    startResendCountdown();
+
+                    const otpInput = document.getElementById('reg-otp');
+                    otpInput.value = '';
+                    setTimeout(() => otpInput.focus(), 150);
+                } else {
+                    showAlert('signup-alert', data.message || 'Failed to send verification code.', 'error');
+                }
+            } catch (err) {
+                showAlert('signup-alert', 'Network error. Please check your internet connection.', 'error');
+            } finally {
+                sendBtn.disabled = false;
+                sendBtnText.textContent = 'Send Verification OTP';
+                sendBtnIcon.className = 'fas fa-paper-plane';
+            }
+        }
+
+        // Resend OTP
+        async function resendOtp() {
+            clearAlert('signup-alert');
+            const email = document.getElementById('reg-email').value.trim();
+            if (!email) {
+                showAlert('signup-alert', 'Email address missing. Please go back to edit.', 'error');
+                return;
+            }
+
+            const resendBtn = document.getElementById('btn-resend-otp');
+            resendBtn.disabled = true;
+            const origText = resendBtn.innerHTML;
+            resendBtn.innerHTML = `<span>Sending...</span> <i class="fas fa-spinner fa-spin"></i>`;
+
+            try {
+                const response = await fetch('/send-otp', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    showAlert('signup-alert', 'A new verification code was sent to your email.', 'success');
+                    startResendCountdown();
+                } else {
+                    showAlert('signup-alert', data.message || 'Unable to resend OTP.', 'error');
+                    resendBtn.disabled = false;
+                    resendBtn.innerHTML = origText;
+                }
+            } catch (err) {
+                showAlert('signup-alert', 'Network error while resending OTP.', 'error');
+                resendBtn.disabled = false;
+                resendBtn.innerHTML = origText;
+            }
+        }
+
+        // Switch back to Step 1
+        function backToStepDetails() {
+            clearAlert('signup-alert');
+            clearInterval(countdownTimer);
+            document.getElementById('signup-step-otp').style.display = 'none';
+            document.getElementById('signup-step-details').style.display = 'block';
+        }
+
+        // Step 2: Verify OTP and Register
+        async function handleVerifyAndSignup(e) {
+            e.preventDefault();
+            clearAlert('signup-alert');
+
+            const userName = document.getElementById('reg-name').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const city = document.getElementById('reg-city').value.trim();
+            const password = document.getElementById('signup-password').value;
+            const otp = document.getElementById('reg-otp').value.trim();
+
+            if (!otp || !/^\d{6}$/.test(otp)) {
+                showAlert('signup-alert', 'Please enter a valid 6-digit numeric OTP.', 'error');
+                return;
+            }
+
+            const verifyBtn = document.getElementById('btn-verify-signup');
+            const verifyBtnText = document.getElementById('btn-verify-text');
+            const verifyBtnIcon = document.getElementById('btn-verify-icon');
+
+            verifyBtn.disabled = true;
+            verifyBtnText.textContent = 'Verifying & Registering...';
+            verifyBtnIcon.className = 'fas fa-spinner fa-spin';
+
+            try {
+                const response = await fetch('/signup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userName, email, city, password, otp })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    showAlert('signup-alert', 'Account verified & created! Redirecting to store...', 'success');
+                    setTimeout(() => {
+                        window.location.href = data.redirectUrl || '/';
+                    }, 800);
+                } else {
+                    showAlert('signup-alert', data.message || 'OTP verification failed. Please try again.', 'error');
+                    verifyBtn.disabled = false;
+                    verifyBtnText.textContent = 'Verify & Create Account';
+                    verifyBtnIcon.className = 'fas fa-check-circle';
+                }
+            } catch (err) {
+                showAlert('signup-alert', 'Network error during registration.', 'error');
+                verifyBtn.disabled = false;
+                verifyBtnText.textContent = 'Verify & Create Account';
+                verifyBtnIcon.className = 'fas fa-check-circle';
+            }
+        }
+
+        // Step 3: Handle Login via AJAX (smooth experience, no page bounce)
+        async function handleLoginSubmit(e) {
+            e.preventDefault();
+            clearAlert('login-alert');
+
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value;
+
+            const loginBtn = document.getElementById('login-submit-btn');
+            loginBtn.disabled = true;
+            const origHtml = loginBtn.innerHTML;
+            loginBtn.innerHTML = `<span>Signing In...</span> <i class="fas fa-spinner fa-spin"></i>`;
+
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    window.location.href = data.redirectUrl || '/';
+                } else {
+                    showAlert('login-alert', data.message || 'Invalid email or password.', 'error');
+                    loginBtn.disabled = false;
+                    loginBtn.innerHTML = origHtml;
+                }
+            } catch (err) {
+                showAlert('login-alert', 'Network error during sign in.', 'error');
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = origHtml;
+            }
+        }
+
+        // Restrict OTP input to numbers only
+        const regOtpInput = document.getElementById('reg-otp');
+        if (regOtpInput) {
+            regOtpInput.addEventListener('input', (e) => {
+                e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 6);
+            });
+        }
+
+        // Product Catalog Data for Showcase
+        const productsCatalog = [
+            {
+                tag: 'Automated Series',
+                title: 'Automatic Car Wash Plants',
+                image: '/category/autometic_wash.png',
+                link: '/products/car-wash-plants',
+                specs: [
+                    'Touchless chemical arch and contour wash brushes',
+                    'Rapid 3-minute complete cleaning and dry cycle',
+                    'Siemens PLC automated telemetry controls'
+                ]
+            },
+            {
+                tag: 'High Pressure Series',
+                title: 'Industrial Pressure Washers',
+                image: '/category/pressure_washer.png',
+                link: '/products/high-pressure-washers',
+                specs: [
+                    '200 to 500 Bar heavy-duty Italian triplex pump',
+                    'Hot and cold water heavy degreasing output',
+                    'Industrial powder-coated chassis with hose reel'
+                ]
+            },
+            {
+                tag: 'Floor Care Technology',
+                title: 'Ride-On Floor Scrubber Dryers',
+                image: '/category/floor_washing.png',
+                link: '/products/sweeper-scrubber',
+                specs: [
+                    'Covers up to 6,500 m²/hr plant floor area',
+                    'Eco water recovery with parabolic suction squeegee',
+                    'High-capacity traction drive for warehouses & depots'
+                ]
+            },
+            {
+                tag: 'Custom Engineering',
+                title: 'Component Washing Plants',
+                image: '/category/industrial_plants.png',
+                link: '/products/industrial-washing-plants',
+                specs: [
+                    'Turnkey multi-stage aqueous degreasing line',
+                    'Stainless steel SS304/SS316 tank construction',
+                    'Automated ultrasonic and high-pressure spray cycle'
+                ]
+            }
+        ];
+
+        let currentProductIdx = 0;
+        let autoCycleTimer = null;
+
+        function switchProduct(index) {
+            currentProductIdx = index;
+            const product = productsCatalog[index];
+
+            const imgEl = document.getElementById('featured-image');
+            const tagEl = document.getElementById('featured-tag');
+            const titleEl = document.getElementById('featured-title');
+            const linkEl = document.getElementById('featured-link');
+            const specsEl = document.getElementById('featured-specs');
+
+            // Subtle fade transition
+            imgEl.style.opacity = '0';
+            imgEl.style.transform = 'scale(0.96)';
+
+            setTimeout(() => {
+                imgEl.src = product.image;
+                imgEl.alt = product.title;
+                tagEl.textContent = product.tag;
+                titleEl.textContent = product.title;
+                linkEl.href = product.link;
+
+                specsEl.innerHTML = product.specs.map(s => `
+                    <div class="product-spec-item">
+                        <i class="fas fa-check" aria-hidden="true"></i>
+                        <span>${s}</span>
+                    </div>
+                `).join('');
+
+                imgEl.style.opacity = '1';
+                imgEl.style.transform = 'scale(1)';
+            }, 200);
+
+            // Update active state on thumbnails
+            document.querySelectorAll('.thumb-item').forEach((thumb, i) => {
+                thumb.classList.toggle('active', i === index);
+            });
+        }
+
+        // Automatic product rotator every 6 seconds
+        function startShowcaseTimer() {
+            autoCycleTimer = setInterval(() => {
+                currentProductIdx = (currentProductIdx + 1) % productsCatalog.length;
+                switchProduct(currentProductIdx);
+            }, 6000);
+        }
+
+        const showcaseCard = document.getElementById('featured-card');
+        if (showcaseCard) {
+            showcaseCard.addEventListener('mouseenter', () => clearInterval(autoCycleTimer));
+            showcaseCard.addEventListener('mouseleave', () => startShowcaseTimer());
+        }
+
+        startShowcaseTimer();
+
+        // 3D Card Moving/Parallax Effect (Desktop Only) — Never Gets Stuck!
+        const authCard = document.querySelector('.wrapper');
+        if (window.innerWidth > 1024 && authCard) {
+            document.addEventListener('mousemove', (e) => {
+                if (isFlipping) return; // Do not interrupt during active 3D flip
+
+                // Continuous, smooth tilt on both Login and Register
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 55;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 55;
+
+                authCard.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            });
+
+            document.addEventListener('mouseleave', () => {
+                authCard.style.transition = 'transform 0.4s ease-out';
+                authCard.style.transform = 'rotateY(0deg) rotateX(0deg)';
+                setTimeout(() => {
+                    authCard.style.transition = 'transform 0.15s ease-out';
+                }, 400);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <% 
+    const quoteId = quote._id.toString();
+    const shortId = quoteId.slice(-6).toUpperCase();
+    const customerName = quote.user?.userName || quote.email.split('@')[0];
+    const createdDate = new Date(quote.createdAt);
+    const formattedCreatedDate = createdDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+    const formattedCreatedTime = createdDate.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+    
+    let prodImage = '/category/autometic_wash.png';
+    if (quote.product && quote.product.main_image) {
+      let raw = quote.product.main_image;
+      if (Array.isArray(raw)) raw = raw[0];
+      if (raw) {
+        const str = String(raw).trim();
+        prodImage = str.startsWith('http') 
+          ? str 
+          : (str.startsWith('/') ? str : '/uploads/' + str);
+      }
+    }
+    const cleanPhone = quote.phone ? quote.phone.replace(/[^0-9]/g, '') : '';
+  %>
+  <title>Quote #Q-<%= shortId %> Analysis &amp; Management | Ezytek Clean</title>
+
+  <!-- Google Fonts: Inter & Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/css/quote_details.css">
+  <link rel="stylesheet" href="/css/footer.css">
+</head>
+<body>
+
+  <!-- ================= TOP ADMIN NAVIGATION BAR ================= -->
+  <header style="background: #ffffff; border-bottom: 1px solid var(--border-light); padding: 14px 28px; box-shadow: var(--shadow-xs); position: sticky; top: 0; z-index: 100;">
+    <div style="max-width: 1320px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+      
+      <!-- Logo -->
+      <a href="/master/quotes" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+        <div style="width: 40px; height: 40px; border-radius: var(--radius-md); background: #FFFFFF; border: 1px solid var(--border-light, #E2E8F0); overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(2, 132, 199, 0.12);">
+          <img src="/uploads/logo_op.jpeg" alt="Ezytek Clean Logo" style="width: 100%; height: 100%; object-fit: contain;" onerror="this.onerror=null; this.src='/logo_op.jpeg';" />
+        </div>
+        <div>
+          <div style="font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--brand-navy); line-height: 1.1;">EZYTEK <span style="color: var(--brand-blue);">Clean</span></div>
+          <div style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600;">Quote Management Suite</div>
+        </div>
+      </a>
+
+      <!-- Header Shortcuts -->
+      <nav style="display: flex; align-items: center; gap: 8px;">
+        <a href="/master/quotes" class="btn-secondary" style="padding: 7px 14px; font-size: 0.82rem;">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>All Quotes</span>
+        </a>
+        <a href="/user" class="btn-secondary" style="padding: 7px 14px; font-size: 0.82rem;">
+          <i class="fa-solid fa-gauge-high"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="/logout" class="btn-secondary" style="padding: 7px 14px; font-size: 0.82rem; color: #DC2626;">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          <span>Logout</span>
+        </a>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT CONTAINER ================= -->
+  <main class="quote-details-container">
+
+    <!-- Breadcrumb -->
+    <nav class="admin-breadcrumb" aria-label="Breadcrumb">
+      <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+      <i class="fa-solid fa-chevron-right separator"></i>
+      <a href="/user">Dashboard</a>
+      <i class="fa-solid fa-chevron-right separator"></i>
+      <a href="/master/quotes">Quote Management</a>
+      <i class="fa-solid fa-chevron-right separator"></i>
+      <span class="current">Quote #Q-<%= shortId %></span>
+    </nav>
+
+    <!-- Header Action Card -->
+    <section class="detail-header-card">
+      <div class="detail-title-block">
+        <h1>
+          Proposal Analysis
+          <span class="quote-ref-badge">#Q-<%= shortId %></span>
+          <span class="status-badge status-<%= quote.status %>">
+            <% if (quote.status === 'Pending') { %>
+              <i class="fa-solid fa-clock"></i>
+            <% } else if (quote.status === 'Contacted') { %>
+              <i class="fa-solid fa-phone"></i>
+            <% } else if (quote.status === 'Approved') { %>
+              <i class="fa-solid fa-circle-check"></i>
+            <% } else if (quote.status === 'Rejected') { %>
+              <i class="fa-solid fa-circle-xmark"></i>
+            <% } else if (quote.status === 'Completed') { %>
+              <i class="fa-solid fa-flag-checkered"></i>
+            <% } %>
+            <%= quote.status %>
+          </span>
+        </h1>
+
+        <div class="detail-meta-row">
+          <div class="detail-meta-item">
+            <i class="fa-regular fa-calendar"></i>
+            <span>Submitted: <strong><%= formattedCreatedDate %></strong> (<%= formattedCreatedTime %>)</span>
+          </div>
+          <% if (quote.updatedAt && quote.updatedAt > quote.createdAt) { %>
+            <div class="detail-meta-item">
+              <i class="fa-solid fa-clock-rotate-left"></i>
+              <span>Last Modified: <strong><%= new Date(quote.updatedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }) %></strong></span>
+            </div>
+          <% } %>
+          <div class="detail-meta-item">
+            <i class="fa-solid fa-user-tie"></i>
+            <span>Client: <strong><%= customerName %></strong></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="header-action-buttons">
+        <% if (quote.status !== 'Approved') { %>
+          <button type="button" class="btn-primary-accept" onclick="openAcceptModal()">
+            <i class="fa-solid fa-check"></i>
+            <span>Accept Quote</span>
+          </button>
+        <% } %>
+
+        <% if (quote.status !== 'Rejected') { %>
+          <button type="button" class="btn-outline-reject" onclick="openRejectModal()">
+            <i class="fa-solid fa-xmark"></i>
+            <span>Reject Quote</span>
+          </button>
+        <% } %>
+
+        <button type="button" class="btn-secondary" onclick="window.print()">
+          <i class="fa-solid fa-print"></i>
+          <span>Print Proposal</span>
+        </button>
+
+        <a href="/master/quotes" class="btn-secondary">
+          <i class="fa-solid fa-list-check"></i>
+          <span>Back to List</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Feedback Banners -->
+    <% if (typeof successMessage !== 'undefined' && successMessage) { %>
+      <div style="background: var(--status-approved-bg); border: 1px solid var(--status-approved-border); color: var(--status-approved-text); padding: 12px 18px; border-radius: var(--radius-md); margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between;" id="successMsgBanner">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <i class="fa-solid fa-circle-check"></i>
+          <span><%= successMessage %></span>
+        </div>
+        <button style="background:none; border:none; color:inherit; cursor:pointer;" onclick="document.getElementById('successMsgBanner').remove();">&times;</button>
+      </div>
+    <% } %>
+
+    <% if (typeof errorMessage !== 'undefined' && errorMessage) { %>
+      <div style="background: var(--status-rejected-bg); border: 1px solid var(--status-rejected-border); color: var(--status-rejected-text); padding: 12px 18px; border-radius: var(--radius-md); margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between;" id="errorMsgBanner">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          <span><%= errorMessage %></span>
+        </div>
+        <button style="background:none; border:none; color:inherit; cursor:pointer;" onclick="document.getElementById('errorMsgBanner').remove();">&times;</button>
+      </div>
+    <% } %>
+
+    <!-- ================= 2-COLUMN ANALYSIS LAYOUT ================= -->
+    <div class="analysis-layout-grid">
+
+      <!-- ── LEFT COLUMN: COMMERCIAL, MACHINERY & ENQUIRY ANALYSIS ── -->
+      <div class="left-analysis-column">
+
+        <!-- 1. Commercial & Financial Analysis Card -->
+        <section class="analysis-card">
+          <div class="card-header-line">
+            <div class="card-title-group">
+              <div class="card-icon-round">
+                <i class="fa-solid fa-calculator"></i>
+              </div>
+              <h2 class="card-title">Commercial &amp; Financial Analysis</h2>
+            </div>
+            <span style="font-size: 0.78rem; font-weight: 600; color: var(--text-muted);">Pricing Summary</span>
+          </div>
+
+          <!-- Pricing Breakdown Ribbon -->
+          <div class="pricing-breakdown-box">
+            <div class="price-item">
+              <span class="price-item-label">Unit Base Price</span>
+              <span class="price-item-val">₹<%= (quote.unitPrice || 0).toLocaleString('en-IN') %></span>
+            </div>
+
+            <div class="price-item">
+              <span class="price-item-label">Requested Quantity</span>
+              <span class="price-item-val"><%= quote.quantity %> unit<%= quote.quantity > 1 ? 's' : '' %></span>
+            </div>
+
+            <div class="price-item">
+              <span class="price-item-label">Total Commercial Amount</span>
+              <span class="price-item-val highlight">₹<%= (quote.totalPrice || 0).toLocaleString('en-IN') %></span>
+            </div>
+          </div>
+
+          <div style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; background: var(--bg-subtle); padding: 12px 16px; border-radius: var(--radius-md); border-left: 3px solid var(--brand-blue);">
+            <i class="fa-solid fa-circle-info" style="color: var(--brand-blue); margin-right: 4px;"></i>
+            Commercial Note: Quotation reflects ex-works equipment value. Freight, transit insurance, and installation charges are calculated based on destination site readiness.
+          </div>
+        </section>
+
+        <!-- 2. Machinery & Engineering Analysis Card -->
+        <section class="analysis-card">
+          <div class="card-header-line">
+            <div class="card-title-group">
+              <div class="card-icon-round">
+                <i class="fa-solid fa-gears"></i>
+              </div>
+              <h2 class="card-title">Machinery &amp; Equipment Analysis</h2>
+            </div>
+            <% if (quote.product && quote.product._id) { %>
+              <a href="/products/<%= quote.product._id %>" class="btn-secondary" style="padding: 5px 12px; font-size: 0.78rem;" target="_blank">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Product
+              </a>
+            <% } %>
+          </div>
+
+          <div class="machine-showcase-row">
+            <div class="machine-img-container">
+              <img src="<%= prodImage %>" alt="<%= quote.productName %>" onerror="this.src='/category/autometic_wash.png'">
+            </div>
+            <div class="machine-info-content">
+              <h3 class="machine-title"><%= quote.productName %></h3>
+              <span class="machine-cat-pill">
+                <i class="fa-solid fa-tag" style="margin-right: 4px;"></i>
+                <%= (quote.product && quote.product.category) ? quote.product.category : 'Industrial Cleaning Equipment' %>
+              </span>
+              <% if (quote.product && quote.product.description) { %>
+                <p class="machine-desc"><%= quote.product.description.slice(0, 220) %>...</p>
+              <% } %>
+            </div>
+          </div>
+
+          <!-- Technical Specifications Table -->
+          <% if (quote.product && Array.isArray(quote.product.technical_specification) && quote.product.technical_specification.length > 0) { %>
+            <div style="margin-top: 18px;">
+              <h4 style="font-size: 0.88rem; font-weight: 700; color: var(--brand-navy); margin-bottom: 8px;">
+                <i class="fa-solid fa-sliders" style="margin-right: 6px; color: var(--brand-blue);"></i> Engineering Parameters:
+              </h4>
+              <table class="tech-specs-table">
+                <tbody>
+                  <% quote.product.technical_specification.forEach(function(spec) { %>
+                    <tr>
+                      <th scope="row"><%= spec.key %></th>
+                      <td><%= spec.value %></td>
+                    </tr>
+                  <% }); %>
+                </tbody>
+              </table>
+            </div>
+          <% } else if (quote.product && quote.product.specifications) { %>
+            <div style="margin-top: 14px; background: var(--bg-subtle); padding: 12px 14px; border-radius: var(--radius-md); font-size: 0.85rem;">
+              <strong>Key Specification:</strong> <%= quote.product.specifications %>
+            </div>
+          <% } %>
+        </section>
+
+        <!-- 3. Customer Inquiry & Message Card -->
+        <section class="analysis-card">
+          <div class="card-header-line">
+            <div class="card-title-group">
+              <div class="card-icon-round">
+                <i class="fa-solid fa-comment-dots"></i>
+              </div>
+              <h2 class="card-title">Client Requirements &amp; Enquiry Notes</h2>
+            </div>
+          </div>
+
+          <% if (quote.message && quote.message.trim()) { %>
+            <div class="customer-message-callout">
+              "<%= quote.message %>"
+            </div>
+          <% } else { %>
+            <p style="font-size: 0.86rem; color: var(--text-muted); font-style: italic;">
+              No specific custom notes or message provided by client with this quotation submission. Standard catalog configuration requested.
+            </p>
+          <% } %>
+        </section>
+
+        <!-- 4. Administrative Evaluation Notes -->
+        <section class="analysis-card">
+          <div class="card-header-line">
+            <div class="card-title-group">
+              <div class="card-icon-round">
+                <i class="fa-solid fa-clipboard-check"></i>
+              </div>
+              <h2 class="card-title">Internal Administrative Evaluation Notes</h2>
+            </div>
+          </div>
+
+          <% if (quote.adminNotes && quote.adminNotes.trim()) { %>
+            <div style="background: #F1F5F9; border-left: 4px solid var(--brand-navy); padding: 14px 18px; border-radius: var(--radius-sm); font-size: 0.88rem; color: var(--text-primary); line-height: 1.55;">
+              <%= quote.adminNotes %>
+            </div>
+          <% } else { %>
+            <p style="font-size: 0.86rem; color: var(--text-muted); font-style: italic;">
+              No internal evaluation notes saved yet. You can document negotiation details, custom pricing adjustments, or site feasibility notes in the control panel on the right.
+            </p>
+          <% } %>
+        </section>
+
+      </div>
+
+      <!-- ── RIGHT COLUMN: CLIENT PROFILE & ACTION MANAGEMENT ── -->
+      <div class="right-action-column">
+
+        <!-- 1. Customer Profile Card -->
+        <section class="analysis-card">
+          <div class="card-header-line">
+            <div class="card-title-group">
+              <div class="card-icon-round">
+                <i class="fa-solid fa-user-shield"></i>
+              </div>
+              <h2 class="card-title">Customer Profile</h2>
+            </div>
+            <span style="font-size: 0.72rem; font-weight: 700; color: var(--brand-blue); background: var(--brand-blue-subtle); padding: 3px 8px; border-radius: var(--radius-pill);">
+              Verified Lead
+            </span>
+          </div>
+
+          <div class="customer-profile-block">
+            <div class="customer-avatar-large">
+              <%= customerName.charAt(0).toUpperCase() %>
+            </div>
+            <div>
+              <div class="customer-name-large"><%= customerName %></div>
+              <% if (quote.companyName) { %>
+                <div class="customer-company-large">
+                  <i class="fa-solid fa-building" style="margin-right: 4px;"></i>
+                  <%= quote.companyName %>
+                </div>
+              <% } %>
+            </div>
+          </div>
+
+          <!-- Contact Details Rows -->
+          <div class="customer-contact-list">
+            <!-- Email -->
+            <div class="contact-row-item">
+              <div class="contact-row-left" title="<%= quote.email %>">
+                <i class="fa-regular fa-envelope"></i>
+                <span><%= quote.email %></span>
+              </div>
+              <a href="mailto:<%= quote.email %>?subject=Quotation%20Proposal%20%23Q-<%= shortId %>%20-%20Ezytek%20Clean&body=Dear%20<%= encodeURIComponent(customerName) %>,%0A%0AThank%20you%20for%20your%20interest%20in%20Ezytek%20Clean%20industrial%20cleaning%20systems%20for%20<%= encodeURIComponent(quote.productName) %>." class="contact-row-action">
+                Email
+              </a>
+            </div>
+
+            <!-- Phone -->
+            <div class="contact-row-item">
+              <div class="contact-row-left" title="<%= quote.phone %>">
+                <i class="fa-solid fa-phone"></i>
+                <span><%= quote.phone %></span>
+              </div>
+              <a href="tel:<%= quote.phone %>" class="contact-row-action">
+                Call
+              </a>
+            </div>
+
+            <!-- Registered Location -->
+            <% if (quote.user?.city) { %>
+              <div class="contact-row-item">
+                <div class="contact-row-left">
+                  <i class="fa-solid fa-location-dot"></i>
+                  <span><%= quote.user.city %></span>
+                </div>
+                <span style="font-size: 0.75rem; color: var(--text-muted);">Registered City</span>
+              </div>
+            <% } %>
+          </div>
+
+          <!-- Communication Hub Shortcuts -->
+          <h4 style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">
+            Direct Communication Hub
+          </h4>
+          <div class="comm-hub-grid">
+            <% if (cleanPhone) { %>
+              <a 
+                href="https://wa.me/<%= cleanPhone.length === 10 ? '91' + cleanPhone : cleanPhone %>?text=Hello%20<%= encodeURIComponent(customerName) %>,%20this%20is%20Ezytek%20Clean%20regarding%20your%20quotation%20request%20%23Q-<%= shortId %>%20for%20<%= encodeURIComponent(quote.productName) %>." 
+                class="btn-comm-action btn-comm-whatsapp" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <i class="fa-brands fa-whatsapp"></i>
+                <span>WhatsApp</span>
+              </a>
+            <% } %>
+
+            <a 
+              href="mailto:<%= quote.email %>?subject=Quotation%20Proposal%20%23Q-<%= shortId %>%20-%20Ezytek%20Clean&body=Dear%20<%= encodeURIComponent(customerName) %>,%0A%0AWe%20have%20reviewed%20your%20quotation%20enquiry%20%23Q-<%= shortId %>%20for%20<%= encodeURIComponent(quote.productName) %>." 
+              class="btn-comm-action btn-comm-email"
+            >
+              <i class="fa-regular fa-paper-plane"></i>
+              <span>Send Email</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- 2. Decision & Status Management Control Card -->
+        <section class="analysis-card">
+          <div class="card-header-line">
+            <div class="card-title-group">
+              <div class="card-icon-round">
+                <i class="fa-solid fa-sliders"></i>
+              </div>
+              <h2 class="card-title">Manage &amp; Update Status</h2>
+            </div>
+          </div>
+
+          <form action="/master/quotes/status/<%= quoteId %>" method="POST">
+            <!-- Status Dropdown -->
+            <div class="status-form-group">
+              <label for="statusSelect" class="status-form-label">Workflow Status</label>
+              <select name="status" id="statusSelect" class="status-select-input">
+                <option value="Pending" <%= quote.status === 'Pending' ? 'selected' : '' %>>⏳ Pending Review</option>
+                <option value="Contacted" <%= quote.status === 'Contacted' ? 'selected' : '' %>>📞 Contacted (In Discussion)</option>
+                <option value="Approved" <%= quote.status === 'Approved' ? 'selected' : '' %>>✅ Approved (Accepted)</option>
+                <option value="Rejected" <%= quote.status === 'Rejected' ? 'selected' : '' %>>❌ Rejected (Declined)</option>
+                <option value="Completed" <%= quote.status === 'Completed' ? 'selected' : '' %>>🏁 Completed (Order Finalized)</option>
+              </select>
+            </div>
+
+            <!-- Admin Internal Notes -->
+            <div class="status-form-group">
+              <label for="adminNotes" class="status-form-label">Internal Analysis &amp; Decision Notes</label>
+              <textarea 
+                name="adminNotes" 
+                id="adminNotes" 
+                class="status-notes-textarea" 
+                placeholder="Record technical adjustments, agreed payment terms, delivery timelines, or rejection reasons..."
+              ><%= quote.adminNotes || '' %></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit-status">
+              <i class="fa-solid fa-floppy-disk"></i>
+              <span>Save &amp; Update Status</span>
+            </button>
+          </form>
+        </section>
+
+        <!-- 3. Permanent Deletion Danger Zone -->
+        <section class="danger-zone-card">
+          <h3 class="danger-title">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            Danger Zone
+          </h3>
+          <p class="danger-desc">
+            Deleting this quote will permanently remove it from all database records and client enquiry histories.
+          </p>
+          <button type="button" class="btn-danger-outline" style="width: 100%; justify-content: center;" onclick="openDeleteModal()">
+            <i class="fa-solid fa-trash-can"></i>
+            <span>Delete This Quote</span>
+          </button>
+        </section>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ================= MODAL: ACCEPT QUOTE CONFIRMATION ================= -->
+  <div class="modal-overlay" id="acceptConfirmModal">
+    <div class="modal-content-card">
+      <div class="modal-header">
+        <div class="modal-icon modal-icon-success">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <h3 class="modal-title">Approve This Quotation?</h3>
+      </div>
+      <p class="modal-body">
+        You are about to formally approve proposal <strong>#Q-<%= shortId %></strong> for <strong><%= customerName %></strong> for <strong><%= quote.productName %></strong> at <strong>₹<%= (quote.totalPrice || 0).toLocaleString('en-IN') %></strong>. 
+        The status will update to <strong>Approved</strong>.
+      </p>
+      <form method="POST" action="/master/quotes/status/<%= quoteId %>">
+        <input type="hidden" name="status" value="Approved">
+        <div class="modal-actions">
+          <button type="button" class="btn-modal-cancel" onclick="closeAcceptModal()">Cancel</button>
+          <button type="submit" class="btn-modal-confirm-accept">
+            <i class="fa-solid fa-check"></i> Confirm Acceptance
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: REJECT QUOTE CONFIRMATION ================= -->
+  <div class="modal-overlay" id="rejectConfirmModal">
+    <div class="modal-content-card">
+      <div class="modal-header">
+        <div class="modal-icon modal-icon-danger">
+          <i class="fa-solid fa-circle-xmark"></i>
+        </div>
+        <h3 class="modal-title">Reject Quotation Proposal?</h3>
+      </div>
+      <p class="modal-body">
+        Please confirm if you want to mark quote <strong>#Q-<%= shortId %></strong> as <strong>Rejected</strong>. 
+        You may provide a reason in the evaluation notes to maintain records.
+      </p>
+      <form method="POST" action="/master/quotes/status/<%= quoteId %>">
+        <input type="hidden" name="status" value="Rejected">
+        <div class="modal-actions">
+          <button type="button" class="btn-modal-cancel" onclick="closeRejectModal()">Cancel</button>
+          <button type="submit" class="btn-modal-confirm-delete" style="background: #DC2626;">
+            <i class="fa-solid fa-ban"></i> Confirm Rejection
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: PERMANENT DELETE CONFIRMATION ================= -->
+  <div class="modal-overlay" id="deleteConfirmModal">
+    <div class="modal-content-card">
+      <div class="modal-header">
+        <div class="modal-icon modal-icon-danger">
+          <i class="fa-solid fa-trash-can"></i>
+        </div>
+        <h3 class="modal-title">Permanently Delete Quote?</h3>
+      </div>
+      <p class="modal-body">
+        Are you certain you want to delete quotation <strong>#Q-<%= shortId %></strong>? 
+        This will erase all details, pricing, and client records associated with this request permanently.
+      </p>
+      <form method="POST" action="/master/quotes/delete/<%= quoteId %>">
+        <div class="modal-actions">
+          <button type="button" class="btn-modal-cancel" onclick="closeDeleteModal()">Cancel</button>
+          <button type="submit" class="btn-modal-confirm-delete">
+            <i class="fa-solid fa-trash-can"></i> Yes, Delete Permanently
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Global Footer -->
+  <%- include('footer.ejs') %>
+
+  <!-- Modal Scripts -->
+  <script>
+    function openAcceptModal() {
+      document.getElementById('acceptConfirmModal').classList.add('active');
+    }
+    function closeAcceptModal() {
+      document.getElementById('acceptConfirmModal').classList.remove('active');
+    }
+
+    function openRejectModal() {
+      document.getElementById('rejectConfirmModal').classList.add('active');
+    }
+    function closeRejectModal() {
+      document.getElementById('rejectConfirmModal').classList.remove('active');
+    }
+
+    function openDeleteModal() {
+      document.getElementById('deleteConfirmModal').classList.add('active');
+    }
+    function closeDeleteModal() {
+      document.getElementById('deleteConfirmModal').classList.remove('active');
+    }
+
+    // Close on escape key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeAcceptModal();
+        closeRejectModal();
+        closeDeleteModal();
+      }
+    });
+
+    // Close on backdrop click
+    document.querySelectorAll('.modal-overlay').forEach(modal => {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.classList.remove('active');
+        }
+      });
+    });
+
+    // Auto-dismiss alert after 5s
+    setTimeout(() => {
+      const sBanner = document.getElementById('successMsgBanner');
+      if (sBanner) sBanner.style.display = 'none';
+      const eBanner = document.getElementById('errorMsgBanner');
+      if (eBanner) eBanner.style.display = 'none';
+    }, 5000);
+  </script>
+
+</body>
+</html>
